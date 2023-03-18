@@ -1,6 +1,6 @@
 package com.example.weatherforecastapplication.model
 
-data class Temp(
+data class Temperature(
     val day: Double,
     val eve: Double,
     val max: Double,

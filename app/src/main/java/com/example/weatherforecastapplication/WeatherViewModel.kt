@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 
-class allWeatherViewModel (private val _irepo: RepositoryInterface): ViewModel(){
+class WeatherViewModel (private val _irepo: RepositoryInterface): ViewModel(){
 
 //    private val _weather : MutableLiveData<WeatherModel?> = MutableLiveData<WeatherModel?>()
 //    val weather : MutableLiveData<WeatherModel?> = _weather

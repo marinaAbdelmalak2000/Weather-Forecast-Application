@@ -17,8 +17,8 @@ import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var allFactory: AllWeatherViewModelFactory
-    lateinit var viewModel: allWeatherViewModel
+    lateinit var allFactory: WeatherViewModelFactory
+    lateinit var viewModel: WeatherViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,12 +26,12 @@ class MainActivity : AppCompatActivity() {
 
         /////////*****////
 
-        allFactory= AllWeatherViewModelFactory(
+        allFactory= WeatherViewModelFactory(
             Repository.getInstance(
                 WeatherClient.getInstance()
             ))
 
-        viewModel= ViewModelProvider(this,allFactory).get(allWeatherViewModel::class.java)
+        viewModel= ViewModelProvider(this,allFactory).get(WeatherViewModel::class.java)
 
         /////////*****////
 

@@ -1,10 +1,7 @@
 package com.example.productmvvm.model
 
 import com.example.productmvvm.network.RemoteSource
-import com.example.weatherforecastapplication.Current
-import com.example.weatherforecastapplication.Daily
-import com.example.weatherforecastapplication.WeatherModel
-
+import com.example.weatherforecastapplication.model.WeatherModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 
@@ -21,8 +18,9 @@ class Repository private constructor(var remoteSource: RemoteSource):RepositoryI
         }
     }
 
-    override suspend fun getAllProduct(): Daily {
-        return remoteSource.getWeatherOverNetwork()
+    override suspend fun getAllProduct(): Flow<WeatherModel>  {
+        return flowOf(remoteSource.getWeatherOverNetwork())
+        println("///////why Nullllllll!!!!!!!!!!!! ${remoteSource.getWeatherOverNetwork()} weather ${remoteSource.getWeatherOverNetwork()}")
     }
 
 

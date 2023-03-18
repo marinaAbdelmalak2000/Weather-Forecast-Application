@@ -1,6 +1,5 @@
 package com.example.weatherforecastapplication
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.productmvvm.model.RepositoryInterface
@@ -14,8 +13,8 @@ import kotlinx.coroutines.launch
 
 class allWeatherViewModel (private val _irepo: RepositoryInterface): ViewModel(){
 
-    private val _weather : MutableLiveData<Daily?> = MutableLiveData<Daily?>()
-    val weather : MutableLiveData<Daily?> = _weather
+//    private val _weather : MutableLiveData<WeatherModel?> = MutableLiveData<WeatherModel?>()
+//    val weather : MutableLiveData<WeatherModel?> = _weather
 
     private val _uiState = MutableStateFlow<ApiState>(ApiState.Loading)
     val uiState = _uiState.asStateFlow()
@@ -25,26 +24,29 @@ class allWeatherViewModel (private val _irepo: RepositoryInterface): ViewModel()
     }
 
 
-    fun allWeatherNetwork(){
-        viewModelScope.launch (Dispatchers.IO){
-            _weather.postValue(_irepo.getAllProduct())
-
-        }
-
-    }
-
 //    fun allWeatherNetwork(){
 //        viewModelScope.launch (Dispatchers.IO){
+//            _weather.postValue(_irepo.getAllProduct())
+//            println("********************************************" +
+//                    "//////////////" +
+//                    "whhhhhhhhhhyyyyy ${_irepo.getAllProduct().weather}")
 //
-//            _irepo.getAllProduct().catch {
-//                    e->_uiState.value=ApiState.Failure(e)
-//            }
-//                .collect{
-//                        data -> _uiState.value=ApiState.Success(data)
-//                }
 //        }
 //
 //    }
+
+    fun allWeatherNetwork(){
+        viewModelScope.launch (Dispatchers.IO){
+
+            _irepo.getAllProduct().catch {
+                    e->_uiState.value=ApiState.Failure(e)
+            }
+                .collect{
+                        data -> _uiState.value=ApiState.Success(data)
+                }
+        }
+
+    }
 
 
 }

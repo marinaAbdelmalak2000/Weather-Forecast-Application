@@ -1,13 +1,20 @@
 package com.example.weatherforecastapplication
 
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.productmvvm.model.Repository
 import com.example.productmvvm.network.WeatherClient
+import com.example.weatherforecastapplication.databinding.ActivityMainBinding
+import com.example.weatherforecastapplication.map.FragmentMap
 import com.example.weatherforecastapplication.network.ApiState
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -20,13 +27,48 @@ class MainActivity : AppCompatActivity() {
     lateinit var allFactory: WeatherViewModelFactory
     lateinit var viewModel: WeatherViewModel
 
+   // lateinit var buttonMap:Button
+//    private lateinit var fragmentMap:FragmentMap
+//    private lateinit var fragmentManger: FragmentManager
+//    private lateinit var fragmentTransaction: FragmentTransaction
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+    //    buttonMap=findViewById(R.id.buttonMap)
+//        buttonMap.setOnClickListener(View.OnClickListener {
+//
+//            fragmentManger=supportFragmentManager
+//            fragmentTransaction=fragmentManger.beginTransaction()
+//            if (savedInstanceState == null) {
+//                fragmentMap = FragmentMap()
+//                fragmentTransaction.add(R.id.fragmentContainerViewMap, fragmentMap, "dynamic")
+//                fragmentTransaction.commit()
+//
+//            }
+//            else {
+//              //  if (fragmentManger.findFragmentByTag("dynamic") != null) {
+//                    fragmentMap = fragmentManger.findFragmentByTag("dynamic") as FragmentMap
+//              //  }
+//            }
+//
+//
+//        })
+
+        /////////////////////////****************///////////////////////
+
         /////////*****////
 
-        allFactory= WeatherViewModelFactory(
+
+
+        ///////////////////////////****////////*****////////*****/////////*****///////////
+
+ /*
+
+
+       allFactory= WeatherViewModelFactory(
+
             Repository.getInstance(
                 WeatherClient.getInstance()
             ))
@@ -129,6 +171,10 @@ class MainActivity : AppCompatActivity() {
             }}
 
         }
+*/
+
+        ///////////////////////////****////////*****////////*****/////////*****///////////
+
 
 //        //observation
 //        viewModel.weather.observe(this){

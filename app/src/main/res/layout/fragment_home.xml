@@ -1,9 +1,205 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_layout"
     tools:context=".home.view.FragmentHome">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="15dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="15dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="15dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineDown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="1dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineCenter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="378dp" />
+
+
+    <TextView
+        android:id="@+id/textViewHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-condensed"
+        android:text="@string/home_screen"
+        android:textColor="#0D5A58"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineR"
+        app:layout_constraintHorizontal_bias="0.526"
+        app:layout_constraintStart_toStartOf="@+id/guidelineL"
+        app:layout_constraintTop_toTopOf="@+id/guidelineUp" />
+
+    <ImageView
+        android:id="@+id/homeIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/baseline_home_24"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewHome"
+        app:layout_constraintStart_toEndOf="@+id/textViewHome"
+        app:layout_constraintTop_toTopOf="@+id/textViewHome" />
+
+    <ImageView
+        android:id="@+id/imageViewList"
+        android:layout_width="42dp"
+        android:layout_height="43dp"
+        android:src="@drawable/baseline_list_24"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewHome"
+        app:layout_constraintStart_toStartOf="@+id/guidelineL"
+        app:layout_constraintTop_toTopOf="@+id/textViewHome"
+        app:layout_constraintVertical_bias="0.666" />
+
+    <TextView
+        android:id="@+id/textViewCityNameHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Cairo"
+        app:layout_constraintEnd_toEndOf="@+id/homeIcon"
+        app:layout_constraintStart_toStartOf="@+id/textViewHome"
+        app:layout_constraintTop_toBottomOf="@+id/textViewHome" />
+
+    <TextView
+        android:id="@+id/textViewCurrentDateTimeHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:text="19/3/2023   3:29"
+        app:layout_constraintEnd_toEndOf="@+id/textViewCityNameHome"
+        app:layout_constraintStart_toStartOf="@+id/textViewCityNameHome"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCityNameHome" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewHourHome"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="horizontal"
+        android:layout_marginTop="15dp"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineR"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="@+id/guidelineL"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCurrentDateTimeHome" />
+
+    <View
+        android:id="@+id/viewTop"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@drawable/background_home_down"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineDown"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineR"
+        app:layout_constraintStart_toStartOf="@+id/guidelineL"
+        app:layout_constraintTop_toTopOf="@+id/guidelineCenter" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineTodayR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="40dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineTodayL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="40dp" />
+
+    <View
+        android:id="@+id/viewTodayHome"
+        android:layout_width="0dp"
+        android:layout_height="259dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/background_home_today"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineTodayR"
+        app:layout_constraintStart_toStartOf="@+id/guidelineTodayL"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerViewHourHome" />
+
+    <ImageView
+        android:id="@+id/imageViewIconTodayHome"
+        android:layout_width="125dp"
+        android:layout_height="111dp"
+        android:layout_marginTop="4dp"
+        android:src="@drawable/baseline_light_mode_24"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineTodayR"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guidelineTodayL"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerViewHourHome" />
+
+    <TextView
+        android:id="@+id/textViewDescriptionTodayHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="description today home "
+        android:ems="7"
+        android:layout_marginTop="6dp"
+        android:layout_marginStart="5dp"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewIconTodayHome"
+        app:layout_constraintStart_toStartOf="@+id/guidelineTodayL"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewIconTodayHome" />
+
+    <com.example.weatherforecastapplication.gradient_textview.MyGradientTextView
+        android:id="@+id/textViewTempTodayHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="27.6 C"
+        android:textSize="33sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineTodayR"
+        app:layout_constraintStart_toEndOf="@+id/imageViewIconTodayHome"
+        app:layout_constraintTop_toTopOf="@+id/viewTodayHome" />
+
+
+    <TextView
+        android:id="@+id/textViewHumidity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="3dp"
+        android:text="20 %"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewIconHumidity"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/imageViewIconHumidity"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewIconHumidity" />
+
+    <ImageView
+        android:id="@+id/imageViewIconHumidity"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/humidityicon"
+        app:layout_constraintEnd_toEndOf="@+id/textViewDescriptionTodayHome"
+        app:layout_constraintHorizontal_bias="0.153"
+        app:layout_constraintStart_toStartOf="@+id/guidelineTodayL"
+        app:layout_constraintTop_toBottomOf="@+id/textViewDescriptionTodayHome" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

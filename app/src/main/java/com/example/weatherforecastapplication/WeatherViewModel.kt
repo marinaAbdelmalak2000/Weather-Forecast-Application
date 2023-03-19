@@ -20,7 +20,7 @@ class WeatherViewModel (private val _irepo: RepositoryInterface): ViewModel(){
     val uiState = _uiState.asStateFlow()
 
     init {
-        allWeatherNetwork()
+      //  allWeatherNetwork()
     }
 
 
@@ -35,18 +35,25 @@ class WeatherViewModel (private val _irepo: RepositoryInterface): ViewModel(){
 //
 //    }
 
-    fun allWeatherNetwork(){
-        viewModelScope.launch (Dispatchers.IO){
 
-            _irepo.getAllProduct().catch {
-                    e->_uiState.value=ApiState.Failure(e)
-            }
-                .collect{
-                        data -> _uiState.value=ApiState.Success(data)
-                }
-        }
 
-    }
+
+    ///////////////////////////****////////*****////////*****/////////*****///////////
+
+//    fun allWeatherNetwork(){
+//        viewModelScope.launch (Dispatchers.IO){
+//
+//            _irepo.getAllProduct().catch {
+//                    e->_uiState.value=ApiState.Failure(e)
+//            }
+//                .collect{
+//                        data -> _uiState.value=ApiState.Success(data)
+//                }
+//        }
+//
+//    }
+
+    ///////////////////////////****////////*****////////*****/////////*****///////////
 
 
 }

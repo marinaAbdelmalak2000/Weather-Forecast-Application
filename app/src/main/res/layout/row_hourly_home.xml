@@ -14,7 +14,7 @@
     app:cardUseCompatPadding="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/rowMealHome"
+        android:id="@+id/rowHourHome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 

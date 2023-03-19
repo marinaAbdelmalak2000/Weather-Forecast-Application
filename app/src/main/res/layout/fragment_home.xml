@@ -40,7 +40,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_end="415dp" />
+        app:layout_constraintGuide_end="395dp" />
 
 
     <TextView
@@ -114,8 +114,10 @@
         android:background="@drawable/background_home_down"
         app:layout_constraintBottom_toTopOf="@+id/guidelineDown"
         app:layout_constraintEnd_toStartOf="@+id/guidelineR"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guidelineL"
-        app:layout_constraintTop_toTopOf="@+id/guidelineCenter" />
+        app:layout_constraintTop_toTopOf="@+id/guidelineCenter"
+        app:layout_constraintVertical_bias="1.0" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineTodayR"
@@ -294,11 +296,13 @@
         android:id="@+id/recyclerViewDaysHome"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:orientation="vertical"
         app:layout_constraintEnd_toStartOf="@+id/guidelineR"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/guidelineL"
-        app:layout_constraintTop_toTopOf="@+id/guidelineCenter" />
+        app:layout_constraintTop_toBottomOf="@+id/viewTodayHome" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

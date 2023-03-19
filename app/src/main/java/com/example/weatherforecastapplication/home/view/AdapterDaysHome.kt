@@ -10,7 +10,7 @@ import com.example.weatherforecastapplication.databinding.RowDaysHomeBinding
 import com.example.weatherforecastapplication.model.Daily
 import com.example.weatherforecastapplication.model.Hourly
 
-class AdapterDaysHome (private var days: List<Daily>) :
+class AdapterDaysHome (private var days: List<Hourly>) :
     RecyclerView.Adapter<AdapterDaysHome.ViewHolder>() {
 
     lateinit var binding: RowDaysHomeBinding
@@ -36,13 +36,17 @@ class AdapterDaysHome (private var days: List<Daily>) :
 //
 //        }
 
+        holder.binding.textViewDayNameHome.text="Sunday"
+        holder.binding.textViewTempDayHome.text="27 C/55 C"
+
+
 
     }
 
     override fun getItemCount(): Int =days.size
 
     fun setData(value: List<Hourly>){
-        this.days=value as List<Daily>
+        this.days=value as List<Hourly>
         notifyDataSetChanged()
     }
     class ViewHolder(var binding: RowDaysHomeBinding): RecyclerView.ViewHolder(binding.root)

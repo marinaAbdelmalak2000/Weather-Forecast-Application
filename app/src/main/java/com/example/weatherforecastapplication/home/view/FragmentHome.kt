@@ -52,7 +52,7 @@ class FragmentHome : Fragment() {
 
 
         //days
-        recyclerAdapterDaysHome= AdapterDaysHome(daysList)
+        recyclerAdapterDaysHome= AdapterDaysHome(hourList)
         //initialization
         binding.recyclerViewDaysHome.adapter=recyclerAdapterDaysHome
         recyclerAdapterDaysHome.setData(getHourly())

@@ -161,7 +161,6 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="6dp"
         android:ems="7"
-        android:text="description today home "
         app:layout_constraintEnd_toEndOf="@+id/imageViewIconTodayHome"
         app:layout_constraintStart_toStartOf="@+id/guidelineTodayL"
         app:layout_constraintTop_toBottomOf="@+id/imageViewIconTodayHome" />
@@ -171,7 +170,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="27.6 C"
         android:textSize="33sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/guidelineTodayR"
@@ -184,7 +182,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="3dp"
-        android:text="20 %"
+
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="@+id/imageViewIconHumidity"
         app:layout_constraintHorizontal_bias="0.0"
@@ -217,8 +215,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="3dp"
-        android:text="2.05 m/s"
         android:textSize="14sp"
+        android:ems="5"
         app:layout_constraintEnd_toEndOf="@+id/imageViewIconWindSpeed"
         app:layout_constraintHorizontal_bias="0.275"
         app:layout_constraintStart_toStartOf="@+id/imageViewIconWindSpeed"
@@ -239,7 +237,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="3dp"
-        android:text="1021hpa"
+
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="@+id/imageViewIconPressure"
         app:layout_constraintHorizontal_bias="0.555"
@@ -261,7 +259,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="3dp"
-        android:text="0 %"
+
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="@+id/imageViewIconCloud"
         app:layout_constraintHorizontal_bias="0.555"
@@ -285,7 +283,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="3dp"
-        android:text="0.0"
+
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="@+id/imageViewIconUVI"
         app:layout_constraintHorizontal_bias="0.555"
@@ -303,6 +301,16 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/guidelineL"
         app:layout_constraintTop_toBottomOf="@+id/viewTodayHome" />
+
+    <ProgressBar
+        android:id="@+id/progressBarHome"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="72dp"
+        android:layout_height="57dp"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineDown"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

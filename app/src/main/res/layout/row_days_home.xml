@@ -1,124 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelinedaysRight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_end="16dp" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelinedaysLeft"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="16dp" />
-
-    <View
-        android:id="@+id/view"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/row_style_days"
-        app:layout_constraintEnd_toStartOf="@+id/guidelinedaysRight"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/guidelinedaysLeft"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textViewDayNameHome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="24dp"
-        android:text="sunday"
-        app:layout_constraintStart_toStartOf="@+id/guidelinedaysLeft"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textViewTempDayHome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
-        android:text="17 C /22 C"
-        app:layout_constraintBottom_toBottomOf="@+id/textViewDayNameHome"
-        app:layout_constraintStart_toEndOf="@+id/textViewDayNameHome"
-        app:layout_constraintTop_toTopOf="@+id/textViewDayNameHome"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <ImageView
-        android:id="@+id/imageViewIconDayHome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/textViewTempDayHome"
-        app:layout_constraintEnd_toStartOf="@+id/guidelinedaysRight"
-        app:layout_constraintHorizontal_bias="0.71"
-        app:layout_constraintStart_toEndOf="@+id/textViewTempDayHome"
-        app:layout_constraintTop_toTopOf="@+id/textViewTempDayHome"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/baseline_cloud_24" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
-
-<!--<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
 <!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
 <!--    xmlns:tools="http://schemas.android.com/tools"-->
-<!--    android:id="@+id/rowFiter"-->
 <!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="wrap_content"-->
-<!--    app:cardBackgroundColor="@color/cloud"-->
+<!--    android:layout_height="wrap_content">-->
 
-
-<!--    app:cardMaxElevation="3dp"-->
-<!--    app:cardPreventCornerOverlap="true"-->
-<!--    app:cardUseCompatPadding="true"-->
-<!--    >-->
-
-<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--        android:id="@+id/rowDaysHome"-->
+<!--    <androidx.constraintlayout.widget.Guideline-->
+<!--        android:id="@+id/guidelinedaysRight"-->
 <!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="70dp">-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="vertical"-->
+<!--        app:layout_constraintGuide_end="16dp" />-->
 
-<!--        <TextView-->
-<!--            android:id="@+id/textViewDayNameHome"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="28dp"-->
-<!--            android:layout_marginTop="16dp"-->
+<!--    <androidx.constraintlayout.widget.Guideline-->
+<!--        android:id="@+id/guidelinedaysLeft"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="vertical"-->
+<!--        app:layout_constraintGuide_begin="16dp" />-->
 
-<!--            android:text="sunday"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent" />-->
+<!--    <View-->
+<!--        android:id="@+id/view"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="60dp"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        android:background="@drawable/row_style_days"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/guidelinedaysRight"-->
+<!--        app:layout_constraintHorizontal_bias="0.0"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/guidelinedaysLeft"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
-<!--        <TextView-->
-<!--            android:id="@+id/textViewTempDayHome"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="80dp"-->
-<!--            android:text="17 C /22 C"-->
-<!--            app:layout_constraintBottom_toBottomOf="@+id/textViewDayNameHome"-->
-<!--            app:layout_constraintStart_toEndOf="@+id/textViewDayNameHome"-->
-<!--            app:layout_constraintTop_toTopOf="@+id/textViewDayNameHome"-->
-<!--            app:layout_constraintVertical_bias="0.0" />-->
+<!--    <TextView-->
+<!--        android:id="@+id/textViewDayNameHome"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="28dp"-->
+<!--        android:layout_marginTop="24dp"-->
+<!--        android:text="sunday"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/guidelinedaysLeft"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
-<!--        <ImageView-->
-<!--            android:id="@+id/imageViewIconDayHome"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="72dp"-->
-<!--            app:layout_constraintBottom_toBottomOf="@+id/textViewTempDayHome"-->
+<!--    <TextView-->
+<!--        android:id="@+id/textViewTempDayHome"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="80dp"-->
+<!--        android:text="17 C /22 C"-->
+<!--        app:layout_constraintBottom_toBottomOf="@+id/textViewDayNameHome"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/textViewDayNameHome"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/textViewDayNameHome"-->
+<!--        app:layout_constraintVertical_bias="0.0" />-->
 
-<!--            app:layout_constraintStart_toEndOf="@+id/textViewTempDayHome"-->
-<!--            app:layout_constraintTop_toTopOf="@+id/textViewTempDayHome"-->
-<!--            app:layout_constraintVertical_bias="0.0"-->
-<!--            app:srcCompat="@drawable/baseline_cloud_24" />-->
+<!--    <ImageView-->
+<!--        android:id="@+id/imageViewIconDayHome"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintBottom_toBottomOf="@+id/textViewTempDayHome"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/guidelinedaysRight"-->
+<!--        app:layout_constraintHorizontal_bias="0.71"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/textViewTempDayHome"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/textViewTempDayHome"-->
+<!--        app:layout_constraintVertical_bias="1.0"-->
+<!--        app:srcCompat="@drawable/baseline_cloud_24" />-->
+
+<!--</androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rowDays"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    app:cardCornerRadius="10dp"
+    app:cardElevation="5dp"
+    app:cardMaxElevation="3dp"
+    app:cardPreventCornerOverlap="true"
+    app:cardUseCompatPadding="true"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/rowDaysHome"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@drawable/row_style_days">
+
+        <TextView
+            android:id="@+id/textViewDayNameHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="16dp"
+
+            android:text="sunday"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textViewTempDayHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="80dp"
+            android:text="17 C /22 C"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewDayNameHome"
+            app:layout_constraintStart_toEndOf="@+id/textViewDayNameHome"
+            app:layout_constraintTop_toTopOf="@+id/textViewDayNameHome"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <ImageView
+            android:id="@+id/imageViewIconDayHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginEnd="36dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewDayNameHome"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textViewDayNameHome"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/baseline_cloud_24" />
 
 
-<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-<!--</androidx.cardview.widget.CardView>-->
+</androidx.cardview.widget.CardView>

@@ -18,10 +18,10 @@ class Repository private constructor(var remoteSource: RemoteSource):RepositoryI
         }
     }
 
-//    override suspend fun getAllProduct(): Flow<WeatherModel>  {
-//        return flowOf(remoteSource.getWeatherOverNetwork())
-//        println("///////why Nullllllll!!!!!!!!!!!! ${remoteSource.getWeatherOverNetwork()} weather ${remoteSource.getWeatherOverNetwork()}")
-//    }
+    override suspend fun getAllProduct(): Flow<WeatherModel>  {
+        return flowOf(remoteSource.getWeatherOverNetwork())
+        println("///////why Nullllllll!!!!!!!!!!!! ${remoteSource.getWeatherOverNetwork()} weather ${remoteSource.getWeatherOverNetwork()}")
+    }
 
 
 

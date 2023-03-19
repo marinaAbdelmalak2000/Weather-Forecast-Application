@@ -27,9 +27,7 @@ interface WeatherService {
     //https://api.openweathermap.org/data/3.0/onecall?lat=33.44&lon=-94.04&units=metric,standard,imperial&lang=ar&exclude=minutely&appid=83131d2af170eb79407efcc24412f091
 
 
-    ///////////////////////////****////////*****////////*****/////////*****///////////
-
-//    @GET("data/3.0/onecall?lat=33.44&lon=-94.04&units=metric,standard,imperial&lang=ar&exclude=minutely&appid=83131d2af170eb79407efcc24412f091")
-//    suspend fun getweather()  : WeatherModel
+    @GET("data/3.0/onecall?lat=33.44&lon=-94.04&units=metric,standard,imperial&lang=en&exclude=minutely&appid=83131d2af170eb79407efcc24412f091")
+    suspend fun getweather()  : WeatherModel
 
 }

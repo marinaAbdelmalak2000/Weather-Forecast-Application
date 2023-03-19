@@ -8,9 +8,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherforecastapplication.databinding.RowDaysHomeBinding
 import com.example.weatherforecastapplication.model.Daily
-import com.example.weatherforecastapplication.model.Hourly
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
 
-class AdapterDaysHome (private var days: List<Hourly>) :
+class AdapterDaysHome (private var days: List<Daily>) :
     RecyclerView.Adapter<AdapterDaysHome.ViewHolder>() {
 
     lateinit var binding: RowDaysHomeBinding
@@ -36,8 +38,13 @@ class AdapterDaysHome (private var days: List<Hourly>) :
 //
 //        }
 
-        holder.binding.textViewDayNameHome.text="Sunday"
-        holder.binding.textViewTempDayHome.text="27 C/55 C"
+
+        holder.binding.textViewTempDayHome.text="${current.temp.min}/${current.temp.max}"
+        var dailyDay=current.dt
+        var currentDailyDay= Date(dailyDay * 1000)
+        val df: DateFormat = SimpleDateFormat("EEEE") //yyyy-MM-E //uuuu-MM-EEE //EEEEEEE
+        holder.binding.textViewDayNameHome.text="${df.format(currentDailyDay)}"
+
 
 
 
@@ -45,8 +52,8 @@ class AdapterDaysHome (private var days: List<Hourly>) :
 
     override fun getItemCount(): Int =days.size
 
-    fun setData(value: List<Hourly>){
-        this.days=value as List<Hourly>
+    fun setData(value: List<Daily>){
+        this.days=value as List<Daily>
         notifyDataSetChanged()
     }
     class ViewHolder(var binding: RowDaysHomeBinding): RecyclerView.ViewHolder(binding.root)

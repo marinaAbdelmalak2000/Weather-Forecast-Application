@@ -11,6 +11,8 @@ import com.example.weatherforecastapplication.databinding.RowHourlyHomeBinding
 import com.example.weatherforecastapplication.model.Hourly
 import com.squareup.picasso.Picasso
 import java.lang.String
+import java.text.SimpleDateFormat
+import java.util.*
 
 class AdapterHourlyHome (private var hours: List<Hourly>) :
     RecyclerView.Adapter<AdapterHourlyHome.ViewHolder>() {
@@ -37,8 +39,14 @@ class AdapterHourlyHome (private var hours: List<Hourly>) :
 //        holder.binding.buttonFav.setOnClickListener{ onProductClickLesener.onClick(products.get(position))
 //
 //        }
-        holder.binding.txtView24hourDay.text="6 PM"
-        holder.binding.txtViewTempPerHour.text="24 C"
+        var hourlyTime=current.dt
+//        var currenthourlyDay= Date(hourlyTime * 1000)
+//        var dateDay= SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(currenthourlyDay)
+        var timeDay= SimpleDateFormat("hh:mm a", Locale.ENGLISH).format(Date(hourlyTime * 1000))
+        var time24Hour= SimpleDateFormat("HH:mm", Locale.ENGLISH).format(Date(hourlyTime * 1000))
+        holder.binding.txtViewTempPerHour.text=current.temp.toString()+"C"
+        holder.binding.txtView24hourDay.text="${timeDay}"
+        Picasso.get().load(current.weather.get(0).icon).into(holder.binding.imageViewIconPerHour)
 
     }
 

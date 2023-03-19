@@ -40,7 +40,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_end="378dp" />
+        app:layout_constraintGuide_end="415dp" />
 
 
     <TextView
@@ -156,10 +156,10 @@
         android:id="@+id/textViewDescriptionTodayHome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="description today home "
-        android:ems="7"
-        android:layout_marginTop="6dp"
         android:layout_marginStart="5dp"
+        android:layout_marginTop="6dp"
+        android:ems="7"
+        android:text="description today home "
         app:layout_constraintEnd_toEndOf="@+id/imageViewIconTodayHome"
         app:layout_constraintStart_toStartOf="@+id/guidelineTodayL"
         app:layout_constraintTop_toBottomOf="@+id/imageViewIconTodayHome" />
@@ -181,10 +181,9 @@
         android:id="@+id/textViewHumidity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         android:layout_marginTop="3dp"
         android:text="20 %"
-        android:textSize="18sp"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="@+id/imageViewIconHumidity"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/imageViewIconHumidity"
@@ -200,6 +199,106 @@
         app:layout_constraintHorizontal_bias="0.153"
         app:layout_constraintStart_toStartOf="@+id/guidelineTodayL"
         app:layout_constraintTop_toBottomOf="@+id/textViewDescriptionTodayHome" />
+
+    <ImageView
+        android:id="@+id/imageViewIconWindSpeed"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/speedicon"
+        app:layout_constraintStart_toEndOf="@+id/imageViewIconHumidity"
+        app:layout_constraintTop_toBottomOf="@+id/textViewDescriptionTodayHome" />
+
+    <TextView
+        android:id="@+id/textViewWindSpeed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:text="2.05 m/s"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewIconWindSpeed"
+        app:layout_constraintHorizontal_bias="0.275"
+        app:layout_constraintStart_toStartOf="@+id/imageViewIconWindSpeed"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewIconWindSpeed" />
+
+    <ImageView
+        android:id="@+id/imageViewIconPressure"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/pressureicon"
+        app:layout_constraintStart_toEndOf="@+id/imageViewIconWindSpeed"
+        app:layout_constraintTop_toBottomOf="@+id/textViewDescriptionTodayHome" />
+
+    <TextView
+        android:id="@+id/textViewPressure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:text="1021hpa"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewIconPressure"
+        app:layout_constraintHorizontal_bias="0.555"
+        app:layout_constraintStart_toStartOf="@+id/imageViewIconPressure"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewIconPressure" />
+
+    <ImageView
+        android:id="@+id/imageViewIconCloud"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/cloudicon"
+        app:layout_constraintStart_toEndOf="@+id/imageViewIconPressure"
+        app:layout_constraintTop_toBottomOf="@+id/textViewDescriptionTodayHome" />
+
+    <TextView
+        android:id="@+id/textViewCloud"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:text="0 %"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewIconCloud"
+        app:layout_constraintHorizontal_bias="0.555"
+        app:layout_constraintStart_toStartOf="@+id/imageViewIconCloud"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewIconCloud" />
+
+    <ImageView
+        android:id="@+id/imageViewIconUVI"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/uviicin"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineTodayR"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/imageViewIconCloud"
+        app:layout_constraintTop_toBottomOf="@+id/textViewDescriptionTodayHome" />
+
+    <TextView
+        android:id="@+id/textViewUVI"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:text="0.0"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewIconUVI"
+        app:layout_constraintHorizontal_bias="0.555"
+        app:layout_constraintStart_toStartOf="@+id/imageViewIconUVI"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewIconUVI" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewDaysHome"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineR"
+        app:layout_constraintStart_toStartOf="@+id/guidelineL"
+        app:layout_constraintTop_toTopOf="@+id/guidelineCenter" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

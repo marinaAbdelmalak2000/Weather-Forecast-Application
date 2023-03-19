@@ -9,6 +9,7 @@ import androidx.core.graphics.toColor
 import androidx.fragment.app.Fragment
 import com.example.weatherforecastapplication.R
 import com.example.weatherforecastapplication.databinding.FragmentHomeBinding
+import com.example.weatherforecastapplication.model.Daily
 
 import com.example.weatherforecastapplication.model.Hourly
 import com.example.weatherforecastapplication.model.getHourly
@@ -17,8 +18,12 @@ import com.example.weatherforecastapplication.model.getHourly
 class FragmentHome : Fragment() {
 
     lateinit var binding: FragmentHomeBinding
+
     lateinit var recyclerAdapterHourHome: AdapterHourlyHome
     var hourList= mutableListOf<Hourly>()
+
+    lateinit var recyclerAdapterDaysHome: AdapterDaysHome
+    var daysList= mutableListOf<Daily>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,12 +43,20 @@ class FragmentHome : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
+        //24 per day
         recyclerAdapterHourHome= AdapterHourlyHome(hourList)
         //initialization
         binding.recyclerViewHourHome.adapter=recyclerAdapterHourHome
         recyclerAdapterHourHome.setData(getHourly())
         recyclerAdapterHourHome.notifyDataSetChanged()
+
+
+        //days
+        recyclerAdapterDaysHome= AdapterDaysHome(daysList)
+        //initialization
+        binding.recyclerViewDaysHome.adapter=recyclerAdapterDaysHome
+        recyclerAdapterDaysHome.setData(getHourly())
+        recyclerAdapterDaysHome.notifyDataSetChanged()
     }
 
 }

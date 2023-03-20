@@ -40,7 +40,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_end="395dp" />
+        android:foregroundGravity="center"
+        app:layout_constraintGuide_end="394dp" />
 
 
     <TextView
@@ -148,7 +149,7 @@
         android:layout_width="125dp"
         android:layout_height="111dp"
         android:layout_marginTop="4dp"
-        android:src="@drawable/baseline_light_mode_24"
+        tools:src="@tools:sample/avatars"
         app:layout_constraintEnd_toStartOf="@+id/guidelineTodayR"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guidelineTodayL"
@@ -165,7 +166,7 @@
         app:layout_constraintStart_toStartOf="@+id/guidelineTodayL"
         app:layout_constraintTop_toBottomOf="@+id/imageViewIconTodayHome" />
 
-    <com.example.weatherforecastapplication.gradient_textview.MyGradientTextView
+    <TextView
         android:id="@+id/textViewTempTodayHome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -293,14 +294,16 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewDaysHome"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginTop="10dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineRecycler"
         app:layout_constraintEnd_toStartOf="@+id/guidelineR"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/guidelineL"
-        app:layout_constraintTop_toBottomOf="@+id/viewTodayHome" />
+        app:layout_constraintTop_toBottomOf="@+id/viewTodayHome"
+        app:layout_constraintVertical_bias="1.0" />
 
     <ProgressBar
         android:id="@+id/progressBarHome"
@@ -311,6 +314,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineRecycler"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="2dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

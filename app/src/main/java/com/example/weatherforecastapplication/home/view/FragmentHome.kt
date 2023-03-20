@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.productmvvm.model.Repository
 import com.example.productmvvm.network.WeatherClient
+import com.example.weatherforecastapplication.R
 import com.example.weatherforecastapplication.WeatherViewModel
 import com.example.weatherforecastapplication.WeatherViewModelFactory
 import com.example.weatherforecastapplication.databinding.FragmentHomeBinding
@@ -106,7 +107,7 @@ class FragmentHome : Fragment() {
                         var weatherMain=weatherList.get(i).main
                         println("weatherDescription: $weatherDescription \nweatherIcon: $weatherIcon \nweatherMain: $weatherMain ")
                         binding.textViewDescriptionTodayHome.text="$weatherDescription"
-                        Picasso.get().load(weatherIcon).into(binding.imageViewIconTodayHome)
+                        changeIconWeather(weatherIcon)
 
                     }
                     // println("/////weather ${uiState.data.current.weather.toString()} Size: ${weatherList.size}")
@@ -179,13 +180,14 @@ class FragmentHome : Fragment() {
                         var currenthourlyDay= Date(hourlyTime * 1000)
                         var dateDay= SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(currenthourlyDay)
                         var timeDay= SimpleDateFormat("hh:mm a", Locale.ENGLISH).format(Date(hourlyTime * 1000))
-                        var time24Hour=
-                            SimpleDateFormat("HH:mm", Locale.ENGLISH).format(Date(hourlyTime * 1000))
+                        var time24Hour= SimpleDateFormat("HH:mm", Locale.ENGLISH).format(Date(hourlyTime * 1000))
                         println("[$i] Day H: $dateDay, Time H-12-hour clock : $timeDay Time H-24-hour clock: $time24Hour ,Temp H: ${hourly.temp}")
 
                     }
                     recyclerAdapterHourHome.setData(hourlyList)
                     recyclerAdapterHourHome.notifyDataSetChanged()
+
+
 
 
 //                    recyclerAdapter.setData(uiState.data)
@@ -208,7 +210,24 @@ class FragmentHome : Fragment() {
 
             }}
 
+
         }
     }
+
+    fun changeIconWeather(iconapi:String) {
+        when(iconapi){
+            "01d","01n" -> binding.imageViewIconTodayHome.setBackgroundResource(R.drawable.sun_clear_icon) //clear sky
+            "02d","02n" -> binding.imageViewIconTodayHome.setBackgroundResource(R.drawable.img_9)   //few clouds
+            "03d","03n" -> binding.imageViewIconTodayHome.setBackgroundResource(R.drawable.img_10)  //scattered clouds
+            "04d","04n" -> binding.imageViewIconTodayHome.setBackgroundResource(R.drawable.img_7)   //broken clouds
+            "09d","09n" -> binding.imageViewIconTodayHome.setBackgroundResource(R.drawable.img_14)  //shower rain
+            "10d","10n" -> binding.imageViewIconTodayHome.setBackgroundResource(R.drawable.img_13)  //rain
+            "11d","11n" -> binding.imageViewIconTodayHome.setBackgroundResource(R.drawable.img_6)   //thunderstorm
+            "13d","13n" -> binding.imageViewIconTodayHome.setBackgroundResource(R.drawable.img_2) //snow
+            "50d","50n" -> binding.imageViewIconTodayHome.setBackgroundResource(R.drawable.img_17) //mist
+        }
+
+    }
+
 
 }

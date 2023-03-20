@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherforecastapplication.databinding.RowHourlyHomeBinding
 import com.example.weatherforecastapplication.model.Hourly
 import com.squareup.picasso.Picasso
-import java.lang.String
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -30,15 +29,6 @@ class AdapterHourlyHome (private var hours: List<Hourly>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val current=hours[position]
-//        Picasso.get().load(current.thumbnail).into(holder.binding.imageView)
-//        holder.binding.textViewTitle.text=current.title
-//        holder.binding.textViewDescription.text=current.description
-//        holder.binding.ratingBar.rating=current.rating as Float
-//        holder.binding.textViewBrand.text=current.brand
-//        holder.binding.textViewPrice.setText(String.valueOf(products.get(position).price))
-//        holder.binding.buttonFav.setOnClickListener{ onProductClickLesener.onClick(products.get(position))
-//
-//        }
         var hourlyTime=current.dt
 //        var currenthourlyDay= Date(hourlyTime * 1000)
 //        var dateDay= SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(currenthourlyDay)
@@ -46,7 +36,21 @@ class AdapterHourlyHome (private var hours: List<Hourly>) :
         var time24Hour= SimpleDateFormat("HH:mm", Locale.ENGLISH).format(Date(hourlyTime * 1000))
         holder.binding.txtViewTempPerHour.text=current.temp.toString()+"C"
         holder.binding.txtView24hourDay.text="${timeDay}"
-        Picasso.get().load(current.weather.get(0).icon).into(holder.binding.imageViewIconPerHour)
+        var iconName=current.weather.get(0).icon
+            when(iconName){
+                "01d","01n" -> binding.imageViewIconPerHour.setBackgroundResource(com.example.weatherforecastapplication.R.drawable.img)     //clear sky
+                "02d","02n" -> binding.imageViewIconPerHour.setBackgroundResource(com.example.weatherforecastapplication.R.drawable.img_9)   //few clouds
+                "03d","03n" -> binding.imageViewIconPerHour.setBackgroundResource(com.example.weatherforecastapplication.R.drawable.img_10)  //scattered clouds
+                "04d","04n" -> binding.imageViewIconPerHour.setBackgroundResource(com.example.weatherforecastapplication.R.drawable.img_7)   //broken clouds
+                "09d","09n" -> binding.imageViewIconPerHour.setBackgroundResource(com.example.weatherforecastapplication.R.drawable.img_16)  //shower rain
+                "10d","10n" -> binding.imageViewIconPerHour.setBackgroundResource(com.example.weatherforecastapplication.R.drawable.img_12)  //rain
+                "11d","11n" -> binding.imageViewIconPerHour.setBackgroundResource(com.example.weatherforecastapplication.R.drawable.img_6)   //thunderstorm
+                "13d","13n" -> binding.imageViewIconPerHour.setBackgroundResource(com.example.weatherforecastapplication.R.drawable.img_17) //snow
+                else->{//mist
+                    var linkIcon="https://openweathermap.org/img/wn/${iconName}@2x.png"
+                    Picasso.get().load(linkIcon).into(holder.binding.imageViewIconPerHour)
+                }
+            }
 
     }
 

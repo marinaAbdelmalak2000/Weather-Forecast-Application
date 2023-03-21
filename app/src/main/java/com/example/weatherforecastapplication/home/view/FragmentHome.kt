@@ -212,6 +212,19 @@ class FragmentHome : Fragment() {
 
 
         }
+
+        //        //observation
+//        viewModel.weather.observe(this){
+//                weather->
+//            Log.i(ContentValues.TAG, "onCreate: ${weather}")
+//            if(weather!=null){
+////                Log.i(TAG, "weatherrrrrrrrrrrr: ${weather}")
+//                println("weatherrrrrrrrrrrr: ${weather.weather}")
+//               // recyclerAdapter.setData(weather)
+//               // recyclerAdapter.notifyDataSetChanged()
+//               // binding.recyclerView.adapter=recyclerAdapter
+//            }
+//        }
     }
 
     fun changeIconWeather(iconapi:String) {

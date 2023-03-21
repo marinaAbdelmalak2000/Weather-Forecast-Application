@@ -1,193 +1,135 @@
 package com.example.weatherforecastapplication
 
-
-import android.content.Intent
+import android.app.Dialog
 import android.os.Bundle
-import android.view.View
-import android.widget.Button
-import android.widget.Toast
+import android.view.MenuItem
+import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
-import com.example.productmvvm.model.Repository
-import com.example.productmvvm.network.WeatherClient
-import com.example.weatherforecastapplication.databinding.ActivityMainBinding
-import com.example.weatherforecastapplication.map.FragmentMap
-import com.example.weatherforecastapplication.network.ApiState
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
-import java.text.DateFormat
-import java.text.SimpleDateFormat
-import java.util.*
+import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
+import com.example.weatherforecastapplication.alerts.view.FragmentAlertList
+import com.example.weatherforecastapplication.favourite.view.FragmentFavouriteList
+import com.example.weatherforecastapplication.home.view.FragmentHome
+import com.example.weatherforecastapplication.settings.view.FragmentSettings
+import com.google.android.material.navigation.NavigationView
+import com.google.android.material.navigation.NavigationView.OnNavigationItemSelectedListener
 
-class MainActivity : AppCompatActivity() {
 
-//    lateinit var allFactory: WeatherViewModelFactory
-//    lateinit var viewModel: WeatherViewModel
 
-   // lateinit var buttonMap:Button
-//    private lateinit var fragmentMap:FragmentMap
-//    private lateinit var fragmentManger: FragmentManager
-//    private lateinit var fragmentTransaction: FragmentTransaction
+
+class MainActivity : AppCompatActivity(),OnNavigationItemSelectedListener {
+
+    //variable
+    lateinit var drawerLayout:DrawerLayout
+    lateinit var navigationView:NavigationView
+    lateinit var toolbar: Toolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-    //    buttonMap=findViewById(R.id.buttonMap)
-//        buttonMap.setOnClickListener(View.OnClickListener {
-//
-//            fragmentManger=supportFragmentManager
-//            fragmentTransaction=fragmentManger.beginTransaction()
-//            if (savedInstanceState == null) {
-//                fragmentMap = FragmentMap()
-//                fragmentTransaction.add(R.id.fragmentContainerViewMap, fragmentMap, "dynamic")
-//                fragmentTransaction.commit()
-//
-//            }
-//            else {
-//              //  if (fragmentManger.findFragmentByTag("dynamic") != null) {
-//                    fragmentMap = fragmentManger.findFragmentByTag("dynamic") as FragmentMap
-//              //  }
-//            }
-//
-//
-//        })
+        drawerLayout=findViewById(R.id.drawer_layout)
+        navigationView=findViewById(R.id.navigator_layout)
+        toolbar=findViewById(R.id.toolbar)
+        setTitle("")
 
-        /////////////////////////****************///////////////////////
+        //toolBar
+        setSupportActionBar(toolbar)
 
-        /////////*****////
+        //navigation Drawer menu
+        navigationView.bringToFront()
+        var toggle:ActionBarDrawerToggle=ActionBarDrawerToggle(this,drawerLayout,toolbar,
+            R.string.OPEN_navigation,R.string.Close_navigation)
 
+        toggle.isDrawerIndicatorEnabled=true
 
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
 
-        ///////////////////////////****////////*****////////*****/////////*****///////////
+        navigationView.setNavigationItemSelectedListener(this)
 
+        this.onBackPressedDispatcher.addCallback(onBackPressedCallback)
 
-
-
-//       allFactory= WeatherViewModelFactory(
-//
-//            Repository.getInstance(
-//                WeatherClient.getInstance()
-//            ))
-//
-//        viewModel= ViewModelProvider(this,allFactory).get(WeatherViewModel::class.java)
-
-        /////////*****////
-
-
-//        lifecycleScope.launch {
-//
-//            viewModel.uiState.collectLatest { uiState ->when (uiState) {
-//                is ApiState.Success-> {
-////                    binding.progressBar?.visibility  = View.GONE
-////                    binding.recyclerView.visibility = View.VISIBLE
-//
-//
-//
-//                    println("//////**** Current ****//////")
-//
-//                    var weatherList=uiState.data.current.weather
-//                    for(i in 0..weatherList.size-1){
-//                        var weatherDescription=weatherList.get(i).description
-//                        var weatherIcon=weatherList.get(i).icon
-//                        var weatherMain=weatherList.get(i).main
-//                        println("weatherDescription: $weatherDescription \nweatherIcon: $weatherIcon \nweatherMain: $weatherMain ")
-//                    }
-//                   // println("/////weather ${uiState.data.current.weather.toString()} Size: ${weatherList.size}")
-//                    println("/////clouds ${uiState.data.current.clouds.toString()} %")
-//                    println("/////current temp ${uiState.data.current.temp.toString()} C")
-//                    println("/////humidity ${uiState.data.current.humidity} %")
-//                    println("/////pressure ${uiState.data.current.pressure} hpa")
-//                    println("/////wind speed ${uiState.data.current.wind_speed.toString()} meter/sec")
-//
-//                    println("/////alerts ${uiState.data.alerts.toString()} meter/sec")
-//
-//                    val currentDate=uiState.data.current.dt
-//                    // yyyy-MM-dd
-//                    val dateTime = Date(currentDate*1000)
-//                    val formattedDate = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(dateTime)
-//                    print("////Current Date:  ${formattedDate}  ")
-//                    println("/////Current Time-12-hour clock:  ${ SimpleDateFormat("hh:mm a", Locale.ENGLISH).format(Date(currentDate*1000))}")
-//
-//                    val sunrise=uiState.data.current.sunrise
-//                    val sunriseDate =Date(sunrise*1000)
-//                    print("/////sunrise Day/////////// ${SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(sunriseDate)} ")
-//                    println("/////sunrise Time-12-hour clock:  ${ SimpleDateFormat("hh:mm a", Locale.ENGLISH).format(Date(sunrise*1000))}")
-//                    val sunset=Date(uiState.data.current.sunset * 1000)
-//                    print("/////sunset Day//////////////// ${SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(sunset)} ")
-//                    println("/////sunset Time:  ${ SimpleDateFormat("hh:mm a", Locale.ENGLISH).format(sunset)}")
-//
-//
-//                    println("//////**** Dayliy ****//////")
-//
-//                    var dailyList=uiState.data.daily
-//                    for(i in 0..dailyList.size-1){
-//                        var daily=dailyList.get(i)
-//                        var dailyDay=dailyList.get(i).dt
-//                        var currentDailyDay=Date(dailyDay * 1000)
-//                        var dateDay=SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(currentDailyDay)
-//                        var timeDay= SimpleDateFormat("hh:mm a", Locale.ENGLISH).format(Date(dailyDay * 1000))
-//                        val df: DateFormat = SimpleDateFormat("EEEE") //yyyy-MM-E //uuuu-MM-EEE //EEEEEEE
-//                        println("day $i Date: $dateDay , Time: $timeDay , day name: ${df.format(currentDailyDay)}")
-//                        println("Temp Min: ${daily.temp.min} , Temp Max: ${daily.temp.max} , Weather: ${daily.weather.toString()}")
-//                    }
-//
-//
-//                    println("//////**** hourly ****//////")
-//
-//                    var hourlyList=uiState.data.hourly
-//                    for(i in 0..24){
-//                        var hourly=hourlyList.get(i)
-//                        var hourlyTime=hourlyList.get(i).dt
-//                        var currenthourlyDay=Date(hourlyTime * 1000)
-//                        var dateDay=SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(currenthourlyDay)
-//                        var timeDay= SimpleDateFormat("hh:mm a", Locale.ENGLISH).format(Date(hourlyTime * 1000))
-//                        var time24Hour=SimpleDateFormat("HH:mm", Locale.ENGLISH).format(Date(hourlyTime * 1000))
-//                        println("[$i] Day H: $dateDay, Time H-12-hour clock : $timeDay Time H-24-hour clock: $time24Hour ,Temp H: ${hourly.temp}")
-//
-//                    }
-//
-//
-////                    recyclerAdapter.setData(uiState.data)
-////                    recyclerAdapter.notifyDataSetChanged()
-//
-//                }
-//                is ApiState.Loading->{
-//                    println("initial")
-////                    binding.progressBar?.visibility= View.VISIBLE
-////                    binding.recyclerView.visibility= View.GONE
-//                }
-//
-//                else ->{
-////                    binding.progressBar?.visibility= View.GONE
-//                    println("Check your netwark")
-//                    Toast.makeText(applicationContext,"Check your netwark", Toast.LENGTH_SHORT).show()
-//
-//                }
-//
-//            }}
-//
-//        }
-
-
-        ///////////////////////////****////////*****////////*****/////////*****///////////
-
-
-//        //observation
-//        viewModel.weather.observe(this){
-//                weather->
-//            Log.i(ContentValues.TAG, "onCreate: ${weather}")
-//            if(weather!=null){
-////                Log.i(TAG, "weatherrrrrrrrrrrr: ${weather}")
-//                println("weatherrrrrrrrrrrr: ${weather.weather}")
-//               // recyclerAdapter.setData(weather)
-//               // recyclerAdapter.notifyDataSetChanged()
-//               // binding.recyclerView.adapter=recyclerAdapter
-//            }
-//        }
 
     }
+
+    //handle back button
+    val onBackPressedCallback = object: OnBackPressedCallback(true) {
+
+        override fun handleOnBackPressed() {
+
+            if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+                drawerLayout.closeDrawer(GravityCompat.START)
+            }
+            else{
+                customExitDialog()
+            }
+
+        }
+
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        drawerLayout.closeDrawer(GravityCompat.START)
+
+        when(item.itemId){
+            R.id.home->{
+                setToolbarTitle("Home")
+                changeFragment(FragmentHome())
+            }
+            R.id.favourite->{
+                setToolbarTitle("Favourite")
+                changeFragment(FragmentFavouriteList())
+            }
+            R.id.alter->{
+                setToolbarTitle("Alter")
+                changeFragment(FragmentAlertList())
+            }
+            R.id.setting->{
+                setToolbarTitle("Setting")
+                changeFragment(FragmentSettings())
+            }
+
+        }
+        return true
+    }
+
+    fun setToolbarTitle(title:String){
+        supportActionBar?.title=title
+    }
+    fun changeFragment(fragmentSelect:Fragment){
+        val fragment=supportFragmentManager.beginTransaction()
+        fragment.replace(R.id.fragment_contaner,fragmentSelect).commit()
+    }
+
+    fun customExitDialog() {
+        // creating custom dialog
+        val dialog = Dialog(this@MainActivity)
+
+        // setting content view to dialog
+        dialog.setContentView(R.layout.custom_exit_dialog)
+
+        // getting reference of TextView
+        val dialogButtonYes = dialog.findViewById(R.id.textViewYes) as TextView
+        val dialogButtonNo = dialog.findViewById(R.id.textViewNo) as TextView
+
+        // click listener for No
+        dialogButtonNo.setOnClickListener { // dismiss the dialog
+            dialog.dismiss()
+        }
+        // click listener for Yes
+        dialogButtonYes.setOnClickListener { // dismiss the dialog and exit the exit
+            dialog.dismiss()
+            finish()
+        }
+
+        // show the exit dialog
+        dialog.show()
+    }
+
 }

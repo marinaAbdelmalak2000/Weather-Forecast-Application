@@ -4,18 +4,19 @@
         <item
             android:id="@+id/home"
             android:icon="@drawable/baseline_home_24"
-            android:title="Home" />
+            android:title="@string/home"
+            />
         <item
             android:id="@+id/favourite"
-            android:icon="@drawable/baseline_home_24"
+            android:icon="@drawable/baseline_favorite_24"
             android:title="Favourite" />
         <item
             android:id="@+id/alter"
-            android:icon="@drawable/baseline_home_24"
+            android:icon="@drawable/baseline_notifications_active_24"
             android:title="Alter and Notivigation" />
         <item
             android:id="@+id/setting"
-            android:icon="@drawable/baseline_home_24"
+            android:icon="@drawable/baseline_settings_24"
             android:title="Setting" />
 
 

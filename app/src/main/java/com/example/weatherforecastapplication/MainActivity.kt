@@ -12,6 +12,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import com.airbnb.lottie.LottieAnimationView
 import com.example.weatherforecastapplication.alerts.view.FragmentAlertList
 import com.example.weatherforecastapplication.favourite.view.FragmentFavouriteList
 import com.example.weatherforecastapplication.home.view.FragmentHome

@@ -9,6 +9,7 @@
     android:fitsSystemWindows="true"
     tools:openDrawer="start"
     android:id="@+id/drawer_layout"
+
     >
 
     <androidx.appcompat.widget.Toolbar
@@ -21,7 +22,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintEnd_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:navigationIcon="@drawable/baseline_list_24"
+
+
         />
 
 
@@ -35,7 +37,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:menu="@menu/nav_menu" />
+        app:menu="@menu/nav_menu"
+        android:background="@drawable/background_home_today"
+        app:itemTextColor="@color/gray"
+        app:itemIconTint="@color/gray"
+        app:itemTextAppearance="@style/StyleTextItemMenu"
+        />
     <FrameLayout
         android:id="@+id/fragment_contaner"
         android:layout_width="match_parent"
@@ -44,5 +51,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+
 
 </androidx.drawerlayout.widget.DrawerLayout>

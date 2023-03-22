@@ -13,4 +13,8 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="StyleTextItemMenu">
+        <item name="android:textSize">18sp</item>
+    </style>
 </resources>

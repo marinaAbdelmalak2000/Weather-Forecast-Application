@@ -1,5 +1,6 @@
 package com.example.weatherforecastapplication
 
+import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.productmvvm.model.RepositoryInterface

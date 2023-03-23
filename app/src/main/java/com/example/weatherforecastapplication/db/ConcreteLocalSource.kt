@@ -1,7 +1,9 @@
 package com.example.productmvvm.db
 
 import android.content.Context
+import android.content.SharedPreferences
 import androidx.lifecycle.asLiveData
+import com.example.weatherforecastapplication.model.Setting
 import kotlinx.coroutines.flow.Flow
 
 class ConcreteLocalSource(context: Context) :LocalSource{
@@ -21,4 +23,12 @@ class ConcreteLocalSource(context: Context) :LocalSource{
 //    override suspend fun getStoredProduct(): List<Product> {
 //        return dao.getAll()
 //    }
+   private val sharedPreferences: SharedPreferences = context.getSharedPreferences("saveSettingPref", Context.MODE_PRIVATE)
+    override fun getUserSettings(): Setting {
+        val language = sharedPreferences.getString("language", "") ?: ""
+        val units = sharedPreferences.getString("units", "") ?: ""
+        val exclude = sharedPreferences.getString("exclude", "") ?: ""
+        return Setting(language,units,exclude)
+    }
+
 }

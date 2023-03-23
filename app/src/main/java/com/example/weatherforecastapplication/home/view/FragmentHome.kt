@@ -1,5 +1,6 @@
 package com.example.weatherforecastapplication.home.view
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import com.example.productmvvm.db.ConcreteLocalSource
 import com.example.productmvvm.model.Repository
 import com.example.productmvvm.network.WeatherClient
 import com.example.weatherforecastapplication.R
@@ -80,7 +82,7 @@ class FragmentHome : Fragment() {
         allFactory= WeatherViewModelFactory(
 
             Repository.getInstance(
-                WeatherClient.getInstance()
+                WeatherClient.getInstance(), ConcreteLocalSource(requireContext())
             ))
 
         viewModel= ViewModelProvider(this,allFactory).get(WeatherViewModel::class.java)
@@ -157,16 +159,16 @@ class FragmentHome : Fragment() {
                     println("//////**** Dayliy ****//////")
 
                     var dailyList=uiState.data.daily
-                    for(i in 0..dailyList.size-1){
-                        var daily=dailyList.get(i)
-                        var dailyDay=dailyList.get(i).dt
-                        var currentDailyDay= Date(dailyDay * 1000)
-                        var dateDay= SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(currentDailyDay)
-                        var timeDay= SimpleDateFormat("hh:mm a", Locale.ENGLISH).format(Date(dailyDay * 1000))
-                        val df: DateFormat = SimpleDateFormat("EEEE") //yyyy-MM-E //uuuu-MM-EEE //EEEEEEE
-                        println("day $i Date: $dateDay , Time: $timeDay , day name: ${df.format(currentDailyDay)}")
-                        println("Temp Min: ${daily.temp.min} , Temp Max: ${daily.temp.max} , Weather: ${daily.weather.toString()}")
-                    }
+//                    for(i in 0..dailyList.size-1){
+//                        var daily=dailyList.get(i)
+//                        var dailyDay=dailyList.get(i).dt
+//                        var currentDailyDay= Date(dailyDay * 1000)
+//                        var dateDay= SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(currentDailyDay)
+//                        var timeDay= SimpleDateFormat("hh:mm a", Locale.ENGLISH).format(Date(dailyDay * 1000))
+//                        val df: DateFormat = SimpleDateFormat("EEEE") //yyyy-MM-E //uuuu-MM-EEE //EEEEEEE
+//                        println("day $i Date: $dateDay , Time: $timeDay , day name: ${df.format(currentDailyDay)}")
+//                        println("Temp Min: ${daily.temp.min} , Temp Max: ${daily.temp.max} , Weather: ${daily.weather.toString()}")
+//                    }
                     recyclerAdapterDaysHome.setData(dailyList)
                     recyclerAdapterDaysHome.notifyDataSetChanged()
 
@@ -174,16 +176,16 @@ class FragmentHome : Fragment() {
                     println("//////**** hourly ****//////")
 
                     var hourlyList=uiState.data.hourly
-                    for(i in 0..24){
-                        var hourly=hourlyList.get(i)
-                        var hourlyTime=hourlyList.get(i).dt
-                        var currenthourlyDay= Date(hourlyTime * 1000)
-                        var dateDay= SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(currenthourlyDay)
-                        var timeDay= SimpleDateFormat("hh:mm a", Locale.ENGLISH).format(Date(hourlyTime * 1000))
-                        var time24Hour= SimpleDateFormat("HH:mm", Locale.ENGLISH).format(Date(hourlyTime * 1000))
-                        println("[$i] Day H: $dateDay, Time H-12-hour clock : $timeDay Time H-24-hour clock: $time24Hour ,Temp H: ${hourly.temp}")
-
-                    }
+//                    for(i in 0..24){
+//                        var hourly=hourlyList.get(i)
+//                        var hourlyTime=hourlyList.get(i).dt
+//                        var currenthourlyDay= Date(hourlyTime * 1000)
+//                        var dateDay= SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(currenthourlyDay)
+//                        var timeDay= SimpleDateFormat("hh:mm a", Locale.ENGLISH).format(Date(hourlyTime * 1000))
+//                        var time24Hour= SimpleDateFormat("HH:mm", Locale.ENGLISH).format(Date(hourlyTime * 1000))
+//                        println("[$i] Day H: $dateDay, Time H-12-hour clock : $timeDay Time H-24-hour clock: $time24Hour ,Temp H: ${hourly.temp}")
+//
+//                    }
                     recyclerAdapterHourHome.setData(hourlyList)
                     recyclerAdapterHourHome.notifyDataSetChanged()
 

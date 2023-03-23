@@ -22,18 +22,18 @@
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/splashLottieplane"
-        android:layout_width="414dp"
-        android:layout_height="219dp"
-        android:layout_marginEnd="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.248"
-        app:lottie_autoPlay="true"
+        app:layout_constraintVertical_bias="0.47"
+
         app:lottie_loop="true"
-        app:lottie_rawRes="@raw/plane" />
+        app:lottie_rawRes="@raw/airplanyello" />
+<!--    app:lottie_autoPlay="true"-->
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/splashLottieCloudDown"
@@ -44,7 +44,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/splashLottieCloud"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_bias="0.589"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/clouds" />

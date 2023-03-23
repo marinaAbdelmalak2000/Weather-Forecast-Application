@@ -31,7 +31,16 @@ class SplashScreen : AppCompatActivity()  {
 //            finish()
 //        }, 5000) // 3000 is the delayed time in milliseconds.
         lifecycleScope.launch {
+           val job= launch {
+                lottieAnimationViewCloudDown.playAnimation()
+                lottieAnimationView.playAnimation()
+                // lottieAnimationView.playSoundEffect()
+                delay(1000)
+                lottieAnimationViewPlane.playAnimation()
+            }
             delay(5000)
+            job.cancel()
+
             withContext(Dispatchers.Main){
                 val intent = Intent(this@SplashScreen, MainActivity::class.java)
                 startActivity(intent)

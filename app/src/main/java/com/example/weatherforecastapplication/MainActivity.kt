@@ -2,6 +2,7 @@ package com.example.weatherforecastapplication
 
 import android.app.Dialog
 import android.os.Bundle
+import android.text.DynamicLayout
 import android.view.MenuItem
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
@@ -12,6 +13,8 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import com.airbnb.lottie.LottieAnimationView
 import com.example.weatherforecastapplication.alerts.view.FragmentAlertList
 import com.example.weatherforecastapplication.favourite.view.FragmentFavouriteList
@@ -29,6 +32,11 @@ class MainActivity : AppCompatActivity(),OnNavigationItemSelectedListener {
     lateinit var drawerLayout:DrawerLayout
     lateinit var navigationView:NavigationView
     lateinit var toolbar: Toolbar
+
+    private lateinit var dynamicFragmentHome: FragmentHome
+    private lateinit var dynamicFragmentSettings: FragmentSettings
+    private lateinit var fragmentManager: FragmentManager
+    private lateinit var fragmentTransaction: FragmentTransaction
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,6 +61,7 @@ class MainActivity : AppCompatActivity(),OnNavigationItemSelectedListener {
         toggle.syncState()
 
         navigationView.setNavigationItemSelectedListener(this)
+
 
         this.onBackPressedDispatcher.addCallback(onBackPressedCallback)
 

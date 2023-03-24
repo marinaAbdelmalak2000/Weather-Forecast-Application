@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/fragmentSettings">
+
+    <fragment
+        android:id="@+id/fragmentSettings"
+        android:name="com.example.weatherforecastapplication.settings.view.FragmentSettings"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" >
+        <action
+            android:id="@+id/action_fragmentSettings_to_fragmentHome"
+            app:destination="@id/fragmentHome" />
+        <action
+            android:id="@+id/action_fragmentSettings_to_fragmentFavouriteList"
+            app:destination="@id/fragmentFavouriteList" />
+        <action
+            android:id="@+id/action_fragmentSettings_to_fragmentAlertList"
+            app:destination="@id/fragmentAlertList" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentFavourite"
+        android:name="com.example.weatherforecastapplication.favourite.view.FragmentFavourite"
+        android:label="fragment_favourite"
+        tools:layout="@layout/fragment_favourite" >
+        <action
+            android:id="@+id/action_fragmentFavourite_to_fragmentFavouriteList"
+            app:destination="@id/fragmentFavouriteList" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentHome"
+        android:name="com.example.weatherforecastapplication.home.view.FragmentHome"
+        android:label="@string/home"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_fragmentHome_to_fragmentSettings"
+            app:destination="@id/fragmentSettings" />
+        <action
+            android:id="@+id/action_fragmentHome_to_fragmentFavouriteList"
+            app:destination="@id/fragmentFavouriteList" />
+        <action
+            android:id="@+id/action_fragmentHome_to_fragmentAlertList"
+            app:destination="@id/fragmentAlertList" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentAlertList"
+        android:name="com.example.weatherforecastapplication.alerts.view.FragmentAlertList"
+        android:label="@string/alert_list"
+        tools:layout="@layout/fragment_alert_list">
+        <action
+            android:id="@+id/action_fragmentAlertList_to_fragmentAlerts"
+            app:destination="@id/fragmentAlerts" />
+        <action
+            android:id="@+id/action_fragmentAlertList_to_fragmentHome"
+            app:destination="@id/fragmentHome" />
+        <action
+            android:id="@+id/action_fragmentAlertList_to_fragmentSettings"
+            app:destination="@id/fragmentSettings" />
+        <action
+            android:id="@+id/action_fragmentAlertList_to_fragmentFavouriteList"
+            app:destination="@id/fragmentFavouriteList" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentFavouriteList"
+        android:name="com.example.weatherforecastapplication.favourite.view.FragmentFavouriteList"
+        android:label="fragment_favourite_list"
+        tools:layout="@layout/fragment_favourite_list" >
+        <action
+            android:id="@+id/action_fragmentFavouriteList_to_fragmentFavourite"
+            app:destination="@id/fragmentFavourite" />
+        <action
+            android:id="@+id/action_fragmentFavouriteList_to_fragmentSettings"
+            app:destination="@id/fragmentSettings" />
+        <action
+            android:id="@+id/action_fragmentFavouriteList_to_fragmentHome"
+            app:destination="@id/fragmentHome" />
+        <action
+            android:id="@+id/action_fragmentFavouriteList_to_fragmentAlertList"
+            app:destination="@id/fragmentAlertList" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentAlerts"
+        android:name="com.example.weatherforecastapplication.alerts.view.FragmentAlerts"
+        android:label="fragment_alerts"
+        tools:layout="@layout/fragment_alerts" >
+        <action
+            android:id="@+id/action_fragmentAlerts_to_fragmentAlertList"
+            app:destination="@id/fragmentAlertList" />
+    </fragment>
+</navigation>

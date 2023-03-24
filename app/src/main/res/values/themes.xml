@@ -17,4 +17,9 @@
     <style name="StyleTextItemMenu">
         <item name="android:textSize">18sp</item>
     </style>
+
+    <style name="StyleTextItemSpanner">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 </resources>

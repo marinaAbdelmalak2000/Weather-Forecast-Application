@@ -128,7 +128,7 @@ class FragmentHome : Fragment() {
                     println("/////wind speed ${uiState.data.current.wind_speed.toString()}//n meter/sec")
                     binding.textViewWindSpeed.text="${uiState.data.current.wind_speed.toString()}meter/sec"
 
-                    println("/////alerts ${uiState.data.alerts.toString()} meter/sec")
+                    println("/////alerts///////::::::: ${uiState.data.alerts.toString()} meter/sec")
 
                     val currentDate=uiState.data.current.dt
                     // yyyy-MM-dd

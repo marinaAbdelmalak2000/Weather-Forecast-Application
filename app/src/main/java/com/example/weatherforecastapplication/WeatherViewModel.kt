@@ -18,9 +18,9 @@ class WeatherViewModel (private val _irepo: RepositoryInterface): ViewModel(){
     private val _uiState = MutableStateFlow<ApiState>(ApiState.Loading)
     val uiState = _uiState.asStateFlow()
 
-    val language=_irepo.getUserSettings().language
-    val units=_irepo.getUserSettings().units
-    val exclude=_irepo.getUserSettings().exclude
+    val language=_irepo.getPrameterSettingsLocal().language
+    val units=_irepo.getPrameterSettingsLocal().units
+    val exclude=_irepo.getPrameterSettingsLocal().exclude
 
     init {
 //        val language = sharedPref.getString("language", "ar")

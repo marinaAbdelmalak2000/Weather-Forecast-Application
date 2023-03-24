@@ -26,8 +26,8 @@ class Repository private constructor(var remoteSource: RemoteSource,var localSou
                 "weather ${remoteSource.getWeatherOverNetwork(latitude,longitude,exclude,units,language,)}")
     }
 
-    override fun getUserSettings(): Setting {
-      return  localSource.getUserSettings()
+    override fun getPrameterSettingsLocal(): Setting {
+      return  localSource.getPrameterSettings()
     }
 
 

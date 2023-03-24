@@ -8,4 +8,6 @@
     <string name="home_menu">Home</string>
     <string name="OPEN_navigation">OPEN Navigation</string>
     <string name="Close_navigation">Close Navigation</string>
+    <string name="temperature_setting">Temperature</string>
+    <string name="alert_list">Alert</string>
 </resources>

@@ -24,7 +24,7 @@ class ConcreteLocalSource(context: Context) :LocalSource{
 //        return dao.getAll()
 //    }
    private val sharedPreferences: SharedPreferences = context.getSharedPreferences("saveSettingPref", Context.MODE_PRIVATE)
-    override fun getUserSettings(): Setting {
+    override fun getPrameterSettings(): Setting {
         val language = sharedPreferences.getString("language", "") ?: ""
         val units = sharedPreferences.getString("units", "") ?: ""
         val exclude = sharedPreferences.getString("exclude", "") ?: ""

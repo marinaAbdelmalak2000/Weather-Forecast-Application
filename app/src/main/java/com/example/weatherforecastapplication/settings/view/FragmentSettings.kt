@@ -18,13 +18,17 @@ class FragmentSettings : Fragment() { //, AdapterView.OnItemSelectedListener
 
     lateinit var binding: FragmentSettingsBinding
 
-    lateinit var lastSelectTempreture: SharedPreferences
+    lateinit var lastSelectSetting: SharedPreferences
+
     lateinit var editorTemp: SharedPreferences.Editor
     var selectTempreture:ArrayList<String> = arrayListOf("Celsius","Fahrenheit","Kelvin")
 
-    lateinit var lastSelectWindSpeed: SharedPreferences
+
     lateinit var editorWindSpeed: SharedPreferences.Editor
     var selectWindSpeed:ArrayList<String> = arrayListOf("meter/sec","miles/hour")
+
+    lateinit var editorLanguage: SharedPreferences.Editor
+    var selectLanguage:ArrayList<String> = arrayListOf("Arabic","English")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,10 +49,12 @@ class FragmentSettings : Fragment() { //, AdapterView.OnItemSelectedListener
 
         ///*********//////////**********/////////////**
 
+        lastSelectSetting= requireContext().getSharedPreferences("LastSetting", Context.MODE_PRIVATE)
+
         /////// Tempreture ////////////
-        lastSelectTempreture= requireContext().getSharedPreferences("LastSettingTemp", Context.MODE_PRIVATE)
-        editorTemp=lastSelectTempreture.edit()
-        val lastClickTemp=lastSelectTempreture.getInt("LastClickTemp",0)
+
+        editorTemp=lastSelectSetting.edit()
+        val lastClickTemp=lastSelectSetting.getInt("LastClickTemp",0)
        // binding.spinnerTempretureSetting.onItemSelectedListener=this
         binding.spinnerTempretureSetting.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
@@ -77,9 +83,8 @@ class FragmentSettings : Fragment() { //, AdapterView.OnItemSelectedListener
 
 
         /////// Wind Speed ////////////
-        lastSelectWindSpeed= requireContext().getSharedPreferences("LastSettingSpeed", Context.MODE_PRIVATE)
-        editorWindSpeed=lastSelectWindSpeed.edit()
-        val lastClickSpeed=lastSelectWindSpeed.getInt("LastClickSpeed",0)
+        editorWindSpeed=lastSelectSetting.edit()
+        val lastClickSpeed=lastSelectSetting.getInt("LastClickSpeed",0)
       //  binding.spinnerWindSpeedeSetting.onItemSelectedListener=this
         binding.spinnerWindSpeedeSetting.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
@@ -104,6 +109,36 @@ class FragmentSettings : Fragment() { //, AdapterView.OnItemSelectedListener
         adapterWindSpeed?.setDropDownViewResource(android.R.layout.select_dialog_singlechoice)
         binding.spinnerWindSpeedeSetting.adapter=adapterWindSpeed
         binding.spinnerWindSpeedeSetting.setSelection(lastClickSpeed)
+
+
+        /////// Language ////////////
+        editorLanguage=lastSelectSetting.edit()
+        val lastClickLanguage=lastSelectSetting.getInt("LastClickLanguage",0)
+        //  binding.spinnerWindSpeedeSetting.onItemSelectedListener=this
+        binding.spinnerLaunguageSetting.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                // Get the selected item
+                (view as TextView).setTextColor(Color.WHITE)
+                (view as TextView).setTextSize(18f)
+                editorLanguage.putInt("LastClickLanguage",position).commit()
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                // Do nothing
+            }
+        }
+
+        val adapterLanguage = activity?.let {
+            ArrayAdapter<String>(
+                it,
+                android.R.layout.simple_spinner_item,
+                selectLanguage
+            )
+        }
+        adapterLanguage?.setDropDownViewResource(android.R.layout.select_dialog_singlechoice)
+        binding.spinnerLaunguageSetting.adapter=adapterLanguage
+        binding.spinnerLaunguageSetting.setSelection(lastClickLanguage)
+
 
 
         //////////////////***********///////////////*******/////

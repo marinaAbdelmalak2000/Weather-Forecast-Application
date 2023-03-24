@@ -151,7 +151,7 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginStart="36dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="28dp"
         android:paddingEnd="10dp"
         android:src="@drawable/wind_speed_settings"
         app:layout_constraintStart_toStartOf="@+id/guidelineRight"
@@ -170,5 +170,47 @@
         app:layout_constraintStart_toEndOf="@+id/textViewWindSpeedeSetting"
         app:layout_constraintTop_toTopOf="@+id/textViewWindSpeedeSetting"
         app:layout_constraintVertical_bias="0.0" />
+
+
+    <TextView
+        android:id="@+id/textViewLaunguageSetting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="@string/launguage"
+
+        android:textColor="@color/white"
+        android:textSize="18sp"
+
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewLaunguageSetting"
+        app:layout_constraintStart_toEndOf="@+id/imageViewLaunguageSetting"
+        app:layout_constraintTop_toTopOf="@+id/imageViewLaunguageSetting"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/imageViewLaunguageSetting"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="28dp"
+        android:paddingEnd="10dp"
+        android:src="@drawable/launguage_icon"
+        app:layout_constraintStart_toStartOf="@+id/viewSetting"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewWindSpeedeSetting" />
+
+    <Spinner
+        android:id="@+id/spinnerLaunguageSetting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contextClickable="false"
+        android:popupBackground="@color/cloud"
+
+        app:itemTextAppearance="@style/StyleTextItemSpanner"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewLaunguageSetting"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
+        app:layout_constraintHorizontal_bias="0.827"
+        app:layout_constraintStart_toEndOf="@+id/textViewLaunguageSetting"
+        app:layout_constraintTop_toTopOf="@+id/textViewLaunguageSetting" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

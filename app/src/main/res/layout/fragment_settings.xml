@@ -27,7 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="20dp" />
+        app:layout_constraintGuide_begin="100dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineCenter"
@@ -37,53 +37,138 @@
         android:foregroundGravity="center_horizontal"
         app:layout_constraintGuide_begin="329dp" />
 
+    <ImageView
+        android:id="@+id/imageViewListSetting"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/baseline_list_24"
+        app:layout_constraintStart_toStartOf="@+id/guidelineRight"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/textViewSetting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="84dp"
+        android:fontFamily="sans-serif-condensed"
+        android:text="@string/settings"
+        android:textColor="#0D5A58"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewListSetting"
+        app:layout_constraintEnd_toStartOf="@+id/imageView3"
+        app:layout_constraintHorizontal_bias="0.788"
+        app:layout_constraintStart_toEndOf="@+id/imageViewListSetting"
+        app:layout_constraintTop_toTopOf="@+id/imageViewListSetting"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="128dp"
+        android:src="@drawable/baseline_settings_24"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewSetting"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
+        app:layout_constraintTop_toTopOf="@+id/textViewSetting"
+        app:layout_constraintVertical_bias="1.0" />
+
+
+
     <View
         android:id="@+id/viewSetting"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="4dp"
+        android:background="#B21B32A8"
         app:layout_constraintBottom_toTopOf="@+id/guidelineCenter"
         app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guidelineRight"
         app:layout_constraintTop_toTopOf="@+id/guidelineTop"
-        android:background="#B21B32A8"/>
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/textViewTemperatureSetting"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="4dp"
         android:text="@string/temperature_setting"
-        app:layout_constraintStart_toStartOf="@+id/guidelineRight"
-        app:layout_constraintTop_toTopOf="@+id/guidelineTop"
         android:textColor="@color/white"
+        android:textSize="18sp"
         android:textStyle="bold"
-        android:textSize="18sp"/>
+        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+        app:layout_constraintStart_toEndOf="@+id/imageView2"
+        app:layout_constraintTop_toTopOf="@+id/imageView2"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="20dp"
+        android:paddingEnd="10dp"
         android:src="@drawable/temp_icon_setting"
-        app:layout_constraintBottom_toBottomOf="@+id/textViewTemperatureSetting"
-        app:layout_constraintStart_toEndOf="@+id/textViewTemperatureSetting"
-        app:layout_constraintTop_toTopOf="@+id/textViewTemperatureSetting" />
+        app:layout_constraintStart_toStartOf="@+id/viewSetting"
+        app:layout_constraintTop_toTopOf="@+id/guidelineTop" />
 
     <Spinner
-        android:id="@+id/spinnerSetting"
+        android:id="@+id/spinnerTempretureSetting"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/textViewTemperatureSetting"
-        app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
-        app:layout_constraintHorizontal_bias="0.741"
-        app:layout_constraintStart_toEndOf="@+id/imageView2"
-        app:layout_constraintTop_toTopOf="@+id/textViewTemperatureSetting"
         android:contextClickable="false"
         android:popupBackground="@color/cloud"
         app:itemTextAppearance="@style/StyleTextItemSpanner"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewTemperatureSetting"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
+        app:layout_constraintHorizontal_bias="0.87"
+        app:layout_constraintStart_toEndOf="@+id/imageView2"
+        app:layout_constraintTop_toTopOf="@+id/textViewTemperatureSetting"
+        android:layout_marginStart="32dp"
+        app:layout_constraintVertical_bias="0.0" />
 
-        />
 
+    <TextView
+        android:id="@+id/textViewWindSpeedeSetting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="@string/wind_speed"
+        android:textColor="@color/white"
+
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewWindSpeedeSetting"
+        app:layout_constraintStart_toEndOf="@+id/imageViewWindSpeedeSetting"
+        app:layout_constraintTop_toTopOf="@+id/imageViewWindSpeedeSetting"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/imageViewWindSpeedeSetting"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="20dp"
+        android:paddingEnd="10dp"
+        android:src="@drawable/wind_speed_settings"
+        app:layout_constraintStart_toStartOf="@+id/guidelineRight"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+    <Spinner
+        android:id="@+id/spinnerWindSpeedeSetting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contextClickable="false"
+        android:popupBackground="@color/cloud"
+        app:itemTextAppearance="@style/StyleTextItemSpanner"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewWindSpeedeSetting"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
+        app:layout_constraintHorizontal_bias="0.822"
+        app:layout_constraintStart_toEndOf="@+id/textViewWindSpeedeSetting"
+        app:layout_constraintTop_toTopOf="@+id/textViewWindSpeedeSetting"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

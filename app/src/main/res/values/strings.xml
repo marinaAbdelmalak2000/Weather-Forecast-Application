@@ -10,4 +10,6 @@
     <string name="Close_navigation">Close Navigation</string>
     <string name="temperature_setting">Temperature</string>
     <string name="alert_list">Alert</string>
+    <string name="settings">Settings</string>
+    <string name="wind_speed">Wind Speed</string>
 </resources>

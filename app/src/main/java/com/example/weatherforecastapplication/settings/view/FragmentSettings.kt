@@ -1,9 +1,11 @@
 package com.example.weatherforecastapplication.settings.view
 
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,14 +14,17 @@ import androidx.fragment.app.Fragment
 import com.example.weatherforecastapplication.databinding.FragmentSettingsBinding
 
 
-class FragmentSettings : Fragment(), AdapterView.OnItemSelectedListener {
+class FragmentSettings : Fragment() { //, AdapterView.OnItemSelectedListener
 
     lateinit var binding: FragmentSettingsBinding
 
     lateinit var lastSelectTempreture: SharedPreferences
     lateinit var editorTemp: SharedPreferences.Editor
+    var selectTempreture:ArrayList<String> = arrayListOf("Celsius","Fahrenheit","Kelvin")
 
-    var selectTempreture:ArrayList<String> = arrayListOf("C","F","K")
+    lateinit var lastSelectWindSpeed: SharedPreferences
+    lateinit var editorWindSpeed: SharedPreferences.Editor
+    var selectWindSpeed:ArrayList<String> = arrayListOf("meter/sec","miles/hour")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,13 +45,23 @@ class FragmentSettings : Fragment(), AdapterView.OnItemSelectedListener {
 
         ///*********//////////**********/////////////**
 
-        lastSelectTempreture= requireContext().getSharedPreferences("LastSetting", Context.MODE_PRIVATE)
+        /////// Tempreture ////////////
+        lastSelectTempreture= requireContext().getSharedPreferences("LastSettingTemp", Context.MODE_PRIVATE)
         editorTemp=lastSelectTempreture.edit()
         val lastClickTemp=lastSelectTempreture.getInt("LastClickTemp",0)
+       // binding.spinnerTempretureSetting.onItemSelectedListener=this
+        binding.spinnerTempretureSetting.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                // Get the selected item
+                (view as TextView).setTextColor(Color.WHITE)
+                (view as TextView).setTextSize(18f)
+                editorTemp.putInt("LastClickTemp",position).commit()
+            }
 
-
-        binding.spinnerSetting.onItemSelectedListener=this
-
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                // Do nothing
+            }
+        }
 
         val adapterTempreture = activity?.let {
             ArrayAdapter<String>(
@@ -56,12 +71,42 @@ class FragmentSettings : Fragment(), AdapterView.OnItemSelectedListener {
             )
         }
         adapterTempreture?.setDropDownViewResource(android.R.layout.select_dialog_singlechoice)
-        binding.spinnerSetting.adapter=adapterTempreture
+        binding.spinnerTempretureSetting.adapter=adapterTempreture
 
-        binding.spinnerSetting.setSelection(lastClickTemp)
+        binding.spinnerTempretureSetting.setSelection(lastClickTemp)
 
 
-   //////////////////***********///////////////*******/////
+        /////// Wind Speed ////////////
+        lastSelectWindSpeed= requireContext().getSharedPreferences("LastSettingSpeed", Context.MODE_PRIVATE)
+        editorWindSpeed=lastSelectWindSpeed.edit()
+        val lastClickSpeed=lastSelectWindSpeed.getInt("LastClickSpeed",0)
+      //  binding.spinnerWindSpeedeSetting.onItemSelectedListener=this
+        binding.spinnerWindSpeedeSetting.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                // Get the selected item
+                (view as TextView).setTextColor(Color.WHITE)
+                (view as TextView).setTextSize(18f)
+                editorWindSpeed.putInt("LastClickSpeed",position).commit()
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                // Do nothing
+            }
+        }
+
+        val adapterWindSpeed = activity?.let {
+            ArrayAdapter<String>(
+                it,
+                android.R.layout.simple_spinner_item,
+                selectWindSpeed
+            )
+        }
+        adapterWindSpeed?.setDropDownViewResource(android.R.layout.select_dialog_singlechoice)
+        binding.spinnerWindSpeedeSetting.adapter=adapterWindSpeed
+        binding.spinnerWindSpeedeSetting.setSelection(lastClickSpeed)
+
+
+        //////////////////***********///////////////*******/////
 
 
         //store data
@@ -86,17 +131,6 @@ class FragmentSettings : Fragment(), AdapterView.OnItemSelectedListener {
 
     }
 
-
-    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        (view as TextView).setTextColor(Color.WHITE)
-        (view as TextView).setTextSize(18f)
-        editorTemp.putInt("LastClickTemp",position).commit()
-        Toast.makeText(requireContext(),"Select $position",Toast.LENGTH_SHORT).show()
-    }
-
-    override fun onNothingSelected(parent: AdapterView<*>?) {
-        TODO("Not yet implemented")
-    }
 }
 
 

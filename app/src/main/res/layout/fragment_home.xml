@@ -183,7 +183,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="3dp"
-
+        android:paddingEnd="4dp"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="@+id/imageViewIconHumidity"
         app:layout_constraintHorizontal_bias="0.0"
@@ -217,7 +217,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="3dp"
         android:textSize="14sp"
-        android:ems="5"
+        android:ems="4"
+        android:paddingEnd="5dp"
         app:layout_constraintEnd_toEndOf="@+id/imageViewIconWindSpeed"
         app:layout_constraintHorizontal_bias="0.275"
         app:layout_constraintStart_toStartOf="@+id/imageViewIconWindSpeed"
@@ -238,7 +239,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="3dp"
-
+        android:paddingEnd="4dp"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="@+id/imageViewIconPressure"
         app:layout_constraintHorizontal_bias="0.555"
@@ -260,7 +261,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="3dp"
-
+        android:paddingEnd="4dp"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="@+id/imageViewIconCloud"
         app:layout_constraintHorizontal_bias="0.555"
@@ -284,7 +285,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="3dp"
-
+        android:paddingEnd="4dp"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="@+id/imageViewIconUVI"
         app:layout_constraintHorizontal_bias="0.555"

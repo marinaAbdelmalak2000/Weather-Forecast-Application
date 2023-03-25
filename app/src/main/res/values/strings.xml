@@ -13,4 +13,6 @@
     <string name="settings">Settings</string>
     <string name="wind_speed">Wind Speed</string>
     <string name="launguage">Launguage</string>
+    <string name="notification_setting">Notification</string>
+    <string name="location">Location</string>
 </resources>

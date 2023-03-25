@@ -13,7 +13,7 @@ import com.squareup.picasso.Picasso
 import java.text.SimpleDateFormat
 import java.util.*
 
-class AdapterHourlyHome (private var hours: List<Hourly>) :
+class AdapterHourlyHome (private var hours: List<Hourly>,var temp:String="C") :
     RecyclerView.Adapter<AdapterHourlyHome.ViewHolder>() {
 
     lateinit var binding:RowHourlyHomeBinding
@@ -34,7 +34,7 @@ class AdapterHourlyHome (private var hours: List<Hourly>) :
 //        var dateDay= SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(currenthourlyDay)
         var timeDay= SimpleDateFormat("hh:mm a", Locale.ENGLISH).format(Date(hourlyTime * 1000))
         var time24Hour= SimpleDateFormat("HH:mm", Locale.ENGLISH).format(Date(hourlyTime * 1000))
-        holder.binding.txtViewTempPerHour.text=current.temp.toString()+"C"
+       // holder.binding.txtViewTempPerHour.text=current.temp.toString()+"C"
         holder.binding.txtView24hourDay.text="${timeDay}"
         var iconName=current.weather.get(0).icon
             when(iconName){
@@ -52,12 +52,28 @@ class AdapterHourlyHome (private var hours: List<Hourly>) :
                 }
             }
 
+        if(temp.equals("F")){
+            //°F = (°C × 9/5) + 32
+            var convertDataTempF =(current.temp *(9/5)) + 32
+            val formattedDouble = String.format("%.2f", convertDataTempF)
+            holder.binding.txtViewTempPerHour.text=formattedDouble.toString()+"F"
+        }else if(temp.equals("K")){
+            //Kelvin = Celsius + 273.15
+            var convertDataTempK =current.temp + 273.15
+            val formattedDouble = String.format("%.2f", convertDataTempK)
+            holder.binding.txtViewTempPerHour.text="${formattedDouble.toString()}"+"K"
+        }else{
+            val formattedDouble = String.format("%.2f", current.temp)
+            holder.binding.txtViewTempPerHour.text="${formattedDouble.toString()}°C"
+        }
+
     }
 
     override fun getItemCount(): Int =hours.size
 
-    fun setData(value: List<Hourly>){
+    fun setData(value: List<Hourly>,temp: String){
         this.hours=value as List<Hourly>
+        this.temp=temp
         notifyDataSetChanged()
     }
     class ViewHolder(var binding: RowHourlyHomeBinding): RecyclerView.ViewHolder(binding.root)

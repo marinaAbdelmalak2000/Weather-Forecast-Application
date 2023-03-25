@@ -23,12 +23,12 @@ class ConcreteLocalSource(context: Context) :LocalSource{
 //    override suspend fun getStoredProduct(): List<Product> {
 //        return dao.getAll()
 //    }
-   private val sharedPreferences: SharedPreferences = context.getSharedPreferences("saveSettingPref", Context.MODE_PRIVATE)
+   private val sharedPreferences: SharedPreferences = context.getSharedPreferences("LastSetting", Context.MODE_PRIVATE)
     override fun getPrameterSettings(): Setting {
-        val language = sharedPreferences.getString("language", "") ?: ""
-        val units = sharedPreferences.getString("units", "") ?: ""
-        val exclude = sharedPreferences.getString("exclude", "") ?: ""
-        return Setting(language,units,exclude)
+        val languageIndex = sharedPreferences.getInt("LastClickLanguage",0)
+        val speedIndex = sharedPreferences.getInt("LastClickSpeed", 0)
+        val tempretureIndex = sharedPreferences.getInt("LastClickTemp", 0)
+        return Setting(languageIndex,speedIndex,tempretureIndex)
     }
 
 }

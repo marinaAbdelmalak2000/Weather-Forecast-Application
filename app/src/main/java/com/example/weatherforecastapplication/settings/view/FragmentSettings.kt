@@ -3,6 +3,7 @@ package com.example.weatherforecastapplication.settings.view
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.SharedPreferences
+import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -29,6 +30,11 @@ class FragmentSettings : Fragment() { //, AdapterView.OnItemSelectedListener
 
     lateinit var editorLanguage: SharedPreferences.Editor
     var selectLanguage:ArrayList<String> = arrayListOf("Arabic","English")
+
+    lateinit var editorLocation: SharedPreferences.Editor
+    var selectLocation:ArrayList<String> = arrayListOf("GPS","Map")
+
+    lateinit var editorNotification: SharedPreferences.Editor
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,9 +65,11 @@ class FragmentSettings : Fragment() { //, AdapterView.OnItemSelectedListener
         binding.spinnerTempretureSetting.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 // Get the selected item
-                (view as TextView).setTextColor(Color.WHITE)
-                (view as TextView).setTextSize(18f)
-                editorTemp.putInt("LastClickTemp",position).commit()
+
+//                    (view as TextView).setTextColor(Color.WHITE)
+//                    (view as TextView).setTextSize(18f)
+                    editorTemp.putInt("LastClickTemp",position).commit()
+
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -89,8 +97,8 @@ class FragmentSettings : Fragment() { //, AdapterView.OnItemSelectedListener
         binding.spinnerWindSpeedeSetting.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 // Get the selected item
-                (view as TextView).setTextColor(Color.WHITE)
-                (view as TextView).setTextSize(18f)
+//                (view as TextView).setTextColor(Color.WHITE)
+//                (view as TextView).setTextSize(18f)
                 editorWindSpeed.putInt("LastClickSpeed",position).commit()
             }
 
@@ -118,8 +126,8 @@ class FragmentSettings : Fragment() { //, AdapterView.OnItemSelectedListener
         binding.spinnerLaunguageSetting.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 // Get the selected item
-                (view as TextView).setTextColor(Color.WHITE)
-                (view as TextView).setTextSize(18f)
+//                (view as TextView).setTextColor(Color.WHITE)
+//                (view as TextView).setTextSize(18f)
                 editorLanguage.putInt("LastClickLanguage",position).commit()
             }
 
@@ -138,6 +146,48 @@ class FragmentSettings : Fragment() { //, AdapterView.OnItemSelectedListener
         adapterLanguage?.setDropDownViewResource(android.R.layout.select_dialog_singlechoice)
         binding.spinnerLaunguageSetting.adapter=adapterLanguage
         binding.spinnerLaunguageSetting.setSelection(lastClickLanguage)
+
+
+        /////// Location ////////////
+
+        editorLocation=lastSelectSetting.edit()
+        val lastClickLocation=lastSelectSetting.getInt("LastClickLocation",0)
+        binding.spinnerLocationSetting.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                // Get the selected item
+//                (view as TextView).setTextColor(Color.WHITE)
+//                (view as TextView).setTextSize(18f)
+                editorLocation.putInt("LastClickLocation",position).commit()
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                // Do nothing
+            }
+        }
+
+        val adapterLocation = activity?.let {
+            ArrayAdapter<String>(
+                it,
+                android.R.layout.simple_spinner_item,
+                selectLocation
+            )
+        }
+        adapterLocation?.setDropDownViewResource(android.R.layout.select_dialog_singlechoice)
+        binding.spinnerLocationSetting.adapter=adapterLocation
+
+        binding.spinnerLocationSetting.setSelection(lastClickLocation)
+
+        /////// Notification ////////////
+        editorNotification=lastSelectSetting.edit()
+        val lastClickNotification = lastSelectSetting.getBoolean("LastClickNotification", false)
+
+        binding.switchNotification.setOnClickListener {
+            editorNotification.putBoolean("LastClickNotification", binding.switchNotification.isChecked)
+            editorNotification.commit()
+        }
+
+        binding.switchNotification.isChecked=lastClickNotification
+
 
 
 

@@ -59,25 +59,16 @@ class FragmentHome : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //curent toDay
-
-
         //24 per day
+       // var temp=viewModel.checkTemp
         recyclerAdapterHourHome= AdapterHourlyHome(hourList)
         //initialization
         binding.recyclerViewHourHome.adapter=recyclerAdapterHourHome
-//        recyclerAdapterHourHome.setData(getHourly())
-//        recyclerAdapterHourHome.notifyDataSetChanged()
-
 
         //days
         recyclerAdapterDaysHome= AdapterDaysHome(daysList)
         //initialization
         binding.recyclerViewDaysHome.adapter=recyclerAdapterDaysHome
-//        recyclerAdapterDaysHome.setData(daysList)
-//        recyclerAdapterDaysHome.notifyDataSetChanged()
-
-
 
         allFactory= WeatherViewModelFactory(
 
@@ -86,9 +77,6 @@ class FragmentHome : Fragment() {
             ))
 
         viewModel= ViewModelProvider(this,allFactory).get(WeatherViewModel::class.java)
-
-        /////////*****////
-
 
 
         lifecycleScope.launch {
@@ -99,58 +87,94 @@ class FragmentHome : Fragment() {
                     binding.recyclerViewHourHome.visibility = View.VISIBLE
                     binding.recyclerViewDaysHome.visibility = View.VISIBLE
 
-
                     println("//////**** Current ****//////")
 
                     var weatherList=uiState.data.current.weather
                     for(i in 0..weatherList.size-1){
                         var weatherDescription=weatherList.get(i).description
                         var weatherIcon=weatherList.get(i).icon
-                        var weatherMain=weatherList.get(i).main
-                        println("weatherDescription: $weatherDescription \nweatherIcon: $weatherIcon \nweatherMain: $weatherMain ")
+                      //  var weatherMain=weatherList.get(i).main
+                      //  println("weatherDescription: $weatherDescription \nweatherIcon: $weatherIcon \nweatherMain: $weatherMain ")
                         binding.textViewDescriptionTodayHome.text="$weatherDescription"
                         changeIconWeather(weatherIcon)
 
                     }
                     // println("/////weather ${uiState.data.current.weather.toString()} Size: ${weatherList.size}")
-                    println("/////clouds ${uiState.data.current.clouds.toString()} %")
+                  //  println("/////clouds ${uiState.data.current.clouds.toString()} %")
                     binding.textViewCloud.text="${uiState.data.current.clouds.toString()} %"
 
-                    println("/////current temp ${uiState.data.current.temp.toString()} C")
-                    binding.textViewTempTodayHome.text="${uiState.data.current.temp.toString()} C"
+                    ////////////////////check temp convert celsius to fahrenheit and Kelvin /////////////////////////////
 
-                    println("/////humidity ${uiState.data.current.humidity} %")
+                    if(viewModel.checkTemp.equals("F")){
+                        //°F = (°C × 9/5) + 32
+                        var convertDataTempF =(uiState.data.current.temp *(9/5)) + 32
+                        val formattedDouble = String.format("%.2f", convertDataTempF)
+//                        println("/////current temp ${uiState.data.current.temp.toString()} °C")
+//                        println("/////current temp ${convertDataTempF.toString()} F")
+                        binding.textViewTempTodayHome.text="${formattedDouble.toString()} " + "F"
+                    }else if(viewModel.checkTemp.equals("K")){
+                        //Kelvin = Celsius + 273.15
+                        var convertDataTempK =uiState.data.current.temp + 273.15
+                        val formattedDouble = String.format("%.2f", convertDataTempK)
+//                        println("/////current temp ${uiState.data.current.temp.toString()} °C")
+//                        println("/////current temp ${convertDataTempK.toString()} K")
+                        binding.textViewTempTodayHome.text="${formattedDouble.toString()} " + "K"
+                    }else{
+                     //   println("/////current temp ${uiState.data.current.temp.toString()} °C")
+                        val formattedDouble = String.format("%.2f", uiState.data.current.temp)
+                        binding.textViewTempTodayHome.text="${formattedDouble.toString()}°C"
+                    }
+
+
+                    //////////////////////////////////////////////////////////////////////////////////////
+
                     binding.textViewHumidity.text=uiState.data.current.humidity.toString()+"%"
 
-                    println("/////pressure ${uiState.data.current.pressure} hpa")
                     binding.textViewPressure.text="${uiState.data.current.pressure} hpa"
 
-                    println("/////wind speed ${uiState.data.current.wind_speed.toString()}//n meter/sec")
-                    binding.textViewWindSpeed.text="${uiState.data.current.wind_speed.toString()}meter/sec"
 
-                    println("/////alerts///////::::::: ${uiState.data.alerts.toString()} meter/sec")
+        ////////////////////check speed miles/hour or meter/sec   /////////////////////////////
+
+                    if(viewModel.checkSpeed.equals("miles/hour")) {
+                        //convert meter/sec to miles/hour ==>  1 m/s = 2.23694 mph
+                        var convertDataSpeed = uiState.data.current.wind_speed * 2.23694
+                        val formattedDouble = String.format("%.2f", convertDataSpeed)
+                     //   println("/////wind speed with convert miles/hour ${convertDataSpeed.toString()}//n miles/hour")
+                        binding.textViewWindSpeed.text="${formattedDouble.toString()}miles/hour"
+                    }
+                    if(viewModel.checkSpeed.equals("meter/sec")) {
+                     //   println("/////wind speed ${uiState.data.current.wind_speed.toString()}//n meter/sec")
+                        val formattedDouble = String.format("%.2f", uiState.data.current.wind_speed)
+                        binding.textViewWindSpeed.text="${formattedDouble.toString()}meter/sec"
+                    }
+
+
+      ///////////////////////////////////////////////////////////////////////////////////////
+
+
+                  //  println("/////alerts///////::::::: ${uiState.data.alerts.toString()} ")
 
                     val currentDate=uiState.data.current.dt
                     // yyyy-MM-dd
                     val dateTime = Date(currentDate*1000)
                     val formattedDate = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(dateTime)
-                    print("////Current Date:  ${formattedDate}  ")
+                  //  print("////Current Date:  ${formattedDate}  ")
                     val formateTime=SimpleDateFormat("hh:mm a", Locale.ENGLISH).format(Date(currentDate*1000))
-                    println("/////Current Time-12-hour clock:  ${ SimpleDateFormat("hh:mm a", Locale.ENGLISH).format(
-                        Date(currentDate*1000)
-                    )}")
+//                    println("/////Current Time-12-hour clock:  ${ SimpleDateFormat("hh:mm a", Locale.ENGLISH).format(
+//                        Date(currentDate*1000)
+//                    )}")
 
                     binding.textViewCurrentDateTimeHome.text="${formattedDate}   $formateTime "
 
                     val sunrise=uiState.data.current.sunrise
                     val sunriseDate = Date(sunrise*1000)
-                    print("/////sunrise Day/////////// ${SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(sunriseDate)} ")
-                    println("/////sunrise Time-12-hour clock:  ${ SimpleDateFormat("hh:mm a", Locale.ENGLISH).format(
-                        Date(sunrise*1000)
-                    )}")
+//                    print("/////sunrise Day/////////// ${SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(sunriseDate)} ")
+//                    println("/////sunrise Time-12-hour clock:  ${ SimpleDateFormat("hh:mm a", Locale.ENGLISH).format(
+//                        Date(sunrise*1000)
+//                    )}")
                     val sunset= Date(uiState.data.current.sunset * 1000)
-                    print("/////sunset Day//////////////// ${SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(sunset)} ")
-                    println("/////sunset Time:  ${ SimpleDateFormat("hh:mm a", Locale.ENGLISH).format(sunset)}")
+//                    print("/////sunset Day//////////////// ${SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(sunset)} ")
+//                    println("/////sunset Time:  ${ SimpleDateFormat("hh:mm a", Locale.ENGLISH).format(sunset)}")
 
 
                     binding.textViewUVI.text="${uiState.data.current.uvi.toString()}"
@@ -159,41 +183,19 @@ class FragmentHome : Fragment() {
                     println("//////**** Dayliy ****//////")
 
                     var dailyList=uiState.data.daily
-//                    for(i in 0..dailyList.size-1){
-//                        var daily=dailyList.get(i)
-//                        var dailyDay=dailyList.get(i).dt
-//                        var currentDailyDay= Date(dailyDay * 1000)
-//                        var dateDay= SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(currentDailyDay)
-//                        var timeDay= SimpleDateFormat("hh:mm a", Locale.ENGLISH).format(Date(dailyDay * 1000))
-//                        val df: DateFormat = SimpleDateFormat("EEEE") //yyyy-MM-E //uuuu-MM-EEE //EEEEEEE
-//                        println("day $i Date: $dateDay , Time: $timeDay , day name: ${df.format(currentDailyDay)}")
-//                        println("Temp Min: ${daily.temp.min} , Temp Max: ${daily.temp.max} , Weather: ${daily.weather.toString()}")
-//                    }
-                    recyclerAdapterDaysHome.setData(dailyList)
+                    var temp=viewModel.checkTemp
+                    recyclerAdapterDaysHome.setData(dailyList,temp)
                     recyclerAdapterDaysHome.notifyDataSetChanged()
 
 
                     println("//////**** hourly ****//////")
 
                     var hourlyList=uiState.data.hourly
-//                    for(i in 0..24){
-//                        var hourly=hourlyList.get(i)
-//                        var hourlyTime=hourlyList.get(i).dt
-//                        var currenthourlyDay= Date(hourlyTime * 1000)
-//                        var dateDay= SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(currenthourlyDay)
-//                        var timeDay= SimpleDateFormat("hh:mm a", Locale.ENGLISH).format(Date(hourlyTime * 1000))
-//                        var time24Hour= SimpleDateFormat("HH:mm", Locale.ENGLISH).format(Date(hourlyTime * 1000))
-//                        println("[$i] Day H: $dateDay, Time H-12-hour clock : $timeDay Time H-24-hour clock: $time24Hour ,Temp H: ${hourly.temp}")
-//
-//                    }
-                    recyclerAdapterHourHome.setData(hourlyList)
+                  //  var temp=viewModel.checkTemp
+                    println("temp hourly send $temp")
+                    recyclerAdapterHourHome.setData(hourlyList,temp)
                     recyclerAdapterHourHome.notifyDataSetChanged()
 
-
-
-
-//                    recyclerAdapter.setData(uiState.data)
-//                    recyclerAdapter.notifyDataSetChanged()
 
                 }
                 is ApiState.Loading->{
@@ -215,18 +217,7 @@ class FragmentHome : Fragment() {
 
         }
 
-        //        //observation
-//        viewModel.weather.observe(this){
-//                weather->
-//            Log.i(ContentValues.TAG, "onCreate: ${weather}")
-//            if(weather!=null){
-////                Log.i(TAG, "weatherrrrrrrrrrrr: ${weather}")
-//                println("weatherrrrrrrrrrrr: ${weather.weather}")
-//               // recyclerAdapter.setData(weather)
-//               // recyclerAdapter.notifyDataSetChanged()
-//               // binding.recyclerView.adapter=recyclerAdapter
-//            }
-//        }
+
     }
 
     fun changeIconWeather(iconapi:String) {

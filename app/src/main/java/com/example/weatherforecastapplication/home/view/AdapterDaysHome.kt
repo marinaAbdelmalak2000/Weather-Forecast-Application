@@ -13,7 +13,7 @@ import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
-class AdapterDaysHome (private var days: List<Daily>) :
+class AdapterDaysHome (private var days: List<Daily>,var temp:String="C") :
     RecyclerView.Adapter<AdapterDaysHome.ViewHolder>() {
 
     lateinit var binding: RowDaysHomeBinding
@@ -29,18 +29,27 @@ class AdapterDaysHome (private var days: List<Daily>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val current=days[position]
-//        Picasso.get().load(current.thumbnail).into(holder.binding.imageView)
-//        holder.binding.textViewTitle.text=current.title
-//        holder.binding.textViewDescription.text=current.description
-//        holder.binding.ratingBar.rating=current.rating as Float
-//        holder.binding.textViewBrand.text=current.brand
-//        holder.binding.textViewPrice.setText(String.valueOf(products.get(position).price))
-//        holder.binding.buttonFav.setOnClickListener{ onProductClickLesener.onClick(products.get(position))
-//
-//        }
 
+        if(temp.equals("F")){
+            //°F = (°C × 9/5) + 32
+            var tempMin =(current.temp.min *(9/5)) + 32
+            var tempMax =(current.temp.min *(9/5)) + 32
+            val formattedDoubleMin = String.format("%.2f", tempMin)
+            val formattedDoubleMax = String.format("%.2f", tempMax)
+            holder.binding.textViewTempDayHome.text="${formattedDoubleMin}/${formattedDoubleMax} F"
+        }else if(temp.equals("K")){
+            //Kelvin = Celsius + 273.15
+            var tempMin =current.temp.min + 273.15
+            var tempMax=current.temp.max + 273.15
+            val formattedDoubleMin = String.format("%.2f", tempMin)
+            val formattedDoubleMax = String.format("%.2f", tempMax)
+            holder.binding.textViewTempDayHome.text="${formattedDoubleMin}/${formattedDoubleMax} K"
+        }else{
+            val formattedDoubleMin = String.format("%.2f", current.temp.min)
+            val formattedDoubleMax = String.format("%.2f", current.temp.max)
+            holder.binding.textViewTempDayHome.text="${formattedDoubleMin}/${formattedDoubleMax}°C"
+        }
 
-        holder.binding.textViewTempDayHome.text="${current.temp.min}/${current.temp.max}"
         var dailyDay=current.dt
         var currentDailyDay= Date(dailyDay * 1000)
         val df: DateFormat = SimpleDateFormat("EEEE") //yyyy-MM-E //uuuu-MM-EEE //EEEEEEE
@@ -68,8 +77,9 @@ class AdapterDaysHome (private var days: List<Daily>) :
 
     override fun getItemCount(): Int =days.size
 
-    fun setData(value: List<Daily>){
+    fun setData(value: List<Daily>,temp: String){
         this.days=value as List<Daily>
+        this.temp=temp
         notifyDataSetChanged()
     }
     class ViewHolder(var binding: RowDaysHomeBinding): RecyclerView.ViewHolder(binding.root)

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".settings.view.FragmentSettings"
-    android:background="@color/cloud">
+    android:background="@drawable/background_layout">
 
 
     <androidx.constraintlayout.widget.Guideline
@@ -27,22 +27,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="100dp" />
+        app:layout_constraintGuide_begin="128dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineCenter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:foregroundGravity="center_horizontal"
-        app:layout_constraintGuide_begin="329dp" />
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="595dp" />
 
     <ImageView
         android:id="@+id/imageViewListSetting"
         android:layout_width="28dp"
         android:layout_height="28dp"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
+
         android:src="@drawable/baseline_list_24"
         app:layout_constraintStart_toStartOf="@+id/guidelineRight"
         app:layout_constraintTop_toTopOf="parent" />
@@ -55,19 +56,21 @@
         android:layout_marginStart="84dp"
         android:fontFamily="sans-serif-condensed"
         android:text="@string/settings"
-        android:textColor="#0D5A58"
-        android:textSize="20sp"
+        android:textColor="#ED4352A6"
+        android:textSize="23sp"
+        android:textStyle="bold"
+        android:paddingTop="20dp"
         app:layout_constraintBottom_toBottomOf="@+id/imageViewListSetting"
         app:layout_constraintEnd_toStartOf="@+id/imageView3"
-        app:layout_constraintHorizontal_bias="0.788"
+        app:layout_constraintHorizontal_bias="0.854"
         app:layout_constraintStart_toEndOf="@+id/imageViewListSetting"
         app:layout_constraintTop_toTopOf="@+id/imageViewListSetting"
         app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="34dp"
+        android:layout_height="30dp"
         android:layout_marginEnd="128dp"
         android:src="@drawable/baseline_settings_24"
         app:layout_constraintBottom_toBottomOf="@+id/textViewSetting"
@@ -82,7 +85,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="4dp"
-        android:background="#B21B32A8"
+        android:background="@drawable/view_setting_layout"
         app:layout_constraintBottom_toTopOf="@+id/guidelineCenter"
         app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
         app:layout_constraintHorizontal_bias="0.0"
@@ -97,7 +100,7 @@
         android:layout_marginStart="4dp"
         android:text="@string/temperature_setting"
         android:textColor="@color/white"
-        android:textSize="18sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/imageView2"
         app:layout_constraintStart_toEndOf="@+id/imageView2"
@@ -106,10 +109,10 @@
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="50dp"
         android:paddingEnd="10dp"
         android:src="@drawable/temp_icon_setting"
         app:layout_constraintStart_toStartOf="@+id/viewSetting"
@@ -138,8 +141,7 @@
         android:layout_marginStart="4dp"
         android:text="@string/wind_speed"
         android:textColor="@color/white"
-
-        android:textSize="18sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/imageViewWindSpeedeSetting"
         app:layout_constraintStart_toEndOf="@+id/imageViewWindSpeedeSetting"
@@ -148,10 +150,10 @@
 
     <ImageView
         android:id="@+id/imageViewWindSpeedeSetting"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="28dp"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="50dp"
         android:paddingEnd="10dp"
         android:src="@drawable/wind_speed_settings"
         app:layout_constraintStart_toStartOf="@+id/guidelineRight"
@@ -178,10 +180,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:text="@string/launguage"
-
         android:textColor="@color/white"
-        android:textSize="18sp"
-
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/imageViewLaunguageSetting"
         app:layout_constraintStart_toEndOf="@+id/imageViewLaunguageSetting"
@@ -190,10 +190,10 @@
 
     <ImageView
         android:id="@+id/imageViewLaunguageSetting"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="50dp"
         android:paddingEnd="10dp"
         android:src="@drawable/launguage_icon"
         app:layout_constraintStart_toStartOf="@+id/viewSetting"
@@ -212,5 +212,79 @@
         app:layout_constraintHorizontal_bias="0.827"
         app:layout_constraintStart_toEndOf="@+id/textViewLaunguageSetting"
         app:layout_constraintTop_toTopOf="@+id/textViewLaunguageSetting" />
+
+    <TextView
+        android:id="@+id/textViewNotificationSetting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/notification_setting"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewNotificationSetting"
+        app:layout_constraintStart_toEndOf="@+id/imageViewNotificationSetting"
+        app:layout_constraintTop_toTopOf="@+id/imageViewNotificationSetting" />
+
+    <ImageView
+        android:id="@+id/imageViewNotificationSetting"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="50dp"
+        android:paddingEnd="10dp"
+        android:src="@drawable/notification_icon"
+        app:layout_constraintStart_toStartOf="@+id/guidelineRight"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewLaunguageSetting" />
+
+    <Switch
+        android:id="@+id/switchNotification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewNotificationSetting"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
+        app:layout_constraintHorizontal_bias="0.817"
+        app:layout_constraintStart_toEndOf="@+id/textViewNotificationSetting"
+        app:layout_constraintTop_toTopOf="@+id/textViewNotificationSetting"
+        app:layout_constraintVertical_bias="0.0" />
+
+
+    <TextView
+        android:id="@+id/textViewLocationSetting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/location"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewLocationSetting"
+        app:layout_constraintStart_toEndOf="@+id/imageViewLocationSetting"
+        app:layout_constraintTop_toTopOf="@+id/imageViewLocationSetting" />
+
+    <ImageView
+        android:id="@+id/imageViewLocationSetting"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="50dp"
+        android:paddingEnd="10dp"
+        android:src="@drawable/location_icon"
+        app:layout_constraintStart_toStartOf="@+id/guidelineRight"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewNotificationSetting" />
+
+    <Spinner
+        android:id="@+id/spinnerLocationSetting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contextClickable="false"
+        android:popupBackground="@color/cloud"
+        app:itemTextAppearance="@style/StyleTextItemSpanner"
+
+        app:layout_constraintBottom_toBottomOf="@+id/textViewLocationSetting"
+        app:layout_constraintEnd_toEndOf="@+id/viewSetting"
+        app:layout_constraintHorizontal_bias="0.85"
+        app:layout_constraintStart_toEndOf="@+id/textViewLocationSetting"
+        app:layout_constraintTop_toTopOf="@+id/textViewLocationSetting"
+        app:layout_constraintVertical_bias="0.0" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -18,16 +18,25 @@ class WeatherViewModel (private val _irepo: RepositoryInterface): ViewModel(){
     private val _uiState = MutableStateFlow<ApiState>(ApiState.Loading)
     val uiState = _uiState.asStateFlow()
 
-    val language=_irepo.getPrameterSettingsLocal().language
-    val units=_irepo.getPrameterSettingsLocal().units
-    val exclude=_irepo.getPrameterSettingsLocal().exclude
+
+//    lateinit var units :String
+//    lateinit var exclude:String
+
+    val language=_irepo.getPrameterSettingsLocal().getLanguage()
+    val unit=_irepo.getPrameterSettingsLocal().getUnit()
+//    var checkSpeed =_irepo.getPrameterSettingsLocal().CheckconvertSpeed()
+//    var checkTemp=_irepo.getPrameterSettingsLocal().CheckconvertTemp()
+    var checkTemp =_irepo.getPrameterSettingsLocal().convertCelToSpacificTemp()
+    var checkSpeed=_irepo.getPrameterSettingsLocal().convertMeterPerSecToMilesPerHour()
+
+
 
     init {
-//        val language = sharedPref.getString("language", "ar")
-        Log.i(TAG, " ////language : $language units $units exclude $exclude ")
-//        if (language != null) {
-            allWeatherNetwork(33.44,-94.04,exclude, units,language)
-//        }
+
+        Log.i(TAG, "language::::::::::::::::::::::::::::::::: $language  Index:::::")
+      //  Log.i(TAG, " ////language : $language units $units exclude $exclude ")
+        allWeatherNetwork(33.44,-94.04,"minutely", unit,language)
+
     }
 
     fun allWeatherNetwork(latitude:Double,longitude:Double,exclude:String,units:String,language:String,){
@@ -37,12 +46,14 @@ class WeatherViewModel (private val _irepo: RepositoryInterface): ViewModel(){
                     e->_uiState.value=ApiState.Failure(e)
             }
                 .collect{
-                        data -> _uiState.value=ApiState.Success(data)
+                        data ->
+                    Log.i(TAG, "allWeatherNetwork checkSpeed checkSpeedcheckSpeedcheckSpeed:== $checkSpeed  check temp: $checkTemp")
+                    _uiState.value=ApiState.Success(data)
+                    Log.i(TAG, "allWeatherNetwork: ${data.current.wind_speed}")
                 }
+
+            }
         }
 
     }
 
-
-
-}

@@ -1,18 +1,16 @@
 package com.example.productmvvm.db
 
 import androidx.room.*
+import com.example.weatherforecastapplication.model.WeatherModel
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface WeatherDao {
-//    @Query("SELECT * FROM Product")
-//     fun getAll(): List<Product>
-//
-//    @Insert(onConflict = OnConflictStrategy.IGNORE)
-//     fun insert(product: Product)
-//
-//    @Delete
-//     fun delete(product: Product)
-//
-//    @Update
-//     fun update(product: Product)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insert(weatherModel: WeatherModel)
+
+    @Query("SELECT * FROM WeatherModel")
+     fun getAll(): Flow<WeatherModel>
+
+
 }

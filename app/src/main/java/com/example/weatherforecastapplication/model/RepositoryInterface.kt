@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 interface RepositoryInterface {
     suspend fun getAllWeatherModel( latitude:Double,longitude:Double,exclude:String,units:String,language:String,): Flow<WeatherModel>
     fun getPrameterSettingsLocal(): Setting
-//    suspend fun getStoredProduct(): List<Product>
-//    suspend fun insertProduct(product: Product)
-//    suspend fun deleteProduct(product: Product)
+    suspend fun getStoredWeatherModel(): Flow<WeatherModel>
+    suspend fun insertWeatherModel(weatherModel: WeatherModel)
+
 }

@@ -30,5 +30,13 @@ class Repository private constructor(var remoteSource: RemoteSource,var localSou
       return  localSource.getPrameterSettings()
     }
 
+    override suspend fun getStoredWeatherModel(): Flow<WeatherModel> {
+        return localSource.getStoredWeatherModel()
+    }
+
+    override suspend fun insertWeatherModel(weatherModel: WeatherModel) {
+        return localSource.insertWeatherModel(weatherModel)
+    }
+
 
 }

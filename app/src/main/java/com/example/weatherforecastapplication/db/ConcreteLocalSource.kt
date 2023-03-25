@@ -4,25 +4,23 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.lifecycle.asLiveData
 import com.example.weatherforecastapplication.model.Setting
+import com.example.weatherforecastapplication.model.WeatherModel
 import kotlinx.coroutines.flow.Flow
 
 class ConcreteLocalSource(context: Context) :LocalSource{
 
-//    private val dao:ProductDao by lazy {
-//        val db:ProductDataBase=ProductDataBase.getInstance(context)
-//        db.getProductDao()
-//    }
-//    override suspend fun insertProduct(product: Product) {
-//        dao?.insert(product)
-//    }
-//
-//    override suspend fun deleteProduct(product: Product) {
-//        dao?.delete(product)
-//    }
-//
-//    override suspend fun getStoredProduct(): List<Product> {
-//        return dao.getAll()
-//    }
+    private val dao:WeatherDao by lazy {
+        val db:WeatherDataBase=WeatherDataBase.getInstance(context)
+        db.getWeatherDao()
+    }
+    override suspend fun insertWeatherModel(weatherModel: WeatherModel) {
+        dao?.insert(weatherModel)
+    }
+
+
+    override suspend fun getStoredWeatherModel(): Flow<WeatherModel>  {
+        return dao.getAll()
+    }
    private val sharedPreferences: SharedPreferences = context.getSharedPreferences("LastSetting", Context.MODE_PRIVATE)
     override fun getPrameterSettings(): Setting {
         val languageIndex = sharedPreferences.getInt("LastClickLanguage",0)

@@ -56,12 +56,12 @@ class AdapterHourlyHome (private var hours: List<Hourly>,var temp:String="C") :
             //°F = (°C × 9/5) + 32
             var convertDataTempF =(current.temp *(9/5)) + 32
             val formattedDouble = String.format("%.2f", convertDataTempF)
-            holder.binding.txtViewTempPerHour.text=formattedDouble.toString()+"F"
+            holder.binding.txtViewTempPerHour.text=formattedDouble.toString()+"°F"
         }else if(temp.equals("K")){
             //Kelvin = Celsius + 273.15
             var convertDataTempK =current.temp + 273.15
             val formattedDouble = String.format("%.2f", convertDataTempK)
-            holder.binding.txtViewTempPerHour.text="${formattedDouble.toString()}"+"K"
+            holder.binding.txtViewTempPerHour.text="${formattedDouble.toString()}"+"°K"
         }else{
             val formattedDouble = String.format("%.2f", current.temp)
             holder.binding.txtViewTempPerHour.text="${formattedDouble.toString()}°C"

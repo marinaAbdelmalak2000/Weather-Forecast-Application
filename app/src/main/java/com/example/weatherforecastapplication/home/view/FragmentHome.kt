@@ -93,14 +93,10 @@ class FragmentHome : Fragment() {
                     for(i in 0..weatherList.size-1){
                         var weatherDescription=weatherList.get(i).description
                         var weatherIcon=weatherList.get(i).icon
-                      //  var weatherMain=weatherList.get(i).main
-                      //  println("weatherDescription: $weatherDescription \nweatherIcon: $weatherIcon \nweatherMain: $weatherMain ")
                         binding.textViewDescriptionTodayHome.text="$weatherDescription"
                         changeIconWeather(weatherIcon)
 
                     }
-                    // println("/////weather ${uiState.data.current.weather.toString()} Size: ${weatherList.size}")
-                  //  println("/////clouds ${uiState.data.current.clouds.toString()} %")
                     binding.textViewCloud.text="${uiState.data.current.clouds.toString()} %"
 
                     ////////////////////check temp convert celsius to fahrenheit and Kelvin /////////////////////////////
@@ -109,27 +105,20 @@ class FragmentHome : Fragment() {
                         //°F = (°C × 9/5) + 32
                         var convertDataTempF =(uiState.data.current.temp *(9/5)) + 32
                         val formattedDouble = String.format("%.2f", convertDataTempF)
-//                        println("/////current temp ${uiState.data.current.temp.toString()} °C")
-//                        println("/////current temp ${convertDataTempF.toString()} F")
-                        binding.textViewTempTodayHome.text="${formattedDouble.toString()} " + "F"
+                        binding.textViewTempTodayHome.text="${formattedDouble.toString()} " + "°F"
                     }else if(viewModel.checkTemp.equals("K")){
                         //Kelvin = Celsius + 273.15
                         var convertDataTempK =uiState.data.current.temp + 273.15
                         val formattedDouble = String.format("%.2f", convertDataTempK)
-//                        println("/////current temp ${uiState.data.current.temp.toString()} °C")
-//                        println("/////current temp ${convertDataTempK.toString()} K")
-                        binding.textViewTempTodayHome.text="${formattedDouble.toString()} " + "K"
+                        binding.textViewTempTodayHome.text="${formattedDouble.toString()} " + "°K"
                     }else{
-                     //   println("/////current temp ${uiState.data.current.temp.toString()} °C")
                         val formattedDouble = String.format("%.2f", uiState.data.current.temp)
                         binding.textViewTempTodayHome.text="${formattedDouble.toString()}°C"
                     }
 
-
                     //////////////////////////////////////////////////////////////////////////////////////
 
                     binding.textViewHumidity.text=uiState.data.current.humidity.toString()+"%"
-
                     binding.textViewPressure.text="${uiState.data.current.pressure} hpa"
 
 
@@ -139,18 +128,14 @@ class FragmentHome : Fragment() {
                         //convert meter/sec to miles/hour ==>  1 m/s = 2.23694 mph
                         var convertDataSpeed = uiState.data.current.wind_speed * 2.23694
                         val formattedDouble = String.format("%.2f", convertDataSpeed)
-                     //   println("/////wind speed with convert miles/hour ${convertDataSpeed.toString()}//n miles/hour")
                         binding.textViewWindSpeed.text="${formattedDouble.toString()}miles/hour"
                     }
                     if(viewModel.checkSpeed.equals("meter/sec")) {
-                     //   println("/////wind speed ${uiState.data.current.wind_speed.toString()}//n meter/sec")
                         val formattedDouble = String.format("%.2f", uiState.data.current.wind_speed)
                         binding.textViewWindSpeed.text="${formattedDouble.toString()}meter/sec"
                     }
 
-
       ///////////////////////////////////////////////////////////////////////////////////////
-
 
                   //  println("/////alerts///////::::::: ${uiState.data.alerts.toString()} ")
 

@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.productmvvm.model.RepositoryInterface
+import com.example.weatherforecastapplication.model.WeatherModel
 
 import com.example.weatherforecastapplication.network.ApiState
 import kotlinx.coroutines.Dispatchers
@@ -49,11 +50,37 @@ class WeatherViewModel (private val _irepo: RepositoryInterface): ViewModel(){
                         data ->
                     Log.i(TAG, "allWeatherNetwork checkSpeed checkSpeedcheckSpeedcheckSpeed:== $checkSpeed  check temp: $checkTemp")
                     _uiState.value=ApiState.Success(data)
+                    insertWeatherModel(data)
                     Log.i(TAG, "allWeatherNetwork: ${data.current.wind_speed}")
+                    Log.i(TAG, "insertWeatherModel(data): ${insertWeatherModel(data)}")
                 }
 
             }
         }
 
+    fun insertWeatherModel(weatherModel: WeatherModel){
+        viewModelScope.launch (Dispatchers.IO){
+            _irepo.insertWeatherModel(weatherModel)
+        }
     }
+
+    fun getLocalProduct(){
+        viewModelScope.launch (Dispatchers.IO){
+
+            _irepo.getStoredWeatherModel().catch {
+                    e->_uiState.value=ApiState.Failure(e)
+            }
+                .collect{
+                        data ->
+
+                    _uiState.value=ApiState.Success(data)
+                    Log.i(TAG, "getStoredWeatherModel:LOcalll/// ${ _uiState.value}")
+
+                }
+
+            Log.i(TAG, "getLocalProduct: ${_irepo.getStoredWeatherModel()}")
+        }
+    }
+
+}
 

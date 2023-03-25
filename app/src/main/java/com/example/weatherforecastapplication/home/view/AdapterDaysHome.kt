@@ -36,14 +36,14 @@ class AdapterDaysHome (private var days: List<Daily>,var temp:String="C") :
             var tempMax =(current.temp.min *(9/5)) + 32
             val formattedDoubleMin = String.format("%.2f", tempMin)
             val formattedDoubleMax = String.format("%.2f", tempMax)
-            holder.binding.textViewTempDayHome.text="${formattedDoubleMin}/${formattedDoubleMax} F"
+            holder.binding.textViewTempDayHome.text="${formattedDoubleMin}/${formattedDoubleMax} °F"
         }else if(temp.equals("K")){
             //Kelvin = Celsius + 273.15
             var tempMin =current.temp.min + 273.15
             var tempMax=current.temp.max + 273.15
             val formattedDoubleMin = String.format("%.2f", tempMin)
             val formattedDoubleMax = String.format("%.2f", tempMax)
-            holder.binding.textViewTempDayHome.text="${formattedDoubleMin}/${formattedDoubleMax} K"
+            holder.binding.textViewTempDayHome.text="${formattedDoubleMin}/${formattedDoubleMax} °K"
         }else{
             val formattedDoubleMin = String.format("%.2f", current.temp.min)
             val formattedDoubleMax = String.format("%.2f", current.temp.max)

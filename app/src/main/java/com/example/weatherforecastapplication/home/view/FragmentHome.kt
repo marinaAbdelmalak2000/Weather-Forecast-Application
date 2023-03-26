@@ -1,11 +1,18 @@
 package com.example.weatherforecastapplication.home.view
 
+import android.content.ContentValues.TAG
+import android.content.Context
 import android.content.SharedPreferences
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -21,8 +28,10 @@ import com.example.weatherforecastapplication.model.Daily
 import com.example.weatherforecastapplication.model.Hourly
 import com.example.weatherforecastapplication.network.ApiState
 import com.squareup.picasso.Picasso
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -51,13 +60,16 @@ class FragmentHome : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+
+
        // return inflater.inflate(R.layout.fragment_home, container, false)
         binding= FragmentHomeBinding.inflate(inflater,container,false)
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
 
         //24 per day
        // var temp=viewModel.checkTemp
@@ -70,6 +82,7 @@ class FragmentHome : Fragment() {
         //initialization
         binding.recyclerViewDaysHome.adapter=recyclerAdapterDaysHome
 
+
         allFactory= WeatherViewModelFactory(
 
             Repository.getInstance(
@@ -78,129 +91,193 @@ class FragmentHome : Fragment() {
 
         viewModel= ViewModelProvider(this,allFactory).get(WeatherViewModel::class.java)
 
-
-        lifecycleScope.launch {
-
-            viewModel.uiState.collectLatest { uiState ->when (uiState) {
-                is ApiState.Success-> {
-                    binding.progressBarHome?.visibility  = View.GONE
-                    binding.recyclerViewHourHome.visibility = View.VISIBLE
-                    binding.recyclerViewDaysHome.visibility = View.VISIBLE
-
-                    println("//////**** Current ****//////")
-
-                    var weatherList=uiState.data.current.weather
-                    for(i in 0..weatherList.size-1){
-                        var weatherDescription=weatherList.get(i).description
-                        var weatherIcon=weatherList.get(i).icon
-                        binding.textViewDescriptionTodayHome.text="$weatherDescription"
-                        changeIconWeather(weatherIcon)
-
-                    }
-                    binding.textViewCloud.text="${uiState.data.current.clouds.toString()} %"
-
-                    ////////////////////check temp convert celsius to fahrenheit and Kelvin /////////////////////////////
-
-                    if(viewModel.checkTemp.equals("F")){
-                        //°F = (°C × 9/5) + 32
-                        var convertDataTempF =(uiState.data.current.temp *(9/5)) + 32
-                        val formattedDouble = String.format("%.2f", convertDataTempF)
-                        binding.textViewTempTodayHome.text="${formattedDouble.toString()} " + "°F"
-                    }else if(viewModel.checkTemp.equals("K")){
-                        //Kelvin = Celsius + 273.15
-                        var convertDataTempK =uiState.data.current.temp + 273.15
-                        val formattedDouble = String.format("%.2f", convertDataTempK)
-                        binding.textViewTempTodayHome.text="${formattedDouble.toString()} " + "°K"
-                    }else{
-                        val formattedDouble = String.format("%.2f", uiState.data.current.temp)
-                        binding.textViewTempTodayHome.text="${formattedDouble.toString()}°C"
-                    }
-
-                    //////////////////////////////////////////////////////////////////////////////////////
-
-                    binding.textViewHumidity.text=uiState.data.current.humidity.toString()+"%"
-                    binding.textViewPressure.text="${uiState.data.current.pressure} hpa"
+//        if(isNetworkAvailable(context)==true){
+//            viewModel.allWeatherNetwork(0.0,0.0,"","","")}
+//        else{
+//
+//        }
 
 
-        ////////////////////check speed miles/hour or meter/sec   /////////////////////////////
+       lifecycleScope.launch {
 
-                    if(viewModel.checkSpeed.equals("miles/hour")) {
-                        //convert meter/sec to miles/hour ==>  1 m/s = 2.23694 mph
-                        var convertDataSpeed = uiState.data.current.wind_speed * 2.23694
-                        val formattedDouble = String.format("%.2f", convertDataSpeed)
-                        binding.textViewWindSpeed.text="${formattedDouble.toString()}miles/hour"
-                    }
-                    if(viewModel.checkSpeed.equals("meter/sec")) {
-                        val formattedDouble = String.format("%.2f", uiState.data.current.wind_speed)
-                        binding.textViewWindSpeed.text="${formattedDouble.toString()}meter/sec"
-                    }
+           viewModel.uiState.collectLatest { uiState ->when (uiState) {
 
-      ///////////////////////////////////////////////////////////////////////////////////////
+               is ApiState.Success-> {
+                   binding.progressBarHome.visibility = View.GONE
+                   binding.recyclerViewHourHome.visibility = View.VISIBLE
+                   binding.recyclerViewDaysHome.visibility = View.VISIBLE
 
-                  //  println("/////alerts///////::::::: ${uiState.data.alerts.toString()} ")
+                   println("//////**** Current ****//////")
 
-                    val currentDate=uiState.data.current.dt
-                    // yyyy-MM-dd
-                    val dateTime = Date(currentDate*1000)
-                    val formattedDate = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(dateTime)
-                  //  print("////Current Date:  ${formattedDate}  ")
-                    val formateTime=SimpleDateFormat("hh:mm a", Locale.ENGLISH).format(Date(currentDate*1000))
+                   var weatherList = uiState.data.current.weather
+                   for (i in 0..weatherList.size - 1) {
+                       var weatherDescription = weatherList.get(i).description
+                       var weatherIcon = weatherList.get(i).icon
+                       binding.textViewDescriptionTodayHome.text = "$weatherDescription"
+                       changeIconWeather(weatherIcon)
+
+                   }
+                   binding.textViewCloud.text =
+                       "${uiState.data.current.clouds.toString()} %"
+
+                   ////////////////////check temp convert celsius to fahrenheit and Kelvin /////////////////////////////
+
+                   if (viewModel.checkTemp.equals("F")) {
+                       //°F = (°C × 9/5) + 32
+                       var convertDataTempF = (uiState.data.current.temp * (9 / 5)) + 32
+                       val formattedDouble = String.format("%.2f", convertDataTempF)
+                       binding.textViewTempTodayHome.text =
+                           "${formattedDouble.toString()} " + "°F"
+                   } else if (viewModel.checkTemp.equals("K")) {
+                       //Kelvin = Celsius + 273.15
+                       var convertDataTempK = uiState.data.current.temp + 273.15
+                       val formattedDouble = String.format("%.2f", convertDataTempK)
+                       binding.textViewTempTodayHome.text =
+                           "${formattedDouble.toString()} " + "°K"
+                   } else {
+                       val formattedDouble =
+                           String.format("%.2f", uiState.data.current.temp)
+                       binding.textViewTempTodayHome.text =
+                           "${formattedDouble.toString()}°C"
+                   }
+
+                   //////////////////////////////////////////////////////////////////////////////////////
+
+                   binding.textViewHumidity.text =
+                       uiState.data.current.humidity.toString() + "%"
+                   binding.textViewPressure.text = "${uiState.data.current.pressure} hpa"
+
+
+                   ////////////////////check speed miles/hour or meter/sec   /////////////////////////////
+
+                   if (viewModel.checkSpeed.equals("miles/hour")) {
+                       //convert meter/sec to miles/hour ==>  1 m/s = 2.23694 mph
+                       var convertDataSpeed = uiState.data.current.wind_speed * 2.23694
+                       val formattedDouble = String.format("%.2f", convertDataSpeed)
+                       binding.textViewWindSpeed.text =
+                           "${formattedDouble.toString()}miles/hour"
+                   }
+                   if (viewModel.checkSpeed.equals("meter/sec")) {
+                       val formattedDouble =
+                           String.format("%.2f", uiState.data.current.wind_speed)
+                       binding.textViewWindSpeed.text =
+                           "${formattedDouble.toString()}meter/sec"
+                   }
+
+                   ///////////////////////////////////////////////////////////////////////////////////////
+
+                   //  println("/////alerts///////::::::: ${uiState.data.alerts.toString()} ")
+
+                   val currentDate = uiState.data.current.dt
+                   // yyyy-MM-dd
+                   val dateTime = Date(currentDate * 1000)
+                   val formattedDate =
+                       SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(dateTime)
+                   //  print("////Current Date:  ${formattedDate}  ")
+                   val formateTime = SimpleDateFormat(
+                       "hh:mm a",
+                       Locale.ENGLISH
+                   ).format(Date(currentDate * 1000))
 //                    println("/////Current Time-12-hour clock:  ${ SimpleDateFormat("hh:mm a", Locale.ENGLISH).format(
 //                        Date(currentDate*1000)
 //                    )}")
 
-                    binding.textViewCurrentDateTimeHome.text="${formattedDate}   $formateTime "
+                   binding.textViewCurrentDateTimeHome.text =
+                       "${formattedDate}   $formateTime "
 
-                    val sunrise=uiState.data.current.sunrise
-                    val sunriseDate = Date(sunrise*1000)
+                   val sunrise = uiState.data.current.sunrise
+                   val sunriseDate = Date(sunrise * 1000)
 //                    print("/////sunrise Day/////////// ${SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(sunriseDate)} ")
 //                    println("/////sunrise Time-12-hour clock:  ${ SimpleDateFormat("hh:mm a", Locale.ENGLISH).format(
 //                        Date(sunrise*1000)
 //                    )}")
-                    val sunset= Date(uiState.data.current.sunset * 1000)
+                   val sunset = Date(uiState.data.current.sunset * 1000)
 //                    print("/////sunset Day//////////////// ${SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(sunset)} ")
 //                    println("/////sunset Time:  ${ SimpleDateFormat("hh:mm a", Locale.ENGLISH).format(sunset)}")
 
 
-                    binding.textViewUVI.text="${uiState.data.current.uvi.toString()}"
+                   binding.textViewUVI.text = "${uiState.data.current.uvi.toString()}"
 
 
-                    println("//////**** Dayliy ****//////")
+                   println("//////**** Dayliy ****//////")
 
-                    var dailyList=uiState.data.daily
-                    var temp=viewModel.checkTemp
-                    recyclerAdapterDaysHome.setData(dailyList,temp)
-                    recyclerAdapterDaysHome.notifyDataSetChanged()
+                   var dailyList = uiState.data.daily
+                   var temp = viewModel.checkTemp
+                   recyclerAdapterDaysHome.setData(dailyList, temp)
+                   recyclerAdapterDaysHome.notifyDataSetChanged()
 
 
-                    println("//////**** hourly ****//////")
+                   println("//////**** hourly ****//////")
 
-                    var hourlyList=uiState.data.hourly
-                  //  var temp=viewModel.checkTemp
-                    println("temp hourly send $temp")
-                    recyclerAdapterHourHome.setData(hourlyList,temp)
-                    recyclerAdapterHourHome.notifyDataSetChanged()
+                   var hourlyList = uiState.data.hourly
+                   //  var temp=viewModel.checkTemp
+                   println("temp hourly send $temp")
+                   recyclerAdapterHourHome.setData(hourlyList, temp)
+                   recyclerAdapterHourHome.notifyDataSetChanged()
 
+
+               }
+               is ApiState.Loading->{
+                   println("initial")
+                   binding.progressBarHome?.visibility = View.VISIBLE
+                   binding.recyclerViewHourHome.visibility = View.GONE
+                   binding.recyclerViewDaysHome.visibility = View.GONE
+               }
+
+               else ->{
+                   // viewModel.refreshData()
+                   binding.progressBarHome?.visibility = View.GONE
+                   //  println("Check your netwark ${viewModel.refreshData()}")
+                   Toast.makeText(
+                       requireContext(),
+                       "Check your netwark",
+                       Toast.LENGTH_SHORT
+                   ).show()
+
+               }
+
+
+           }}
+       }
+               if(isNetworkAvailable(context)==true){
+                   val language=viewModel.language
+                   val unit=viewModel.unit
+                     viewModel.allWeatherNetwork(0.0,0.0,"",unit,language)}
+
+                else{
+                     viewModel.getLocalWeatherModel()
+                   Toast.makeText(requireContext(),"NOOO Network", Toast.LENGTH_SHORT).show()
+                   Log.i(TAG, "viewModel.getLocalWeatherModel(): "+viewModel.getLocalWeatherModel().toString())
 
                 }
-                is ApiState.Loading->{
-                    println("initial")
-                    binding.progressBarHome?.visibility= View.VISIBLE
-                    binding.recyclerViewHourHome.visibility = View.GONE
-                    binding.recyclerViewDaysHome.visibility = View.GONE
-                }
-
-                else ->{
-                    binding.progressBarHome?.visibility= View.GONE
-                    println("Check your netwark")
-                    Toast.makeText(requireContext(),"Check your netwark", Toast.LENGTH_SHORT).show()
-
-                }
-
-            }}
 
 
-        }
+//            } else{
+//            lifecycleScope.launch {
+//
+//                    Toast.makeText(requireContext(),"NOOO Network", Toast.LENGTH_SHORT).show()
+//                    Log.i(TAG, "onViewCreated: ")
+//
+//
+//            }
+
+     //   }
+//        else{
+//            println("nnnnno internet")
+//           // viewModel.getLocalWeatherModel()
+//           // Log.i(TAG, "onViewCreated: ")
+//            lifecycleScope.launch {
+//
+//                viewModel.getLocalWeatherModel()
+//                Log.i(TAG, "onViewCreated: ${viewModel.uiState}  /// ${viewModel.uiStateLocal.value.toString()}")
+//
+//
+//            }
+//
+//        }
+
+
+
 
 
     }
@@ -219,6 +296,38 @@ class FragmentHome : Fragment() {
         }
 
     }
+
+    fun isNetworkAvailable(context: Context?): Boolean {
+        if (context == null) return false
+        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            val capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+            if (capabilities != null) {
+                when {
+                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> {
+                        return true
+                    }
+                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> {
+                        return true
+                    }
+
+                }
+            }
+        } else {
+            val activeNetworkInfo = connectivityManager.activeNetworkInfo
+            if (activeNetworkInfo != null && activeNetworkInfo.isConnected) {
+                return true
+            }
+        }
+        return false
+    }
+
+    fun checkConnectionState(): Boolean {
+        val cm = context?.getSystemService(AppCompatActivity.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val nInfo = cm.activeNetworkInfo
+        return nInfo != null && nInfo.isAvailable && nInfo.isConnected
+    }
+
 
 
 }

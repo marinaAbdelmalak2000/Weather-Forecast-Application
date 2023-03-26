@@ -1,11 +1,14 @@
 package com.example.productmvvm.model
 
+import android.content.Context
+import android.net.ConnectivityManager
 import com.example.productmvvm.db.LocalSource
 import com.example.productmvvm.network.RemoteSource
 import com.example.weatherforecastapplication.model.Setting
 import com.example.weatherforecastapplication.model.WeatherModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
+
 
 class Repository private constructor(var remoteSource: RemoteSource,var localSource: LocalSource):RepositoryInterface{
 
@@ -38,5 +41,20 @@ class Repository private constructor(var remoteSource: RemoteSource,var localSou
         return localSource.insertWeatherModel(weatherModel)
     }
 
+    // Fetch data from network and store it in myData
+//    override suspend fun fetchData() {
+//        if (isNetworkAvailable()) {
+//            // Fetch data from the network
+//            getPrameterSettingsLocal()
+//        } else {
+//            // Fetch data from local storage
+//            getStoredWeatherModel()
+//        }
+//    }
+//    private fun isNetworkAvailable(): Boolean {
+//        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+//        val activeNetworkInfo = connectivityManager.activeNetworkInfo
+//        return activeNetworkInfo != null && activeNetworkInfo.isConnected
+//    }
 
 }

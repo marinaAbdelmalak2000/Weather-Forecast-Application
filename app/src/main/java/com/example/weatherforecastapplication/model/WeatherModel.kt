@@ -6,13 +6,14 @@ import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
+import java.util.Collections.list
 
 
 @Entity(tableName = "WeatherModel")
 data class WeatherModel(
     @PrimaryKey
     val id: Int = 0,
-    val alerts: Alert,
+    val alerts: Alert ?,
     val current: Current,
     val daily: List<Daily>,
     val hourly: List<Hourly>,
@@ -35,16 +36,39 @@ class WeatherModelTypeConverter {
         val gson = Gson()
         return gson.fromJson(json, Current::class.java)
     }
+//    @TypeConverter
+//    fun fromAlert(alert: Alert?): String {
+//        val gson = Gson()
+//        return gson.toJson(alert)
+//    }
+
+//    @TypeConverter
+//    fun toAlert(json: String?): Alert {
+//        if (json != null) {
+//            val gson = Gson()
+//            return gson.fromJson(json, Alert::class.java)
+//        } else {
+//            return   Alert("",0,"","",0,listOf(""))
+//        }
+////        val gson = Gson()
+////        return gson.fromJson(json, Alert::class.java)
+//    }
     @TypeConverter
-    fun fromAlert(alert: Alert?): String {
-        val gson = Gson()
-        return gson.toJson(alert)
+    fun fromString(value: String?): Alert? {
+        return value?.let {
+            // Convert the string to Alert and return it
+            val gson = Gson()
+            gson.fromJson(it, Alert::class.java)
+        }
     }
 
     @TypeConverter
-    fun toAlert(json: String?): Alert {
-        val gson = Gson()
-        return gson.fromJson(json, Alert::class.java)
+    fun toString(someObject: Alert?): String? {
+        return someObject?.let {
+            // Convert the Alert to a string and return it
+            val gson = Gson()
+            gson.toJson(someObject)
+        }
     }
 
     @TypeConverter

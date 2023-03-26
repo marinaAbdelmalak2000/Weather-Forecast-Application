@@ -1,13 +1,12 @@
 package com.example.weatherforecastapplication
 
 import android.app.Dialog
+import android.net.ConnectivityManager
 import android.os.Bundle
-import android.text.DynamicLayout
 import android.view.MenuItem
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
@@ -15,15 +14,12 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import com.airbnb.lottie.LottieAnimationView
 import com.example.weatherforecastapplication.alerts.view.FragmentAlertList
 import com.example.weatherforecastapplication.favourite.view.FragmentFavouriteList
 import com.example.weatherforecastapplication.home.view.FragmentHome
 import com.example.weatherforecastapplication.settings.view.FragmentSettings
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.navigation.NavigationView.OnNavigationItemSelectedListener
-
-
 
 
 class MainActivity : AppCompatActivity(),OnNavigationItemSelectedListener {
@@ -141,5 +137,7 @@ class MainActivity : AppCompatActivity(),OnNavigationItemSelectedListener {
         // show the exit dialog
         dialog.show()
     }
+
+
 
 }

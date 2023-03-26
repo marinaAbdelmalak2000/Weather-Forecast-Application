@@ -9,7 +9,7 @@ import com.example.weatherforecastapplication.model.WeatherModel
 import com.example.weatherforecastapplication.model.WeatherModelTypeConverter
 
 
-@Database(entities = arrayOf(WeatherModel::class), version = 3)
+@Database(entities = arrayOf(WeatherModel::class), version = 6)
 @TypeConverters(WeatherModelTypeConverter::class)
 abstract class WeatherDataBase : RoomDatabase() {
     abstract fun getWeatherDao(): WeatherDao

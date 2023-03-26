@@ -9,5 +9,6 @@ interface RepositoryInterface {
     fun getPrameterSettingsLocal(): Setting
     suspend fun getStoredWeatherModel(): Flow<WeatherModel>
     suspend fun insertWeatherModel(weatherModel: WeatherModel)
+   // suspend fun fetchData()
 
 }

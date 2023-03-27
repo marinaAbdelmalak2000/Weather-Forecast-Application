@@ -323,18 +323,7 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_end="2dp" />
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/coordinator_layout"
-        android:layout_width="0dp"
-        android:layout_height="133dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guidelineR"
-        app:layout_constraintStart_toStartOf="@+id/guidelineL"
-        >
 
-        <!-- Add your other views here -->
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

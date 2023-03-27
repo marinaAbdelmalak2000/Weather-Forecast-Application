@@ -15,4 +15,5 @@
     <string name="launguage">Launguage</string>
     <string name="notification_setting">Notification</string>
     <string name="location">Location</string>
+    <string name="not_netwark">There is no internet connection</string>
 </resources>

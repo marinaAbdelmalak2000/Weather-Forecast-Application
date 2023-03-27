@@ -2,7 +2,6 @@ package com.example.weatherforecastapplication.home.view
 
 import android.content.ContentValues.TAG
 import android.content.Context
-import android.content.SharedPreferences
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
@@ -11,6 +10,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -24,15 +24,11 @@ import com.example.weatherforecastapplication.WeatherViewModel
 import com.example.weatherforecastapplication.WeatherViewModelFactory
 import com.example.weatherforecastapplication.databinding.FragmentHomeBinding
 import com.example.weatherforecastapplication.model.Daily
-
 import com.example.weatherforecastapplication.model.Hourly
 import com.example.weatherforecastapplication.network.ApiState
-import com.squareup.picasso.Picasso
-import kotlinx.coroutines.Dispatchers
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -90,13 +86,6 @@ class FragmentHome : Fragment() {
             ))
 
         viewModel= ViewModelProvider(this,allFactory).get(WeatherViewModel::class.java)
-
-//        if(isNetworkAvailable(context)==true){
-//            viewModel.allWeatherNetwork(0.0,0.0,"","","")}
-//        else{
-//
-//        }
-
 
        lifecycleScope.launch {
 
@@ -246,40 +235,17 @@ class FragmentHome : Fragment() {
 
                 else{
                      viewModel.getLocalWeatherModel()
-                   Toast.makeText(requireContext(),"NOOO Network", Toast.LENGTH_SHORT).show()
+                   val snackbar: Snackbar =
+                       Snackbar.make(view, R.string.not_netwark, Snackbar.LENGTH_INDEFINITE)
+                   val snackbarView = snackbar.view
+                   val textView =
+                       snackbarView.findViewById<View>(com.google.android.material.R.id.snackbar_text) as TextView
+                   textView.maxLines = 5
+                   snackbar.show()
+                  // Toast.makeText(requireContext(),"NOOO Network", Toast.LENGTH_SHORT).show()
                    Log.i(TAG, "viewModel.getLocalWeatherModel(): "+viewModel.getLocalWeatherModel().toString())
 
                 }
-
-
-//            } else{
-//            lifecycleScope.launch {
-//
-//                    Toast.makeText(requireContext(),"NOOO Network", Toast.LENGTH_SHORT).show()
-//                    Log.i(TAG, "onViewCreated: ")
-//
-//
-//            }
-
-     //   }
-//        else{
-//            println("nnnnno internet")
-//           // viewModel.getLocalWeatherModel()
-//           // Log.i(TAG, "onViewCreated: ")
-//            lifecycleScope.launch {
-//
-//                viewModel.getLocalWeatherModel()
-//                Log.i(TAG, "onViewCreated: ${viewModel.uiState}  /// ${viewModel.uiStateLocal.value.toString()}")
-//
-//
-//            }
-//
-//        }
-
-
-
-
-
     }
 
     fun changeIconWeather(iconapi:String) {
@@ -321,13 +287,6 @@ class FragmentHome : Fragment() {
         }
         return false
     }
-
-    fun checkConnectionState(): Boolean {
-        val cm = context?.getSystemService(AppCompatActivity.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val nInfo = cm.activeNetworkInfo
-        return nInfo != null && nInfo.isAvailable && nInfo.isConnected
-    }
-
 
 
 }

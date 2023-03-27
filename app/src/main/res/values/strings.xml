@@ -16,4 +16,6 @@
     <string name="notification_setting">Notification</string>
     <string name="location">Location</string>
     <string name="not_netwark">There is no internet connection</string>
+    <string name="favourite_screen">Favourite</string>
+    <string name="add_favourite_list">+</string>
 </resources>

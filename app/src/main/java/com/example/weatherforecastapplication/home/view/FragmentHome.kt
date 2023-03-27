@@ -228,6 +228,7 @@ class FragmentHome : Fragment() {
 
            }}
        }
+
                if(isNetworkAvailable(context)==true){
                    val language=viewModel.language
                    val unit=viewModel.unit

@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationManager
@@ -57,11 +58,6 @@ class FragmentHome : Fragment() {
     lateinit var recyclerAdapterDaysHome: AdapterDaysHome
     var daysList= mutableListOf<Daily>()
 
-    lateinit var textViewLogtiude: String
-    lateinit var textViewLatitude: String
-
-
-    lateinit var mFusedLocationClient: FusedLocationProviderClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -103,6 +99,8 @@ class FragmentHome : Fragment() {
             ))
 
         viewModel= ViewModelProvider(this,allFactory).get(WeatherViewModel::class.java)
+        val sharedLocation: SharedPreferences = requireActivity().getSharedPreferences("LastLocation", Context.MODE_PRIVATE)
+        val cityName=sharedLocation.getString("cityName","null")
 
        lifecycleScope.launch {
 
@@ -112,6 +110,8 @@ class FragmentHome : Fragment() {
                    binding.progressBarHome.visibility = View.GONE
                    binding.recyclerViewHourHome.visibility = View.VISIBLE
                    binding.recyclerViewDaysHome.visibility = View.VISIBLE
+                   binding.textViewCityNameHome.visibility = View.VISIBLE
+                   binding.textViewCityNameHome.text=cityName
 
                    println("//////**** Current ****//////")
 
@@ -228,6 +228,7 @@ class FragmentHome : Fragment() {
                    binding.progressBarHome?.visibility = View.VISIBLE
                    binding.recyclerViewHourHome.visibility = View.GONE
                    binding.recyclerViewDaysHome.visibility = View.GONE
+                   binding.textViewCityNameHome.visibility = View.GONE
                }
 
                else ->{
@@ -251,7 +252,8 @@ class FragmentHome : Fragment() {
                    val unit=viewModel.unit
                    val lon=viewModel.longitude !!
                    val lat=viewModel.latitude  !!
-                     viewModel.allWeatherNetwork(lat,lon,"",unit,language)}
+                     viewModel.allWeatherNetwork(lat,lon,"",unit,language)
+               }
 
                 else{
                      viewModel.getLocalWeatherModel()

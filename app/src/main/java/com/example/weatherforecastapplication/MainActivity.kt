@@ -8,9 +8,12 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
+import android.location.Geocoder
 import android.location.Location
 import android.location.LocationManager
 import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.os.Build
 import android.os.Bundle
 import android.os.Looper
 import android.provider.Settings
@@ -24,6 +27,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
@@ -37,6 +41,7 @@ import com.example.weatherforecastapplication.settings.view.FragmentSettings
 import com.google.android.gms.location.*
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.navigation.NavigationView.OnNavigationItemSelectedListener
+import java.util.*
 
 
 class MainActivity : AppCompatActivity(),OnNavigationItemSelectedListener {
@@ -78,10 +83,13 @@ class MainActivity : AppCompatActivity(),OnNavigationItemSelectedListener {
 
         this.onBackPressedDispatcher.addCallback(onBackPressedCallback)
 
-        /////// Location ////////////
-        location= getSharedPreferences("LastLocation", Context.MODE_PRIVATE)
-        editorLocation=location.edit()
-        getLastLocation()
+        if(isNetworkAvailable(this)==true){
+            /////// Location ////////////
+            location= getSharedPreferences("LastLocation", Context.MODE_PRIVATE)
+            editorLocation=location.edit()
+            getLastLocation()
+        }
+
     }
 
     //handle back button
@@ -212,9 +220,9 @@ class MainActivity : AppCompatActivity(),OnNavigationItemSelectedListener {
 
     private val mLocationCallback: LocationCallback =object : LocationCallback(){
         override fun onLocationResult(locationResult: LocationResult) {
-//            val geocoder: Geocoder
-//
-//            geocoder = Geocoder(applicationContext, Locale.getDefault())
+            val geocoder: Geocoder
+
+            geocoder = Geocoder(applicationContext, Locale.getDefault())
 
 
             val mLastLocation: Location? =locationResult.lastLocation
@@ -230,11 +238,17 @@ class MainActivity : AppCompatActivity(),OnNavigationItemSelectedListener {
                 Log.i(ContentValues.TAG, "latitude: ${mLastLocation.latitude.toString()}")
                 println("latitude: ${mLastLocation.latitude.toString()}")
             }
-//            if (mLastLocation != null&&mLastLocation != null) {
+            if (mLastLocation != null&&mLastLocation != null) {
 //                val addresses = geocoder.getFromLocation(mLastLocation.latitude, mLastLocation.longitude, 1)
 //                val address = addresses!![0].getAddressLine(0)
-//                textViewGeoCoder.text=address
-//            }
+                val cityName: String?
+               // val geoCoder = Geocoder(requireContext(), Locale.getDefault())
+                val Adress = geocoder.getFromLocation(mLastLocation.latitude, mLastLocation.longitude,2)
+
+                cityName = Adress?.get(0)?.adminArea
+                editorLocation.putString("cityName",cityName).commit()
+
+            }
 
         }
     }
@@ -254,6 +268,31 @@ class MainActivity : AppCompatActivity(),OnNavigationItemSelectedListener {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
+
+    fun isNetworkAvailable(context: Context?): Boolean {
+        if (context == null) return false
+        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            val capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+            if (capabilities != null) {
+                when {
+                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> {
+                        return true
+                    }
+                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> {
+                        return true
+                    }
+
+                }
+            }
+        } else {
+            val activeNetworkInfo = connectivityManager.activeNetworkInfo
+            if (activeNetworkInfo != null && activeNetworkInfo.isConnected) {
+                return true
+            }
+        }
+        return false
+    }
 
 
 }

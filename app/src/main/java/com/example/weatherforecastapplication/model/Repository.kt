@@ -23,7 +23,7 @@ class Repository private constructor(var remoteSource: RemoteSource,var localSou
         }
     }
 
-    override suspend fun getAllWeatherModel( latitude:Double,longitude:Double,exclude:String,units:String,language:String,): Flow<WeatherModel>  {
+    override suspend fun getAllWeatherModel( latitude:String,longitude:String,exclude:String,units:String,language:String,): Flow<WeatherModel>  {
         return flowOf(remoteSource.getWeatherOverNetwork(latitude,longitude,exclude,units,language,))
         println("///////why Nullllllll!!!!!!!!!!!! ${remoteSource.getWeatherOverNetwork(latitude,longitude,exclude,units,language,)} " +
                 "weather ${remoteSource.getWeatherOverNetwork(latitude,longitude,exclude,units,language,)}")

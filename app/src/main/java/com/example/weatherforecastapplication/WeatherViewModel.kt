@@ -39,6 +39,8 @@ class WeatherViewModel (private val _irepo: RepositoryInterface): ViewModel() {
 
     val language=_irepo.getPrameterSettingsLocal().getLanguage()
     val unit=_irepo.getPrameterSettingsLocal().getUnit()
+    val longitude=_irepo.getPrameterSettingsLocal().longitude
+    val latitude=_irepo.getPrameterSettingsLocal().latitude
 //    var checkSpeed =_irepo.getPrameterSettingsLocal().CheckconvertSpeed()
 //    var checkTemp=_irepo.getPrameterSettingsLocal().CheckconvertTemp()
     var checkTemp =_irepo.getPrameterSettingsLocal().convertCelToSpacificTemp()
@@ -56,8 +58,8 @@ class WeatherViewModel (private val _irepo: RepositoryInterface): ViewModel() {
     }
 
     fun allWeatherNetwork(
-        latitude: Double,
-        longitude: Double,
+        latitude: String,
+        longitude: String,
         exclude: String,
         units: String,
         language: String

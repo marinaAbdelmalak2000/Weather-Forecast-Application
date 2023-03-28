@@ -32,8 +32,8 @@ interface WeatherService {
     //data/3.0/onecall?lat=33.44&lon=-94.04&units=metric,standard,imperial&lang=en&exclude=minutely&appid=83131d2af170eb79407efcc24412f091
     @GET("data/3.0/onecall") //?lat={lat}&lon={lon}&exclude={part}&appid=${API_KEY}
     suspend fun getweather(
-        @Query("lat") latitude : Double,
-        @Query("lon") longitude : Double,
+        @Query("lat") latitude : String,
+        @Query("lon") longitude : String,
         @Query("exclude") exclude : String,
         @Query("units") units : String,
         @Query("lang") language : String,

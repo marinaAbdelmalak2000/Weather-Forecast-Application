@@ -1,14 +1,29 @@
 package com.example.weatherforecastapplication
 
+import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Dialog
+import android.content.ContentValues
+import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
+import android.content.pm.PackageManager
+import android.location.Location
+import android.location.LocationManager
 import android.net.ConnectivityManager
 import android.os.Bundle
+import android.os.Looper
+import android.provider.Settings
+import android.util.Log
 import android.view.MenuItem
+import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.app.ActivityCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
@@ -17,7 +32,9 @@ import androidx.fragment.app.FragmentTransaction
 import com.example.weatherforecastapplication.alerts.view.FragmentAlertList
 import com.example.weatherforecastapplication.favourite.view.FragmentFavouriteList
 import com.example.weatherforecastapplication.home.view.FragmentHome
+import com.example.weatherforecastapplication.map.PERMISSION_ID
 import com.example.weatherforecastapplication.settings.view.FragmentSettings
+import com.google.android.gms.location.*
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.navigation.NavigationView.OnNavigationItemSelectedListener
 
@@ -29,10 +46,10 @@ class MainActivity : AppCompatActivity(),OnNavigationItemSelectedListener {
     lateinit var navigationView:NavigationView
     lateinit var toolbar: Toolbar
 
-    private lateinit var dynamicFragmentHome: FragmentHome
-    private lateinit var dynamicFragmentSettings: FragmentSettings
-    private lateinit var fragmentManager: FragmentManager
-    private lateinit var fragmentTransaction: FragmentTransaction
+    lateinit var mFusedLocationClient: FusedLocationProviderClient
+    lateinit var location: SharedPreferences
+
+    lateinit var editorLocation: SharedPreferences.Editor
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,7 +78,10 @@ class MainActivity : AppCompatActivity(),OnNavigationItemSelectedListener {
 
         this.onBackPressedDispatcher.addCallback(onBackPressedCallback)
 
-
+        /////// Location ////////////
+        location= getSharedPreferences("LastLocation", Context.MODE_PRIVATE)
+        editorLocation=location.edit()
+        getLastLocation()
     }
 
     //handle back button
@@ -136,6 +156,102 @@ class MainActivity : AppCompatActivity(),OnNavigationItemSelectedListener {
 
         // show the exit dialog
         dialog.show()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if(checkPermissions()){
+            getLastLocation()
+        }
+    }
+
+    private fun checkPermissions():Boolean{
+        val result =
+            ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)== PackageManager.PERMISSION_GRANTED||
+                    ActivityCompat.checkSelfPermission(this,
+                        Manifest.permission.ACCESS_FINE_LOCATION)== PackageManager.PERMISSION_GRANTED
+        return result
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun getLastLocation(){
+        if(checkPermissions()){
+            if(isLocationEnabled()){
+                requestNewLocationDate()
+                Toast.makeText(this,"datttttta", Toast.LENGTH_LONG).show()
+            }
+            else{
+                Toast.makeText(this,"Turn on location", Toast.LENGTH_LONG).show()
+                val intent= Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+                startActivity(intent)
+            }
+        }
+        else{
+            requestPermissions()
+        }
+    }
+
+    private fun isLocationEnabled():Boolean{
+
+        val locationManager: LocationManager=getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)||locationManager.isProviderEnabled(
+            LocationManager.NETWORK_PROVIDER)
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun requestNewLocationDate() {
+        val mLocationRequest = LocationRequest()
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+        mLocationRequest.setInterval(0)
+
+        mFusedLocationClient= LocationServices.getFusedLocationProviderClient(this)
+        mFusedLocationClient.requestLocationUpdates(mLocationRequest,mLocationCallback, Looper.myLooper())
+
+
+    }
+
+    private val mLocationCallback: LocationCallback =object : LocationCallback(){
+        override fun onLocationResult(locationResult: LocationResult) {
+//            val geocoder: Geocoder
+//
+//            geocoder = Geocoder(applicationContext, Locale.getDefault())
+
+
+            val mLastLocation: Location? =locationResult.lastLocation
+            if (mLastLocation != null) {
+                var textViewLogtiude=mLastLocation.longitude.toString()
+                editorLocation.putString("longitude",textViewLogtiude).commit()
+                Log.i(ContentValues.TAG, "longitude: ${mLastLocation.longitude.toString()}")
+                println("longitude: ${mLastLocation.longitude.toString()}")
+            }
+            if (mLastLocation != null) {
+                var textViewLatitude=mLastLocation.latitude.toString()
+                editorLocation.putString("latitude",textViewLatitude).commit()
+                Log.i(ContentValues.TAG, "latitude: ${mLastLocation.latitude.toString()}")
+                println("latitude: ${mLastLocation.latitude.toString()}")
+            }
+//            if (mLastLocation != null&&mLastLocation != null) {
+//                val addresses = geocoder.getFromLocation(mLastLocation.latitude, mLastLocation.longitude, 1)
+//                val address = addresses!![0].getAddressLine(0)
+//                textViewGeoCoder.text=address
+//            }
+
+        }
+    }
+
+    private fun requestPermissions(){
+        ActivityCompat.requestPermissions(this, arrayOf(
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.ACCESS_FINE_LOCATION), PERMISSION_ID
+        )
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
 

@@ -3,7 +3,7 @@ package com.example.weatherforecastapplication.model
 import android.content.ContentValues.TAG
 import android.util.Log
 
-data class Setting (val languageIndex: Int,val speedIndex:Int,val tempretureIndex:Int){
+data class Setting (val languageIndex: Int,val speedIndex:Int,val tempretureIndex:Int,val longitude:String?,val latitude:String?){
 
     fun getLanguage():String{
         if (languageIndex==1){

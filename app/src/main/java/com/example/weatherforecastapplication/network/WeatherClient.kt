@@ -7,7 +7,7 @@ class WeatherClient private constructor():RemoteSource{
     val retrofitService : WeatherService by lazy {
         RetrofitHelper.getInstance().create(WeatherService::class.java)
     }
-    override suspend fun getWeatherOverNetwork( latitude:Double,longitude:Double,exclude:String,units:String,language:String,): WeatherModel {
+    override suspend fun getWeatherOverNetwork( latitude:String,longitude:String,exclude:String,units:String,language:String,): WeatherModel {
        val response = retrofitService.getweather(latitude,longitude,exclude,units,language,)
         println("1111111***/////deeeebug why null ${response}")
         return response

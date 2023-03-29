@@ -29,10 +29,12 @@
         app:layout_constraintGuide_begin="15dp" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView2"
+        android:id="@+id/recyclerViewFavouriteList"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="30dp"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toStartOf="@+id/guidelineL"
         app:layout_constraintStart_toStartOf="@+id/guidelineR"
         app:layout_constraintTop_toTopOf="@+id/guidelineTop" />

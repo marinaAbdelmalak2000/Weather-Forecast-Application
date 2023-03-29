@@ -12,7 +12,7 @@ interface RepositoryInterface {
     suspend fun getStoredWeatherModel(): Flow<WeatherModel>
     suspend fun insertWeatherModel(weatherModel: WeatherModel)
 
-    suspend fun getStoredFavourite(): Flow<Favourite>
+    suspend fun getStoredFavourite(): Flow<List<Favourite>>
     suspend fun insertFavourite(favouriteCity: Favourite)
     fun getPrameterFavouriteList(): FavouriteList
 

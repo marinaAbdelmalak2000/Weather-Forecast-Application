@@ -39,7 +39,7 @@ class ConcreteLocalSource(context: Context) :LocalSource{
         return dao.insert(favouriteCity)
     }
 
-    override suspend fun getStoredFavourite(): Flow<Favourite> {
+    override suspend fun getStoredFavourite(): Flow<List<Favourite>> {
         return dao.getAllFavourite()
     }
 

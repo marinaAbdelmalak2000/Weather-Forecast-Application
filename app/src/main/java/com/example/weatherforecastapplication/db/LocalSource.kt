@@ -14,7 +14,7 @@ interface LocalSource {
     fun getPrameterSettings(): Setting
 
     suspend fun insertFavourite(favouriteCity: Favourite)
-    suspend fun getStoredFavourite(): Flow<Favourite>
+    suspend fun getStoredFavourite(): Flow<List<Favourite>>
 
     fun getPrameterFavouriteList(): FavouriteList
 

@@ -43,7 +43,7 @@ class Repository private constructor(var remoteSource: RemoteSource,var localSou
         return localSource.insertWeatherModel(weatherModel)
     }
 
-    override suspend fun getStoredFavourite(): Flow<Favourite> {
+    override suspend fun getStoredFavourite(): Flow<List<Favourite>> {
         return localSource.getStoredFavourite()
     }
 

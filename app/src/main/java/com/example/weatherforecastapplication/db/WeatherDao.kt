@@ -17,6 +17,6 @@ interface WeatherDao {
     fun insert(favouriteCity: Favourite)
 
     @Query("SELECT * FROM Favourite")
-    fun getAllFavourite(): Flow<Favourite>
+    fun getAllFavourite(): Flow<List<Favourite>>
 
 }

@@ -12,7 +12,7 @@ sealed class ApiState {
     class Failure(val msg:Throwable):ApiState()
     object Loading:ApiState()
 
-    class SuccessFavourite(val data: Favourite):ApiState()
+    class SuccessFavourite(val data: List<Favourite>):ApiState()
 
     // class Success<T>(val data: T):ApiState()
 

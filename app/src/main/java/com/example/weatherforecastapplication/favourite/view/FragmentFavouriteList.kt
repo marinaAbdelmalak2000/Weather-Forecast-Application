@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.example.productmvvm.db.ConcreteLocalSource
 import com.example.productmvvm.model.Repository
 import com.example.productmvvm.network.WeatherClient
@@ -18,8 +19,13 @@ import com.example.weatherforecastapplication.databinding.FragmentFavouriteListB
 import com.example.weatherforecastapplication.databinding.FragmentHomeBinding
 import com.example.weatherforecastapplication.favourite.viewmodel.FavouriteViewModel
 import com.example.weatherforecastapplication.favourite.viewmodel.FavouriteViewModelFactory
+import com.example.weatherforecastapplication.home.view.AdapterHourlyHome
 import com.example.weatherforecastapplication.map.FragmentMap
 import com.example.weatherforecastapplication.model.Favourite
+import com.example.weatherforecastapplication.model.Hourly
+import com.example.weatherforecastapplication.network.ApiState
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 class FragmentFavouriteList : Fragment() {
 
@@ -27,6 +33,9 @@ class FragmentFavouriteList : Fragment() {
 
     lateinit var allFactory: FavouriteViewModelFactory
     lateinit var viewModel: FavouriteViewModel
+
+    lateinit var recyclerAdapterFavouriteList: AdapterFavouriteList
+    var favouriteList= mutableListOf<Favourite>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -51,6 +60,10 @@ class FragmentFavouriteList : Fragment() {
 
         viewModel= ViewModelProvider(this,allFactory).get(FavouriteViewModel::class.java)
 
+        recyclerAdapterFavouriteList= AdapterFavouriteList(favouriteList)
+        //initialization
+        binding.recyclerViewFavouriteList.adapter=recyclerAdapterFavouriteList
+
 
         binding.buttonSAVEFavouriteList.visibility=View.GONE
         binding.buttonAddFavouriteList.setOnClickListener{
@@ -66,6 +79,24 @@ class FragmentFavouriteList : Fragment() {
             binding.buttonAddFavouriteList.visibility = View.VISIBLE
             binding.buttonSAVEFavouriteList.visibility=View.GONE
         }
+
+        lifecycleScope.launch {
+
+            viewModel.favourite.collectLatest { favouriteCity ->when (favouriteCity) {
+
+                is ApiState.SuccessFavourite -> {
+                    binding.fragmentContanerFavouriteList.visibility=View.GONE
+                  viewModel.getLocalFavourite()
+                    val favouriteList = favouriteCity.data
+
+                    recyclerAdapterFavouriteList.setData(favouriteList)
+                    recyclerAdapterFavouriteList.notifyDataSetChanged()
+                    println("////////////////  ${viewModel.getLocalFavourite()}")
+                }
+                else ->{}
+                }
+            }
+        }
     }
 
     fun changeFragment(fragmentSelect:Fragment) {
@@ -73,6 +104,7 @@ class FragmentFavouriteList : Fragment() {
         fragment.replace(R.id.fragment_contanerFavouriteList, fragmentSelect).commit()
         binding.buttonAddFavouriteList.visibility = View.GONE
         binding.buttonSAVEFavouriteList.visibility=View.VISIBLE
+        binding.recyclerViewFavouriteList.visibility=View.VISIBLE
 
     }
 }

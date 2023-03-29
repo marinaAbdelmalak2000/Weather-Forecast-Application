@@ -4,6 +4,8 @@ import android.content.Context
 import android.net.ConnectivityManager
 import com.example.productmvvm.db.LocalSource
 import com.example.productmvvm.network.RemoteSource
+import com.example.weatherforecastapplication.model.Favourite
+import com.example.weatherforecastapplication.model.FavouriteList
 import com.example.weatherforecastapplication.model.Setting
 import com.example.weatherforecastapplication.model.WeatherModel
 import kotlinx.coroutines.flow.Flow
@@ -41,20 +43,17 @@ class Repository private constructor(var remoteSource: RemoteSource,var localSou
         return localSource.insertWeatherModel(weatherModel)
     }
 
-    // Fetch data from network and store it in myData
-//    override suspend fun fetchData() {
-//        if (isNetworkAvailable()) {
-//            // Fetch data from the network
-//            getPrameterSettingsLocal()
-//        } else {
-//            // Fetch data from local storage
-//            getStoredWeatherModel()
-//        }
-//    }
-//    private fun isNetworkAvailable(): Boolean {
-//        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-//        val activeNetworkInfo = connectivityManager.activeNetworkInfo
-//        return activeNetworkInfo != null && activeNetworkInfo.isConnected
-//    }
+    override suspend fun getStoredFavourite(): Flow<Favourite> {
+        return localSource.getStoredFavourite()
+    }
+
+    override suspend fun insertFavourite(favouriteCity: Favourite) {
+        return localSource.insertFavourite(favouriteCity)
+    }
+
+    override fun getPrameterFavouriteList(): FavouriteList {
+        return localSource.getPrameterFavouriteList()
+    }
+
 
 }

@@ -3,6 +3,8 @@ package com.example.productmvvm.db
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.lifecycle.asLiveData
+import com.example.weatherforecastapplication.model.Favourite
+import com.example.weatherforecastapplication.model.FavouriteList
 import com.example.weatherforecastapplication.model.Setting
 import com.example.weatherforecastapplication.model.WeatherModel
 import kotlinx.coroutines.flow.Flow
@@ -21,7 +23,7 @@ class ConcreteLocalSource(context: Context) :LocalSource{
     override suspend fun getStoredWeatherModel(): Flow<WeatherModel>  {
         return dao.getAll()
     }
-   private val sharedPreferences: SharedPreferences = context.getSharedPreferences("LastSetting", Context.MODE_PRIVATE)
+    private val sharedPreferences: SharedPreferences = context.getSharedPreferences("LastSetting", Context.MODE_PRIVATE)
     //LastLocation
     private val sharedLocation: SharedPreferences = context.getSharedPreferences("LastLocation", Context.MODE_PRIVATE)
     override fun getPrameterSettings(): Setting {
@@ -31,6 +33,22 @@ class ConcreteLocalSource(context: Context) :LocalSource{
         val longitude=sharedLocation.getString("longitude","null")
         val latitude=sharedLocation.getString("latitude","null")
         return Setting(languageIndex,speedIndex,tempretureIndex,longitude,latitude)
+    }
+
+    override suspend fun insertFavourite(favouriteCity: Favourite) {
+        return dao.insert(favouriteCity)
+    }
+
+    override suspend fun getStoredFavourite(): Flow<Favourite> {
+        return dao.getAllFavourite()
+    }
+
+    private val sharedLocationMap: SharedPreferences = context.getSharedPreferences("LastLocationMap", Context.MODE_PRIVATE)
+    override fun getPrameterFavouriteList(): FavouriteList {
+        val longitudeMap=sharedLocationMap.getString("longitudeMap","null")
+        val latitudeMap=sharedLocationMap.getString("latitudeMap","null")
+        val cityNameMap=sharedLocationMap.getString("cityNameMap","null")
+        return FavouriteList(longitudeMap,latitudeMap,cityNameMap)
     }
 
 }

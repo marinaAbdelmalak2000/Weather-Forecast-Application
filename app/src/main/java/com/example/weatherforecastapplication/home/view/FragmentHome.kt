@@ -35,6 +35,7 @@ import com.example.weatherforecastapplication.WeatherViewModelFactory
 import com.example.weatherforecastapplication.databinding.FragmentHomeBinding
 import com.example.weatherforecastapplication.model.Daily
 import com.example.weatherforecastapplication.model.Hourly
+import com.example.weatherforecastapplication.model.WeatherModel
 import com.example.weatherforecastapplication.network.ApiState
 import com.google.android.gms.location.*
 import com.google.android.material.snackbar.Snackbar
@@ -105,7 +106,7 @@ class FragmentHome : Fragment() {
 
            viewModel.uiState.collectLatest { uiState ->when (uiState) {
 
-               is ApiState.Success-> {
+               is ApiState.Success -> {
                    binding.progressBarHome.visibility = View.GONE
                    binding.recyclerViewHourHome.visibility = View.VISIBLE
                    binding.recyclerViewDaysHome.visibility = View.VISIBLE

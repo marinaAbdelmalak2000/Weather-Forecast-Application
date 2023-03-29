@@ -25,37 +25,16 @@ class WeatherViewModel (private val _irepo: RepositoryInterface): ViewModel() {
     private val _uiState = MutableStateFlow<ApiState>(ApiState.Loading)
     val uiState = _uiState.asStateFlow()
 
-  //  private val _uiStateLocal = MutableStateFlow<ApiState>(ApiState.Loading)
-  //  val uiStateLocal = _uiStateLocal.asStateFlow()
-
-
-    private val _isConnected = MutableLiveData<Boolean>()
-    val isConnected: LiveData<Boolean>
-        get() = _isConnected
-
-
-//    lateinit var units :String
-//    lateinit var exclude:String
 
     val language=_irepo.getPrameterSettingsLocal().getLanguage()
     val unit=_irepo.getPrameterSettingsLocal().getUnit()
     val longitude=_irepo.getPrameterSettingsLocal().longitude
     val latitude=_irepo.getPrameterSettingsLocal().latitude
-//    var checkSpeed =_irepo.getPrameterSettingsLocal().CheckconvertSpeed()
-//    var checkTemp=_irepo.getPrameterSettingsLocal().CheckconvertTemp()
+
     var checkTemp =_irepo.getPrameterSettingsLocal().convertCelToSpacificTemp()
     var checkSpeed=_irepo.getPrameterSettingsLocal().convertMeterPerSecToMilesPerHour()
 
 
-
-    init {
-        //getLocalWeatherModel()
-      //  checkNetworkStatus()
-      //  Log.i(TAG, "language::::::::::::::::::::::::::::::::: $language  Index::::: ${isConnected.value}")
-      //  Log.i(TAG, " ////language : $language units $units exclude $exclude ")
-      //  allWeatherNetwork(33.44,-94.04,"minutely", unit,language)
-
-    }
 
     fun allWeatherNetwork(
         latitude: String,
@@ -97,30 +76,11 @@ class WeatherViewModel (private val _irepo: RepositoryInterface): ViewModel() {
             }
                 .collect{
                         data ->
-                  //  withContext(Dispatchers.Main){
                     _uiState.value=ApiState.Success(data)
                     Log.i(TAG, "getStoredWeatherModel:LOcalll/// ${ _uiState.value.toString()}  data ${data.current.temp}")
                 }
-
-
-              //  }
-
-            Log.i(TAG, "getLocalProduct: ${_irepo.getStoredWeatherModel().toString()} /// ${_uiState.value.toString()}")
         }
     }
-    // Call this function to refresh the data
-//    fun refreshData() {
-//        viewModelScope.launch {
-//            _irepo.fetchData()
-//        }
-//    }
-
-//    private fun checkNetworkStatus() {
-//        val connectivityManager = getApplication<Application>().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-//        val networkInfo = connectivityManager.activeNetworkInfo
-//        _isConnected.value = networkInfo != null && networkInfo.isConnected
-//    }
-
 
 
 }

@@ -1,6 +1,7 @@
 package com.example.productmvvm.db
 
 import androidx.room.*
+import com.example.weatherforecastapplication.model.Favourite
 import com.example.weatherforecastapplication.model.WeatherModel
 import kotlinx.coroutines.flow.Flow
 
@@ -12,5 +13,10 @@ interface WeatherDao {
     @Query("SELECT * FROM WeatherModel")
      fun getAll(): Flow<WeatherModel>
 
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    fun insert(favouriteCity: Favourite)
+
+    @Query("SELECT * FROM Favourite")
+    fun getAllFavourite(): Flow<Favourite>
 
 }

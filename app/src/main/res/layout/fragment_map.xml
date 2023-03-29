@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.fragment.app.FragmentContainerView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".map.FragmentMap"
     >
 <!--    android:name="com.example.weatherforecastapplication.map.FragmentMap"-->
+<fragment
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/MY_MAP"
+    android:name="com.google.android.gms.maps.SupportMapFragment"
+    />
 
-
-</androidx.fragment.app.FragmentContainerView>
+</FrameLayout>

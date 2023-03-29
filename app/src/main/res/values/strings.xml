@@ -18,4 +18,5 @@
     <string name="not_netwark">There is no internet connection</string>
     <string name="favourite_screen">Favourite</string>
     <string name="add_favourite_list">+</string>
+    <string name="save_favourite_list">Save</string>
 </resources>

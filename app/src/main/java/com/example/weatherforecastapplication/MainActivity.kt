@@ -36,13 +36,16 @@ import androidx.fragment.app.FragmentTransaction
 import com.example.weatherforecastapplication.alerts.view.FragmentAlertList
 import com.example.weatherforecastapplication.favourite.view.FragmentFavouriteList
 import com.example.weatherforecastapplication.home.view.FragmentHome
-import com.example.weatherforecastapplication.map.PERMISSION_ID
+import com.example.weatherforecastapplication.map.FragmentGps
+import com.example.weatherforecastapplication.map.FragmentMap
 import com.example.weatherforecastapplication.settings.view.FragmentSettings
 import com.google.android.gms.location.*
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.navigation.NavigationView.OnNavigationItemSelectedListener
 import java.util.*
 
+
+const val PERMISSION_ID =44
 
 class MainActivity : AppCompatActivity(),OnNavigationItemSelectedListener {
 
@@ -83,11 +86,15 @@ class MainActivity : AppCompatActivity(),OnNavigationItemSelectedListener {
 
         this.onBackPressedDispatcher.addCallback(onBackPressedCallback)
 
+
         if(isNetworkAvailable(this)==true){
+
+           // changeFragment(FragmentGps())
             /////// Location ////////////
             location= getSharedPreferences("LastLocation", Context.MODE_PRIVATE)
             editorLocation=location.edit()
             getLastLocation()
+           // changeFragment(FragmentMap())
         }
 
     }

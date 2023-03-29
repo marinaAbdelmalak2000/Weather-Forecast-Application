@@ -33,7 +33,6 @@ import com.example.weatherforecastapplication.R
 import com.example.weatherforecastapplication.WeatherViewModel
 import com.example.weatherforecastapplication.WeatherViewModelFactory
 import com.example.weatherforecastapplication.databinding.FragmentHomeBinding
-import com.example.weatherforecastapplication.map.PERMISSION_ID
 import com.example.weatherforecastapplication.model.Daily
 import com.example.weatherforecastapplication.model.Hourly
 import com.example.weatherforecastapplication.network.ApiState

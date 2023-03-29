@@ -46,4 +46,25 @@
         app:layout_constraintHorizontal_bias="0.996"
         android:background="@drawable/background_home_today"
         app:layout_constraintStart_toStartOf="@+id/guidelineR" />
+
+    <Button
+        android:id="@+id/buttonSAVEFavouriteList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/background_home_today"
+        android:text="@string/save_favourite_list"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineL"
+        app:layout_constraintHorizontal_bias="0.996"
+        app:layout_constraintStart_toStartOf="@+id/guidelineR" />
+
+    <FrameLayout
+        android:id="@+id/fragment_contanerFavouriteList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,11 +14,11 @@ import androidx.lifecycle.lifecycleScope
 import com.example.productmvvm.db.ConcreteLocalSource
 import com.example.productmvvm.model.Repository
 import com.example.productmvvm.network.WeatherClient
-import com.example.weatherforecastapplication.R
 import com.example.weatherforecastapplication.databinding.FragmentFavouriteListBinding
 import com.example.weatherforecastapplication.favourite.viewmodel.FavouriteViewModel
 import com.example.weatherforecastapplication.favourite.viewmodel.FavouriteViewModelFactory
-import com.example.weatherforecastapplication.map.FragmentMap
+import androidx.navigation.Navigation.findNavController
+import com.example.weatherforecastapplication.R
 import com.example.weatherforecastapplication.model.Favourite
 import com.example.weatherforecastapplication.network.ApiState
 import kotlinx.coroutines.flow.collectLatest
@@ -60,77 +60,42 @@ class FragmentFavouriteList : Fragment() ,OnDeleteClick{
 
         viewModel= ViewModelProvider(this,allFactory).get(FavouriteViewModel::class.java)
 
-        recyclerAdapterFavouriteList= AdapterFavouriteList(favouriteList,this)
-        //initialization
-        binding.recyclerViewFavouriteList.adapter=recyclerAdapterFavouriteList
-
-
-        binding.buttonSAVEFavouriteList.visibility=View.GONE
         binding.buttonAddFavouriteList.setOnClickListener{
-            changeFragment(FragmentMap())
-            //  var navController = findNavController(this).navigate(R.id.action_fragmentFavouriteList_to_fragmentMap2)
-
-            // findNavController(this@FragmentFavouriteList).navigate(R.id.action_fragmentFavouriteList_to_fragmentMap2)
-            binding.fragmentContanerFavouriteList.visibility=View.VISIBLE
-            binding.buttonAddFavouriteList.visibility = View.GONE
-            binding.buttonSAVEFavouriteList.visibility=View.VISIBLE
-            binding.recyclerViewFavouriteList.visibility=View.GONE
+             findNavController(requireView()).navigate(R.id.action_fragmentFavouriteList_to_fragmentMap2)
 
         }
 
-        sharedLocationMap= requireActivity().getSharedPreferences("LastLocationMap", Context.MODE_PRIVATE)
+      //  sharedLocationMap= requireActivity().getSharedPreferences("LastLocationMap", Context.MODE_PRIVATE)
 
-
-        binding.buttonSAVEFavouriteList.setOnClickListener{
-
-            changeFragment(FragmentFavouriteList())
-            val longitudeMap=sharedLocationMap.getString("longitudeMap","30.20")
-            val latitudeMap=sharedLocationMap.getString("latitudeMap","30.55")
-            cityNameMap= sharedLocationMap.getString("cityNameMap","null").toString()
-
-            viewModel.insertFavourite(Favourite(CityName=cityNameMap,lon=longitudeMap, lan =latitudeMap))
-            Log.i(TAG, "onViewCreated: ${longitudeMap}  ${cityNameMap}")
-
-            binding.buttonAddFavouriteList.visibility = View.VISIBLE
-            binding.buttonSAVEFavouriteList.visibility=View.GONE
-            binding.recyclerViewFavouriteList.visibility=View.VISIBLE
-            binding.fragmentContanerFavouriteList.visibility=View.GONE
-            //  requireParentFragment().isVisible
-        }
+        recyclerAdapterFavouriteList= AdapterFavouriteList(favouriteList,this)
 
         lifecycleScope.launch {
-
             viewModel.favourite.collectLatest { favouriteCity ->when (favouriteCity) {
 
                 is ApiState.SuccessFavourite -> {
-                    binding.fragmentContanerFavouriteList.visibility=View.GONE
-                    binding.recyclerViewFavouriteList.visibility=View.VISIBLE
-                  viewModel.getLocalFavourite()
-                    val favouriteList = favouriteCity.data
 
-                    recyclerAdapterFavouriteList.setData(favouriteList)
+                  viewModel.getLocalFavourite()
+                    //initialization
+                    recyclerAdapterFavouriteList.setData(favouriteCity.data)
+                    binding.recyclerViewFavouriteList.adapter=recyclerAdapterFavouriteList
                     recyclerAdapterFavouriteList.notifyDataSetChanged()
-                   // println("////////////////  ${viewModel.getLocalFavourite()}")
                 }
                 else ->{
+                    println("///////////////////////////////////////////////////////////not display")
+                    Log.i(TAG, "onViewCreated: //////////////////////////not display")
                    // binding.fragmentContanerFavouriteList.visibility=View.VISIBLE
-
                 }
                 }
             }
         }
+
     }
 
-    fun changeFragment(fragmentSelect:Fragment) {
-        val fragment = requireActivity().supportFragmentManager.beginTransaction()
-        fragment.replace(R.id.fragment_contanerFavouriteList, fragmentSelect).commit()
-        binding.fragmentContanerFavouriteList.visibility=View.GONE
-        binding.recyclerViewFavouriteList.visibility=View.VISIBLE
-    }
 
     override fun deleteItem(favourite: Favourite) {
         Log.i(TAG, "deleteItem: //////////// ${favourite}")
         viewModel.deleteFavourite(favourite)
+        recyclerAdapterFavouriteList.notifyDataSetChanged()
 
     }
 

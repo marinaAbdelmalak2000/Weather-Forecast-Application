@@ -26,6 +26,7 @@ class FavouriteViewModel (private val _irepo: RepositoryInterface): ViewModel() 
     fun insertFavourite(favouriteCity: Favourite){
         viewModelScope.launch (Dispatchers.IO){
             _irepo.insertFavourite(favouriteCity)
+             getLocalFavourite()
           //  println("insertFavourite///// $cityName //// $longMap ///// $latMap")
         }
     }
@@ -37,6 +38,7 @@ class FavouriteViewModel (private val _irepo: RepositoryInterface): ViewModel() 
         viewModelScope.launch (Dispatchers.IO){
 
             _irepo.getStoredFavourite()
+
                 .catch {
                         e->_Favourite.value=ApiState.Failure(e)
                     Log.i(ContentValues.TAG, "getLocalFavourite: FailureFailureFailureFailure")
@@ -53,8 +55,10 @@ class FavouriteViewModel (private val _irepo: RepositoryInterface): ViewModel() 
     }
 
     fun deleteFavourite(favouriteCity: Favourite){
+
         viewModelScope.launch (Dispatchers.IO){
             _irepo.deleteFavourite(favouriteCity)
+             getLocalFavourite()
           //  println("deleteFavourite///// $cityName //// $longMap ///// $latMap")
         }
     }

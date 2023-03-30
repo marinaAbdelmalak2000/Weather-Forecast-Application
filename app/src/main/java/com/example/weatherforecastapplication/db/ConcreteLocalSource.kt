@@ -32,8 +32,8 @@ class ConcreteLocalSource(context: Context) :LocalSource{
         val speedIndex = sharedPreferences.getInt("LastClickSpeed", 0)
         val tempretureIndex = sharedPreferences.getInt("LastClickTemp", 0)
         val locationIndex = sharedPreferences.getInt("LastClickLocation",0)
-        val longitude=sharedLocation.getString("longitude","null")
-        val latitude=sharedLocation.getString("latitude","null")
+        val longitude=sharedLocation.getString("longitude","30.55")
+        val latitude=sharedLocation.getString("latitude","30.25")
         return Setting(languageIndex,speedIndex,tempretureIndex,locationIndex,longitude,latitude)
     }
 

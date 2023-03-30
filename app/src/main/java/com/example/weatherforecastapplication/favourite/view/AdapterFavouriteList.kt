@@ -1,24 +1,18 @@
 package com.example.weatherforecastapplication.favourite.view
 
-import android.app.AlertDialog
-import android.app.Dialog
-import android.content.ContentValues
+
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
+
 import androidx.recyclerview.widget.RecyclerView
-import com.example.productmvvm.db.ConcreteLocalSource
-import com.example.productmvvm.model.Repository
-import com.example.productmvvm.network.WeatherClient
 import com.example.weatherforecastapplication.R
+
 import com.example.weatherforecastapplication.databinding.RowFavouriteListBinding
-import com.example.weatherforecastapplication.favourite.viewmodel.FavouriteViewModel
-import com.example.weatherforecastapplication.favourite.viewmodel.FavouriteViewModelFactory
+
 import com.example.weatherforecastapplication.model.Favourite
 
 class AdapterFavouriteList (private var favourites: List<Favourite>,private val onDelete:OnDeleteClick) :
@@ -32,7 +26,7 @@ class AdapterFavouriteList (private var favourites: List<Favourite>,private val 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater: LayoutInflater =parent.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         binding = RowFavouriteListBinding.inflate(inflater, parent, false)
-        Log.i(ContentValues.TAG, "onCreateViewHolder: ")
+        Log.i(TAG, "onCreateViewHolder: ")
 
         return ViewHolder(binding)
 
@@ -47,13 +41,11 @@ class AdapterFavouriteList (private var favourites: List<Favourite>,private val 
         binding.imageViewDelete.setOnClickListener{
             println("///////////////////////////////////dddddddddddddddddddddddddddddxfcgvhbjnkmnbvcdfcgv vhjdddd")
             Log.i(TAG, "imageViewDelete: ///////////// ")
-            //deleteClick.deleteItem(favourites.get(position))
-            //deleteItem(position)
             listener.deleteItem(favourites.get(position))
         }
         holder.binding.rowFavourite.setOnClickListener{
             Log.i(TAG, "onBindViewHolder: ///////////////////////////////debugggggggggggggggggggggggggggggg")
-            onDelete.deleteItem(favourites.get(position))
+
         }
 
     }

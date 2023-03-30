@@ -27,23 +27,24 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.example.productmvvm.db.ConcreteLocalSource
 import com.example.productmvvm.model.Repository
 import com.example.productmvvm.network.WeatherClient
-import com.example.weatherforecastapplication.alerts.view.FragmentAlertList
-import com.example.weatherforecastapplication.favourite.view.FragmentFavouriteList
-import com.example.weatherforecastapplication.home.view.FragmentHome
-import com.example.weatherforecastapplication.settings.view.FragmentSettings
+
 import com.example.weatherforecastapplication.utils.NetwarkInternet
 import com.google.android.gms.location.*
 import com.google.android.material.navigation.NavigationView
-import com.google.android.material.navigation.NavigationView.OnNavigationItemSelectedListener
+
 import java.util.*
+
 
 
 const val PERMISSION_ID =44
 
-class MainActivity : AppCompatActivity(),OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity(){ //,OnNavigationItemSelectedListener
 
     lateinit var allFactory: WeatherViewModelFactory
     lateinit var viewModel: WeatherViewModel
@@ -51,6 +52,7 @@ class MainActivity : AppCompatActivity(),OnNavigationItemSelectedListener {
     //variable
     lateinit var drawerLayout:DrawerLayout
     lateinit var navigationView:NavigationView
+    lateinit var navController: NavController
     lateinit var toolbar: Toolbar
 
     lateinit var mFusedLocationClient: FusedLocationProviderClient
@@ -99,10 +101,22 @@ class MainActivity : AppCompatActivity(),OnNavigationItemSelectedListener {
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
-        navigationView.setNavigationItemSelectedListener(this)
 
 
-        this.onBackPressedDispatcher.addCallback(onBackPressedCallback)
+        // actionBar?.setDisplayHomeAsUpEnabled(true)
+
+        navController = findNavController(this, R.id.nav_host_fragment)
+        setupWithNavController(navigationView, navController)
+
+
+        //////////////////////////*******////////////******
+
+      //  navigationView.setNavigationItemSelectedListener(this)
+
+
+       // this.onBackPressedDispatcher.addCallback(onBackPressedCallback)
+
+        //////////////////////////////******///////////******///
 
         val checkLocationSetting=viewModel.indexLocationSetting
 
@@ -148,38 +162,49 @@ class MainActivity : AppCompatActivity(),OnNavigationItemSelectedListener {
 
     }
 
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        drawerLayout.closeDrawer(GravityCompat.START)
-
-        when(item.itemId){
-            R.id.home->{
-                setToolbarTitle("Home")
-                changeFragment(FragmentHome())
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                drawerLayout.closeDrawer(GravityCompat.START)
+            } else {
+                drawerLayout.openDrawer(GravityCompat.START)
             }
-            R.id.favourite->{
-                setToolbarTitle("Favourite")
-                changeFragment(FragmentFavouriteList())
-            }
-            R.id.alter->{
-                setToolbarTitle("Alter")
-                changeFragment(FragmentAlertList())
-            }
-            R.id.setting->{
-                setToolbarTitle("Setting")
-                changeFragment(FragmentSettings())
-            }
-
         }
-        return true
+        return super.onOptionsItemSelected(item)
     }
+
+//    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+//        drawerLayout.closeDrawer(GravityCompat.START)
+//
+//        when(item.itemId){
+//            R.id.home->{
+//                setToolbarTitle("Home")
+//                changeFragment(FragmentHome())
+//            }
+//            R.id.favourite->{
+//                setToolbarTitle("Favourite")
+//                changeFragment(FragmentFavouriteList())
+//            }
+//            R.id.alter->{
+//                setToolbarTitle("Alter")
+//                changeFragment(FragmentAlertList())
+//            }
+//            R.id.setting->{
+//                setToolbarTitle("Setting")
+//                changeFragment(FragmentSettings())
+//            }
+//
+//        }
+//        return true
+//    }
 
     fun setToolbarTitle(title:String){
         supportActionBar?.title=title
     }
-    fun changeFragment(fragmentSelect:Fragment){
-        val fragment=supportFragmentManager.beginTransaction()
-        fragment.replace(R.id.fragment_contaner,fragmentSelect).commit()
-    }
+//    fun changeFragment(fragmentSelect:Fragment){
+//        val fragment=supportFragmentManager.beginTransaction()
+//        fragment.replace(R.id.fragment_contaner,fragmentSelect).commit()
+//    }
 
     fun customExitDialog() {
         // creating custom dialog

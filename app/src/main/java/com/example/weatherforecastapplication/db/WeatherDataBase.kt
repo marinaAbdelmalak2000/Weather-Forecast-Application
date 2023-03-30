@@ -5,13 +5,10 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.example.weatherforecastapplication.model.Alarm
-import com.example.weatherforecastapplication.model.Favourite
-import com.example.weatherforecastapplication.model.WeatherModel
-import com.example.weatherforecastapplication.model.WeatherModelTypeConverter
+import com.example.weatherforecastapplication.model.*
 
 
-@Database(entities = arrayOf(WeatherModel::class,Favourite::class, Alarm::class), version = 10)
+@Database(entities = arrayOf(WeatherModel::class,Favourite::class, CityAlarmList::class), version = 12)
 @TypeConverters(WeatherModelTypeConverter::class)
 abstract class WeatherDataBase : RoomDatabase() {
     abstract fun getWeatherDao(): WeatherDao

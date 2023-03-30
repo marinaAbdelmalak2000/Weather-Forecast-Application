@@ -1,5 +1,6 @@
 package com.example.weatherforecastapplication.settings.view
 
+import android.app.Activity
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.SharedPreferences
@@ -122,17 +123,21 @@ class FragmentSettings : Fragment() { //, AdapterView.OnItemSelectedListener
         /////// Language ////////////
         editorLanguage=lastSelectSetting.edit()
         val lastClickLanguage=lastSelectSetting.getInt("LastClickLanguage",0)
-        //  binding.spinnerWindSpeedeSetting.onItemSelectedListener=this
         binding.spinnerLaunguageSetting.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 // Get the selected item
 //                (view as TextView).setTextColor(Color.WHITE)
 //                (view as TextView).setTextSize(18f)
                 editorLanguage.putInt("LastClickLanguage",position).commit()
+                if(position==0){
+                    setLocal(requireActivity(),"ar")
+                }
+                else{
+                    setLocal(requireActivity(),"en")
+                }
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
-                // Do nothing
             }
         }
 
@@ -194,6 +199,16 @@ class FragmentSettings : Fragment() { //, AdapterView.OnItemSelectedListener
 
     }
 
+    fun setLocal(activity: Activity, langCode:String){
+        val local: Locale = Locale(langCode)
+        Locale.setDefault(local)
+        val resources : Resources =activity.resources
+        val config: Configuration =resources.configuration
+        config.setLocale(local)
+        resources.updateConfiguration(config,resources.displayMetrics)
+//        activity?.finish()
+//        activity?.startActivity(activity?.intent)
+    }
 
 
 }

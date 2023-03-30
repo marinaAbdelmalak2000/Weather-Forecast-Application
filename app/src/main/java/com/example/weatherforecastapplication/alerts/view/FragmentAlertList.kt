@@ -46,7 +46,7 @@ class FragmentAlertList : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.buttonAddAlertsList.setOnClickListener{
-            setAlarm()
+            showTimePicker()
         }
 
     }
@@ -84,6 +84,7 @@ class FragmentAlertList : Fragment() {
             calender[Calendar.SECOND] = 0
             calender[Calendar.MILLISECOND] = 0
         }
+        setAlarm()
     }
 
     private fun createNotificationChannel(){

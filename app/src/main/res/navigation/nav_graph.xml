@@ -43,6 +43,9 @@
         <action
             android:id="@+id/action_fragmentHome_to_fragmentAlertList"
             app:destination="@id/fragmentAlertList" />
+        <action
+            android:id="@+id/action_fragmentHome_to_fragmentMap2"
+            app:destination="@id/fragmentMap2" />
     </fragment>
     <fragment
         android:id="@+id/fragmentAlertList"
@@ -61,6 +64,9 @@
         <action
             android:id="@+id/action_fragmentAlertList_to_fragmentFavouriteList"
             app:destination="@id/fragmentFavouriteList" />
+        <action
+            android:id="@+id/action_fragmentAlertList_to_fragmentMap2"
+            app:destination="@id/fragmentMap2" />
     </fragment>
     <fragment
         android:id="@+id/fragmentFavouriteList"
@@ -96,5 +102,15 @@
         android:id="@+id/fragmentMap2"
         android:name="com.example.weatherforecastapplication.map.FragmentMap"
         android:label="fragment_map"
-        tools:layout="@layout/fragment_map" />
+        tools:layout="@layout/fragment_map" >
+        <action
+            android:id="@+id/action_fragmentMap2_to_fragmentFavouriteList"
+            app:destination="@id/fragmentFavouriteList" />
+        <action
+            android:id="@+id/action_fragmentMap2_to_fragmentAlertList"
+            app:destination="@id/fragmentAlertList" />
+        <action
+            android:id="@+id/action_fragmentMap2_to_fragmentHome"
+            app:destination="@id/fragmentHome" />
+    </fragment>
 </navigation>

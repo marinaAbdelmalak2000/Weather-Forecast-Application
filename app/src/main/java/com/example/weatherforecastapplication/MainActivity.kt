@@ -4,7 +4,6 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.ContentValues
-import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -12,15 +11,11 @@ import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.location.Location
 import android.location.LocationManager
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
-import android.os.Build
 import android.os.Bundle
 import android.os.Looper
 import android.provider.Settings
 import android.util.Log
 import android.view.MenuItem
-import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
@@ -28,24 +23,18 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
-import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.example.productmvvm.db.ConcreteLocalSource
 import com.example.productmvvm.model.Repository
 import com.example.productmvvm.network.WeatherClient
 import com.example.weatherforecastapplication.alerts.view.FragmentAlertList
 import com.example.weatherforecastapplication.favourite.view.FragmentFavouriteList
 import com.example.weatherforecastapplication.home.view.FragmentHome
-import com.example.weatherforecastapplication.map.FragmentGps
-import com.example.weatherforecastapplication.map.FragmentMap
 import com.example.weatherforecastapplication.settings.view.FragmentSettings
+import com.example.weatherforecastapplication.utils.NetwarkInternet
 import com.google.android.gms.location.*
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.navigation.NavigationView.OnNavigationItemSelectedListener
@@ -68,6 +57,8 @@ class MainActivity : AppCompatActivity(),OnNavigationItemSelectedListener {
     lateinit var location: SharedPreferences
 
     lateinit var editorLocation: SharedPreferences.Editor
+
+    val netwarkInternet= NetwarkInternet()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -115,7 +106,7 @@ class MainActivity : AppCompatActivity(),OnNavigationItemSelectedListener {
 
         val checkLocationSetting=viewModel.indexLocationSetting
 
-        if(isNetworkAvailable(this)==true){
+        if(netwarkInternet.isNetworkAvailable(this)==true){
 
            // changeFragment(FragmentGps())
             /////// Location ////////////
@@ -130,9 +121,12 @@ class MainActivity : AppCompatActivity(),OnNavigationItemSelectedListener {
 //
 //            }
 
+            //////////////////////////////************///////////////////////////
             location= getSharedPreferences("LastLocation", Context.MODE_PRIVATE)
                 editorLocation=location.edit()
                 getLastLocation()
+
+            ///////////////////////////************////////////////////////////
 
         }
 
@@ -212,6 +206,8 @@ class MainActivity : AppCompatActivity(),OnNavigationItemSelectedListener {
         dialog.show()
     }
 
+
+    /////////////////////////////////////*****************////////////////////////
     override fun onResume() {
         super.onResume()
         if(checkPermissions()){
@@ -312,32 +308,6 @@ class MainActivity : AppCompatActivity(),OnNavigationItemSelectedListener {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-    }
-
-
-    fun isNetworkAvailable(context: Context?): Boolean {
-        if (context == null) return false
-        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            val capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
-            if (capabilities != null) {
-                when {
-                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> {
-                        return true
-                    }
-                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> {
-                        return true
-                    }
-
-                }
-            }
-        } else {
-            val activeNetworkInfo = connectivityManager.activeNetworkInfo
-            if (activeNetworkInfo != null && activeNetworkInfo.isConnected) {
-                return true
-            }
-        }
-        return false
     }
 
 

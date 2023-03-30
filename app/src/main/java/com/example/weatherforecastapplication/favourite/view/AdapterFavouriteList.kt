@@ -21,8 +21,10 @@ import com.example.weatherforecastapplication.favourite.viewmodel.FavouriteViewM
 import com.example.weatherforecastapplication.favourite.viewmodel.FavouriteViewModelFactory
 import com.example.weatherforecastapplication.model.Favourite
 
-class AdapterFavouriteList (private var favourites: List<Favourite>,var onDelete:OnDeleteClick) :
+class AdapterFavouriteList (private var favourites: List<Favourite>,private val onDelete:OnDeleteClick) :
     RecyclerView.Adapter<AdapterFavouriteList.ViewHolder>() {
+
+    private var listener   = onDelete
 
     lateinit var binding: RowFavouriteListBinding
 
@@ -47,7 +49,7 @@ class AdapterFavouriteList (private var favourites: List<Favourite>,var onDelete
             Log.i(TAG, "imageViewDelete: ///////////// ")
             //deleteClick.deleteItem(favourites.get(position))
             //deleteItem(position)
-            onDelete.deleteItem(favourites.get(position))
+            listener.deleteItem(favourites.get(position))
         }
         holder.binding.rowFavourite.setOnClickListener{
             Log.i(TAG, "onBindViewHolder: ///////////////////////////////debugggggggggggggggggggggggggggggg")

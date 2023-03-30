@@ -26,6 +26,7 @@ import com.example.weatherforecastapplication.databinding.FragmentHomeBinding
 import com.example.weatherforecastapplication.model.Daily
 import com.example.weatherforecastapplication.model.Hourly
 import com.example.weatherforecastapplication.network.ApiState
+import com.example.weatherforecastapplication.utils.NetwarkInternet
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -46,7 +47,7 @@ class FragmentHome : Fragment() {
     lateinit var recyclerAdapterDaysHome: AdapterDaysHome
     var daysList= mutableListOf<Daily>()
 
-
+    val netwarkInternet= NetwarkInternet()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -252,7 +253,7 @@ class FragmentHome : Fragment() {
 //       val longitudeMap=locationMap.getString("longitudeMap","30.20")
 //       val latitudeMap=locationMap.getString("latitudeMap","30.55")
 
-               if(isNetworkAvailable(context)==true){
+               if(netwarkInternet.isNetworkAvailable(context)==true){
                    var language=viewModel.language
                    val unit=viewModel.unit
                    val lon=viewModel.longitude !!
@@ -301,31 +302,5 @@ class FragmentHome : Fragment() {
         }
 
     }
-
-    fun isNetworkAvailable(context: Context?): Boolean {
-        if (context == null) return false
-        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            val capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
-            if (capabilities != null) {
-                when {
-                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> {
-                        return true
-                    }
-                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> {
-                        return true
-                    }
-
-                }
-            }
-        } else {
-            val activeNetworkInfo = connectivityManager.activeNetworkInfo
-            if (activeNetworkInfo != null && activeNetworkInfo.isConnected) {
-                return true
-            }
-        }
-        return false
-    }
-
 
 }

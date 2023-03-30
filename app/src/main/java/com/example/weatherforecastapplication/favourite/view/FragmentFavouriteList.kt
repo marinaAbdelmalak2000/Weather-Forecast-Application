@@ -1,37 +1,25 @@
 package com.example.weatherforecastapplication.favourite.view
 
-import android.app.AlertDialog
-import android.app.Dialog
-import android.app.FragmentTransaction
-import android.app.PendingIntent.getActivity
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
-import androidx.navigation.ui.NavigationUI
-
 import com.example.productmvvm.db.ConcreteLocalSource
 import com.example.productmvvm.model.Repository
 import com.example.productmvvm.network.WeatherClient
 import com.example.weatherforecastapplication.R
-
 import com.example.weatherforecastapplication.databinding.FragmentFavouriteListBinding
-
 import com.example.weatherforecastapplication.favourite.viewmodel.FavouriteViewModel
 import com.example.weatherforecastapplication.favourite.viewmodel.FavouriteViewModelFactory
 import com.example.weatherforecastapplication.map.FragmentMap
-
 import com.example.weatherforecastapplication.model.Favourite
-
 import com.example.weatherforecastapplication.network.ApiState
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -79,16 +67,14 @@ class FragmentFavouriteList : Fragment() ,OnDeleteClick{
 
         binding.buttonSAVEFavouriteList.visibility=View.GONE
         binding.buttonAddFavouriteList.setOnClickListener{
-
             changeFragment(FragmentMap())
-          //  var navController = findNavController(this).navigate(R.id.action_fragmentFavouriteList_to_fragmentMap2)
+            //  var navController = findNavController(this).navigate(R.id.action_fragmentFavouriteList_to_fragmentMap2)
 
-           // findNavController(this@FragmentFavouriteList).navigate(R.id.action_fragmentFavouriteList_to_fragmentMap2)
+            // findNavController(this@FragmentFavouriteList).navigate(R.id.action_fragmentFavouriteList_to_fragmentMap2)
             binding.fragmentContanerFavouriteList.visibility=View.VISIBLE
             binding.buttonAddFavouriteList.visibility = View.GONE
             binding.buttonSAVEFavouriteList.visibility=View.VISIBLE
             binding.recyclerViewFavouriteList.visibility=View.GONE
-
 
         }
 
@@ -96,19 +82,20 @@ class FragmentFavouriteList : Fragment() ,OnDeleteClick{
 
 
         binding.buttonSAVEFavouriteList.setOnClickListener{
+
             changeFragment(FragmentFavouriteList())
             val longitudeMap=sharedLocationMap.getString("longitudeMap","30.20")
             val latitudeMap=sharedLocationMap.getString("latitudeMap","30.55")
             cityNameMap= sharedLocationMap.getString("cityNameMap","null").toString()
 
-                viewModel.insertFavourite(Favourite(CityName=cityNameMap,lon=longitudeMap, lan =latitudeMap))
-                Log.i(TAG, "onViewCreated: ${longitudeMap}  ${cityNameMap}")
+            viewModel.insertFavourite(Favourite(CityName=cityNameMap,lon=longitudeMap, lan =latitudeMap))
+            Log.i(TAG, "onViewCreated: ${longitudeMap}  ${cityNameMap}")
 
             binding.buttonAddFavouriteList.visibility = View.VISIBLE
             binding.buttonSAVEFavouriteList.visibility=View.GONE
             binding.recyclerViewFavouriteList.visibility=View.VISIBLE
-             binding.fragmentContanerFavouriteList.visibility=View.GONE
-          //  requireParentFragment().isVisible
+            binding.fragmentContanerFavouriteList.visibility=View.GONE
+            //  requireParentFragment().isVisible
         }
 
         lifecycleScope.launch {
@@ -116,7 +103,8 @@ class FragmentFavouriteList : Fragment() ,OnDeleteClick{
             viewModel.favourite.collectLatest { favouriteCity ->when (favouriteCity) {
 
                 is ApiState.SuccessFavourite -> {
-                  //  binding.fragmentContanerFavouriteList.visibility=View.GONE
+                    binding.fragmentContanerFavouriteList.visibility=View.GONE
+                    binding.recyclerViewFavouriteList.visibility=View.VISIBLE
                   viewModel.getLocalFavourite()
                     val favouriteList = favouriteCity.data
 
@@ -126,6 +114,7 @@ class FragmentFavouriteList : Fragment() ,OnDeleteClick{
                 }
                 else ->{
                    // binding.fragmentContanerFavouriteList.visibility=View.VISIBLE
+
                 }
                 }
             }
@@ -157,6 +146,8 @@ class FragmentFavouriteList : Fragment() ,OnDeleteClick{
 //        builder.setNegativeButton("No", null)
 //        builder.show()
 //    }
+
+
 
 }
 

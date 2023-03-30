@@ -12,6 +12,7 @@ import android.location.Geocoder
 import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
+import android.os.Handler
 import android.os.Looper
 import android.provider.Settings
 import android.util.Log
@@ -45,6 +46,8 @@ import java.util.*
 const val PERMISSION_ID =44
 
 class MainActivity : AppCompatActivity(){ //,OnNavigationItemSelectedListener
+
+    private var doubleBackToExitPressedOnce = false
 
     lateinit var allFactory: WeatherViewModelFactory
     lateinit var viewModel: WeatherViewModel
@@ -114,7 +117,7 @@ class MainActivity : AppCompatActivity(){ //,OnNavigationItemSelectedListener
       //  navigationView.setNavigationItemSelectedListener(this)
 
 
-       // this.onBackPressedDispatcher.addCallback(onBackPressedCallback)
+        this.onBackPressedDispatcher.addCallback(onBackPressedCallback)
 
         //////////////////////////////******///////////******///
 
@@ -146,22 +149,39 @@ class MainActivity : AppCompatActivity(){ //,OnNavigationItemSelectedListener
 
     }
 
+
     //handle back button
+//    val onBackPressedCallback = object: OnBackPressedCallback(true) {
+//
+//        override fun handleOnBackPressed() {
+//
+//            if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+//                drawerLayout.closeDrawer(GravityCompat.START)
+//            }
+//            else{
+//                customExitDialog()
+//            }
+//
+//        }
+//
+//    }
+
     val onBackPressedCallback = object: OnBackPressedCallback(true) {
 
         override fun handleOnBackPressed() {
-
             if(drawerLayout.isDrawerOpen(GravityCompat.START)){
                 drawerLayout.closeDrawer(GravityCompat.START)
             }
-            else{
+            else if (doubleBackToExitPressedOnce) {
+                // Show confirmation dialog
                 customExitDialog()
+            } else {
+                doubleBackToExitPressedOnce = true
+              //  Toast.makeText(this, "Press back again to exit", Toast.LENGTH_SHORT).show()
+                Handler(Looper.getMainLooper()).postDelayed({ doubleBackToExitPressedOnce = false }, 2000)
             }
-
         }
-
     }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) {
             if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
@@ -220,10 +240,12 @@ class MainActivity : AppCompatActivity(){ //,OnNavigationItemSelectedListener
         // click listener for No
         dialogButtonNo.setOnClickListener { // dismiss the dialog
             dialog.dismiss()
+            doubleBackToExitPressedOnce = false
         }
         // click listener for Yes
         dialogButtonYes.setOnClickListener { // dismiss the dialog and exit the exit
             dialog.dismiss()
+            super.onBackPressed()
             finish()
         }
 
@@ -231,13 +253,27 @@ class MainActivity : AppCompatActivity(){ //,OnNavigationItemSelectedListener
         dialog.show()
     }
 
-
+//    override fun onBackPressed() {
+//        if (supportFragmentManager.backStackEntryCount == 0) {
+//            if (doubleBackToExitPressedOnce) {
+//                // Show confirmation dialog
+//                customExitDialog()
+//            } else {
+//                doubleBackToExitPressedOnce = true
+//                Toast.makeText(this, "Press back again to exit", Toast.LENGTH_SHORT).show()
+//                Handler(Looper.getMainLooper()).postDelayed({ doubleBackToExitPressedOnce = false }, 2000)
+//            }
+//        } else {
+//            super.onBackPressed()
+//        }
+//    }
     /////////////////////////////////////*****************////////////////////////
     override fun onResume() {
         super.onResume()
         if(checkPermissions()){
             getLastLocation()
         }
+       // doubleBackToExitPressedOnce = false
     }
 
     private fun checkPermissions():Boolean{

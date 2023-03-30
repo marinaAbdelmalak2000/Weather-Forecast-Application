@@ -15,6 +15,9 @@ class MapViewModel (private val _irepo: RepositoryInterface): ViewModel() {
     private val _uiState = MutableStateFlow<ApiState>(ApiState.Loading)
     val uiState = _uiState.asStateFlow()
 
+    init {
+       // insertFavourite(Favourite())
+    }
 
     fun insertFavourite(favouriteCity: Favourite){
         viewModelScope.launch (Dispatchers.IO){

@@ -1,10 +1,11 @@
 package com.example.productmvvm.db
 
+import android.content.ContentValues
 import android.content.Context
 import android.content.SharedPreferences
+import android.util.Log
 import androidx.lifecycle.asLiveData
 import com.example.weatherforecastapplication.model.Favourite
-import com.example.weatherforecastapplication.model.FavouriteList
 import com.example.weatherforecastapplication.model.Setting
 import com.example.weatherforecastapplication.model.WeatherModel
 import kotlinx.coroutines.flow.Flow
@@ -30,25 +31,21 @@ class ConcreteLocalSource(context: Context) :LocalSource{
         val languageIndex = sharedPreferences.getInt("LastClickLanguage",0)
         val speedIndex = sharedPreferences.getInt("LastClickSpeed", 0)
         val tempretureIndex = sharedPreferences.getInt("LastClickTemp", 0)
+        val locationIndex = sharedPreferences.getInt("LastClickLocation",0)
         val longitude=sharedLocation.getString("longitude","null")
         val latitude=sharedLocation.getString("latitude","null")
-        return Setting(languageIndex,speedIndex,tempretureIndex,longitude,latitude)
+        return Setting(languageIndex,speedIndex,tempretureIndex,locationIndex,longitude,latitude)
     }
 
     override suspend fun insertFavourite(favouriteCity: Favourite) {
-        return dao.insert(favouriteCity)
+        return dao.insertfavourite(favouriteCity)
     }
 
     override suspend fun getStoredFavourite(): Flow<List<Favourite>> {
         return dao.getAllFavourite()
     }
-
-    private val sharedLocationMap: SharedPreferences = context.getSharedPreferences("LastLocationMap", Context.MODE_PRIVATE)
-    override fun getPrameterFavouriteList(): FavouriteList {
-        val longitudeMap=sharedLocationMap.getString("longitudeMap","null")
-        val latitudeMap=sharedLocationMap.getString("latitudeMap","null")
-        val cityNameMap=sharedLocationMap.getString("cityNameMap","null")
-        return FavouriteList(longitudeMap,latitudeMap,cityNameMap)
+    override suspend fun deleteFavourite(favouriteCity: Favourite) {
+        return dao.deletefavourite(favouriteCity)
     }
 
 }

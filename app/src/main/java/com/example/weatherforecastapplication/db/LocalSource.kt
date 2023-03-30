@@ -2,7 +2,7 @@ package com.example.productmvvm.db
 
 
 import com.example.weatherforecastapplication.model.Favourite
-import com.example.weatherforecastapplication.model.FavouriteList
+
 import com.example.weatherforecastapplication.model.Setting
 import com.example.weatherforecastapplication.model.WeatherModel
 import kotlinx.coroutines.flow.Flow
@@ -16,6 +16,7 @@ interface LocalSource {
     suspend fun insertFavourite(favouriteCity: Favourite)
     suspend fun getStoredFavourite(): Flow<List<Favourite>>
 
-    fun getPrameterFavouriteList(): FavouriteList
+   // fun getPrameterFavouriteList(): FavouriteList
+    suspend fun deleteFavourite(favouriteCity: Favourite)
 
 }

@@ -51,10 +51,11 @@ class FragmentMap : Fragment(){
                     if(Adress!=null) {
                         cityName = Adress.get(0)?.adminArea
                         editorLocationMap.putString("cityNameMap", cityName).commit()
+                        Log.i(TAG, "cityName: ${cityName}")
                     }else{
                         Toast.makeText(requireContext(),"i can't found country",Toast.LENGTH_LONG)
                        .show()
-                        editorLocationMap.putString("cityNameMap", "").commit()
+                       // editorLocationMap.putString("cityNameMap", "").commit()
                     }
                 }
             }

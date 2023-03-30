@@ -1,28 +1,18 @@
 package com.example.weatherforecastapplication.home.view
 
-import android.Manifest
-import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
-import android.content.pm.PackageManager
-import android.location.Location
-import android.location.LocationManager
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import android.os.Bundle
-import android.os.Looper
-import android.provider.Settings
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -35,9 +25,7 @@ import com.example.weatherforecastapplication.WeatherViewModelFactory
 import com.example.weatherforecastapplication.databinding.FragmentHomeBinding
 import com.example.weatherforecastapplication.model.Daily
 import com.example.weatherforecastapplication.model.Hourly
-import com.example.weatherforecastapplication.model.WeatherModel
 import com.example.weatherforecastapplication.network.ApiState
-import com.google.android.gms.location.*
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -57,6 +45,8 @@ class FragmentHome : Fragment() {
 
     lateinit var recyclerAdapterDaysHome: AdapterDaysHome
     var daysList= mutableListOf<Daily>()
+
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -99,8 +89,12 @@ class FragmentHome : Fragment() {
             ))
 
         viewModel= ViewModelProvider(this,allFactory).get(WeatherViewModel::class.java)
+
+       //Location
+      //  val locationMap:SharedPreferences= requireActivity().getSharedPreferences("LastLocationMap", Context.MODE_PRIVATE)
         val sharedLocation: SharedPreferences = requireActivity().getSharedPreferences("LastLocation", Context.MODE_PRIVATE)
         val cityName=sharedLocation.getString("cityName","null")
+      //  val cityNameMap=sharedLocation.getString("cityNameMap","null")
 
        lifecycleScope.launch {
 
@@ -112,6 +106,13 @@ class FragmentHome : Fragment() {
                    binding.recyclerViewDaysHome.visibility = View.VISIBLE
                    binding.textViewCityNameHome.visibility = View.VISIBLE
                    binding.textViewCityNameHome.text=cityName
+//                   val checkLocationName=viewModel.indexLocationSetting
+//                   if(checkLocationName==1){
+//                       binding.textViewCityNameHome.text=cityNameMap
+//                   }else{
+//                       binding.textViewCityNameHome.text=cityName
+//                   }
+
 
                    println("//////**** Current ****//////")
 
@@ -246,13 +247,27 @@ class FragmentHome : Fragment() {
 
            }}
        }
+//       val longcurentLocation=sharedLocation.getString("longitude","null")
+//       val latcurentLocation=sharedLocation.getString("latitude","null")
+//       val longitudeMap=locationMap.getString("longitudeMap","30.20")
+//       val latitudeMap=locationMap.getString("latitudeMap","30.55")
 
                if(isNetworkAvailable(context)==true){
-                   val language=viewModel.language
+                   var language=viewModel.language
                    val unit=viewModel.unit
                    val lon=viewModel.longitude !!
                    val lat=viewModel.latitude  !!
-                     viewModel.allWeatherNetwork(lat,lon,"",unit,language)
+                   viewModel.allWeatherNetwork(lat,lon,"",unit,language)
+//                   val checkLocation=viewModel.indexLocationSetting
+//                   if(checkLocation==1){
+//                       //map
+ //                      viewModel.allWeatherNetwork(latitudeMap!!,longitudeMap!!,"",unit,language)
+//                   }
+//                   else{
+//                       //current
+//                       viewModel.allWeatherNetwork(latcurentLocation!!,longcurentLocation!!,"",unit,language)
+//                   }
+
                }
 
                 else{
@@ -311,5 +326,6 @@ class FragmentHome : Fragment() {
         }
         return false
     }
+
 
 }

@@ -1,15 +1,14 @@
 package com.example.weatherforecastapplication
 
-import android.app.Application
+import android.app.Activity
 import android.content.ContentValues.TAG
-import android.content.Context
-import android.net.ConnectivityManager
+import android.content.res.Configuration
+import android.content.res.Resources
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.productmvvm.model.RepositoryInterface
+import com.example.weatherforecastapplication.home.view.FragmentHome
 import com.example.weatherforecastapplication.model.WeatherModel
 import com.example.weatherforecastapplication.network.ApiState
 import kotlinx.coroutines.Dispatchers
@@ -17,7 +16,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import java.util.*
 
 
 class WeatherViewModel (private val _irepo: RepositoryInterface): ViewModel() {
@@ -34,7 +33,7 @@ class WeatherViewModel (private val _irepo: RepositoryInterface): ViewModel() {
     var checkTemp =_irepo.getPrameterSettingsLocal().convertCelToSpacificTemp()
     var checkSpeed=_irepo.getPrameterSettingsLocal().convertMeterPerSecToMilesPerHour()
 
-
+    var indexLocationSetting=_irepo.getPrameterSettingsLocal().locationIndex
 
     fun allWeatherNetwork(
         latitude: String,
@@ -82,6 +81,25 @@ class WeatherViewModel (private val _irepo: RepositoryInterface): ViewModel() {
         }
     }
 
+    fun setLocal(activity: Activity, langCode:String){
+        val local: Locale = Locale(langCode)
+        Locale.setDefault(local)
+        val resources : Resources =activity.resources
+        val config: Configuration =resources.configuration
+        config.setLocale(local)
+        resources.updateConfiguration(config,resources.displayMetrics)
+//        activity?.finish()
+//        activity?.startActivity(activity?.intent)
+    }
+
+//    val newLocale = Locale("fr")
+//    Locale.setDefault(newLocale)
+//    val config = Configuration()
+//    config.locale = newLocale
+//    resources.updateConfiguration(config, resources.displayMetrics)
+//
+//    // Restart the activity to apply the new language
+//    activity?.recreate()
 
 }
 

@@ -4,6 +4,7 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.ContentValues
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -33,6 +34,12 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
+import androidx.navigation.ui.NavigationUI.setupWithNavController
+import com.example.productmvvm.db.ConcreteLocalSource
+import com.example.productmvvm.model.Repository
+import com.example.productmvvm.network.WeatherClient
 import com.example.weatherforecastapplication.alerts.view.FragmentAlertList
 import com.example.weatherforecastapplication.favourite.view.FragmentFavouriteList
 import com.example.weatherforecastapplication.home.view.FragmentHome
@@ -49,6 +56,9 @@ const val PERMISSION_ID =44
 
 class MainActivity : AppCompatActivity(),OnNavigationItemSelectedListener {
 
+    lateinit var allFactory: WeatherViewModelFactory
+    lateinit var viewModel: WeatherViewModel
+
     //variable
     lateinit var drawerLayout:DrawerLayout
     lateinit var navigationView:NavigationView
@@ -63,7 +73,24 @@ class MainActivity : AppCompatActivity(),OnNavigationItemSelectedListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        allFactory= WeatherViewModelFactory(
+
+            Repository.getInstance(
+                WeatherClient.getInstance(), ConcreteLocalSource(this)
+            ))
+
+        viewModel= ViewModelProvider(this,allFactory).get(WeatherViewModel::class.java)
+
+        var language=viewModel.language
+        if(language.equals("en")){
+            viewModel.setLocal(this,"en")
+        }
+        else{
+            viewModel.setLocal(this,"ar")
+        }
+
         drawerLayout=findViewById(R.id.drawer_layout)
+
         navigationView=findViewById(R.id.navigator_layout)
         toolbar=findViewById(R.id.toolbar)
         setTitle("")
@@ -86,15 +113,27 @@ class MainActivity : AppCompatActivity(),OnNavigationItemSelectedListener {
 
         this.onBackPressedDispatcher.addCallback(onBackPressedCallback)
 
+        val checkLocationSetting=viewModel.indexLocationSetting
 
         if(isNetworkAvailable(this)==true){
 
            // changeFragment(FragmentGps())
             /////// Location ////////////
+//            if(checkLocationSetting==0){
+//                Log.i(TAG, "checkLocationSetting: $checkLocationSetting ")
+//                location= getSharedPreferences("LastLocation", Context.MODE_PRIVATE)
+//                editorLocation=location.edit()
+//                getLastLocation()
+//            }else{
+//                Log.i(TAG, "checkLocationSetting: $checkLocationSetting ")
+//                changeFragment(FragmentMap())
+//
+//            }
+
             location= getSharedPreferences("LastLocation", Context.MODE_PRIVATE)
-            editorLocation=location.edit()
-            getLastLocation()
-           // changeFragment(FragmentMap())
+                editorLocation=location.edit()
+                getLastLocation()
+
         }
 
     }

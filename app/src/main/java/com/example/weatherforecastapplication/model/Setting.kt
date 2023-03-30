@@ -1,9 +1,25 @@
 package com.example.weatherforecastapplication.model
 
 import android.content.ContentValues.TAG
+import android.content.Context
+import android.content.SharedPreferences
 import android.util.Log
 
-data class Setting (val languageIndex: Int,val speedIndex:Int,val tempretureIndex:Int,val longitude:String?,val latitude:String?){
+
+data class Setting (val languageIndex: Int,val speedIndex:Int,val tempretureIndex:Int,val locationIndex:Int,val longitude:String?,val latitude:String?){
+
+
+    //LastLocation
+
+    fun getLocation():String{
+        if(locationIndex==0){
+            return "GPS"
+        }
+        else{
+           return "Map"
+        }
+    }
+
 
     fun getLanguage():String{
         if (languageIndex==1){

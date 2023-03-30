@@ -2,7 +2,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/rowFavourite"
+    android:id="@+id/rowAlert"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardCornerRadius="10dp"
@@ -13,7 +13,7 @@
     >
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/rowFavouriteList"
+        android:id="@+id/rowAlertList"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:visibility="visible"
@@ -21,7 +21,7 @@
 
 
         <TextView
-            android:id="@+id/textViewNameCityFavouriteList"
+            android:id="@+id/textViewDateAlertList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView"
@@ -33,13 +33,13 @@
             app:layout_constraintVertical_bias="0.509" />
 
         <ImageView
-            android:id="@+id/imageViewDelete"
-            android:layout_width="105dp"
-            android:layout_height="58dp"
+            android:id="@+id/imageViewDeleteAlerts"
+            android:layout_width="57dp"
+            android:layout_height="50dp"
             android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="@+id/textViewNameCityFavouriteList"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewDateAlertList"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textViewNameCityFavouriteList"
+            app:layout_constraintTop_toTopOf="@+id/textViewDateAlertList"
             app:layout_constraintVertical_bias="0.512"
             app:srcCompat="@drawable/baseline_delete_24" />
 

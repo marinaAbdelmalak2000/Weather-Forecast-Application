@@ -6,8 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.weatherforecastapplication.R
+import com.example.weatherforecastapplication.databinding.FragmentAlertListBinding
+import com.example.weatherforecastapplication.databinding.FragmentHomeBinding
 
 class FragmentAlerts : Fragment() {
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

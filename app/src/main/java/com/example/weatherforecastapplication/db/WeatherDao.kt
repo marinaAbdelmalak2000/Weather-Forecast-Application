@@ -14,9 +14,12 @@ interface WeatherDao {
      fun getAll(): Flow<WeatherModel>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insert(favouriteCity: Favourite)
+    fun insertfavourite(favouriteCity: Favourite)
 
     @Query("SELECT * FROM Favourite")
     fun getAllFavourite(): Flow<List<Favourite>>
+
+    @Delete
+    fun deletefavourite(favouriteCity: Favourite)
 
 }

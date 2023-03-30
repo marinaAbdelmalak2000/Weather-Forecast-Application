@@ -16,9 +16,7 @@ import java.util.*
 class AdapterHourlyHome (private var hours: List<Hourly>,var temp:String="C") :
     RecyclerView.Adapter<AdapterHourlyHome.ViewHolder>() {
 
-    lateinit var binding:RowHourlyHomeBinding
-
-
+         lateinit var binding:RowHourlyHomeBinding
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater: LayoutInflater =parent.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         binding = RowHourlyHomeBinding.inflate(inflater, parent, false)
@@ -77,4 +75,5 @@ class AdapterHourlyHome (private var hours: List<Hourly>,var temp:String="C") :
         notifyDataSetChanged()
     }
     class ViewHolder(var binding: RowHourlyHomeBinding): RecyclerView.ViewHolder(binding.root)
+
 }

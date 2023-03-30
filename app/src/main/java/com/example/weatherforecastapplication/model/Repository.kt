@@ -1,11 +1,13 @@
 package com.example.productmvvm.model
 
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.net.ConnectivityManager
+import android.util.Log
 import com.example.productmvvm.db.LocalSource
 import com.example.productmvvm.network.RemoteSource
 import com.example.weatherforecastapplication.model.Favourite
-import com.example.weatherforecastapplication.model.FavouriteList
+
 import com.example.weatherforecastapplication.model.Setting
 import com.example.weatherforecastapplication.model.WeatherModel
 import kotlinx.coroutines.flow.Flow
@@ -49,10 +51,17 @@ class Repository private constructor(var remoteSource: RemoteSource,var localSou
 
     override suspend fun insertFavourite(favouriteCity: Favourite) {
         return localSource.insertFavourite(favouriteCity)
+
     }
 
-    override fun getPrameterFavouriteList(): FavouriteList {
-        return localSource.getPrameterFavouriteList()
+//    override fun getPrameterFavouriteList(): FavouriteList {
+//        return localSource.getPrameterFavouriteList()
+//        Log.i(TAG, " deeeeeeeeeebug localSource.getPrameterFavouriteList()::: ${localSource.getPrameterFavouriteList().cityName} ")
+//    }
+
+    override suspend fun deleteFavourite(favouriteCity: Favourite) {
+        return localSource.deleteFavourite(favouriteCity)
+
     }
 
 

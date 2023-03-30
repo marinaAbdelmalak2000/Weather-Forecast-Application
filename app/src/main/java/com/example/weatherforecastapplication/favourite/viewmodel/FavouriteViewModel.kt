@@ -18,15 +18,15 @@ class FavouriteViewModel (private val _irepo: RepositoryInterface): ViewModel() 
     private val _Favourite = MutableStateFlow<ApiState>(ApiState.Loading)
     val favourite = _Favourite.asStateFlow()
 
-    val longMap=_irepo.getPrameterFavouriteList().lon
-    val latMap=_irepo.getPrameterFavouriteList().lan
-    val cityName=_irepo.getPrameterFavouriteList().cityName
+//    val longMap=_irepo.getPrameterFavouriteList().lon
+//    val latMap=_irepo.getPrameterFavouriteList().lan
+//    val cityName=_irepo.getPrameterFavouriteList().getCity()
 
 
     fun insertFavourite(favouriteCity: Favourite){
         viewModelScope.launch (Dispatchers.IO){
             _irepo.insertFavourite(favouriteCity)
-            println("insertFavourite///// $cityName //// $longMap ///// $latMap")
+          //  println("insertFavourite///// $cityName //// $longMap ///// $latMap")
         }
     }
     init {
@@ -44,11 +44,18 @@ class FavouriteViewModel (private val _irepo: RepositoryInterface): ViewModel() 
                 .collect{
                         data ->
                     _Favourite.value=ApiState.SuccessFavourite(data)
-                    Log.i(ContentValues.TAG, "getLocalFavourite:LOcalll/// ${ _Favourite.value.toString()} }")
+                  //  Log.i(ContentValues.TAG, "getLocalFavourite:LOcalll/// ${ _Favourite.value.toString()} }")
                 }
 
 
-            Log.i(ContentValues.TAG, "getLocalFavourite: ${_irepo.getStoredFavourite().toString()} /// ${_Favourite.value.toString()}")
+           // Log.i(ContentValues.TAG, "getLocalFavourite: ${_irepo.getStoredFavourite().toString()} /// ${_Favourite.value.toString()}")
+        }
+    }
+
+    fun deleteFavourite(favouriteCity: Favourite){
+        viewModelScope.launch (Dispatchers.IO){
+            _irepo.deleteFavourite(favouriteCity)
+          //  println("deleteFavourite///// $cityName //// $longMap ///// $latMap")
         }
     }
 

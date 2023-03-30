@@ -28,18 +28,7 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="15dp" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewFavouriteList"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:orientation="vertical"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintEnd_toStartOf="@+id/guidelineL"
-        app:layout_constraintStart_toStartOf="@+id/guidelineR"
-        app:layout_constraintTop_toTopOf="@+id/guidelineTop" />
-
-    <Button
+        <Button
         android:id="@+id/buttonAddFavouriteList"
         android:layout_width="64dp"
         android:layout_height="50dp"
@@ -63,21 +52,36 @@
         app:layout_constraintHorizontal_bias="0.996"
         app:layout_constraintStart_toStartOf="@+id/guidelineR" />
 
+    <ImageView
+        android:id="@+id/imageViewList"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="12dp"
+
+        android:layout_marginTop="12dp"
+        android:src="@drawable/baseline_list_24"
+        app:layout_constraintStart_toStartOf="@+id/guidelineR"
+        app:layout_constraintTop_toTopOf="@+id/guidelineTop" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewFavouriteList"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineL"
+        app:layout_constraintStart_toStartOf="@+id/guidelineR"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewList" />
+
     <FrameLayout
         android:id="@+id/fragment_contanerFavouriteList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintEnd_toStartOf="@+id/guidelineL"
+        app:layout_constraintStart_toStartOf="@+id/guidelineR"
+        >
 
-        <ImageView
-            android:id="@+id/imageViewList"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:src="@drawable/baseline_list_24"
 
-            />
     </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

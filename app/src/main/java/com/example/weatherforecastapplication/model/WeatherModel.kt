@@ -36,23 +36,7 @@ class WeatherModelTypeConverter {
         val gson = Gson()
         return gson.fromJson(json, Current::class.java)
     }
-//    @TypeConverter
-//    fun fromAlert(alert: Alert?): String {
-//        val gson = Gson()
-//        return gson.toJson(alert)
-//    }
 
-//    @TypeConverter
-//    fun toAlert(json: String?): Alert {
-//        if (json != null) {
-//            val gson = Gson()
-//            return gson.fromJson(json, Alert::class.java)
-//        } else {
-//            return   Alert("",0,"","",0,listOf(""))
-//        }
-////        val gson = Gson()
-////        return gson.fromJson(json, Alert::class.java)
-//    }
     @TypeConverter
     fun fromString(value: String?): Alert? {
         return value?.let {

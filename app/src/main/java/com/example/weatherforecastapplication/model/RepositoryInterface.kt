@@ -1,7 +1,7 @@
 package com.example.productmvvm.model
 
 import com.example.weatherforecastapplication.model.Favourite
-import com.example.weatherforecastapplication.model.FavouriteList
+
 import com.example.weatherforecastapplication.model.Setting
 import com.example.weatherforecastapplication.model.WeatherModel
 import kotlinx.coroutines.flow.Flow
@@ -14,6 +14,7 @@ interface RepositoryInterface {
 
     suspend fun getStoredFavourite(): Flow<List<Favourite>>
     suspend fun insertFavourite(favouriteCity: Favourite)
-    fun getPrameterFavouriteList(): FavouriteList
+   // fun getPrameterFavouriteList(): FavouriteList
+    suspend fun deleteFavourite(favouriteCity: Favourite)
 
 }

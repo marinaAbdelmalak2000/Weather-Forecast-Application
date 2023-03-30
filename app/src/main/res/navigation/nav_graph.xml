@@ -79,6 +79,9 @@
         <action
             android:id="@+id/action_fragmentFavouriteList_to_fragmentAlertList"
             app:destination="@id/fragmentAlertList" />
+        <action
+            android:id="@+id/action_fragmentFavouriteList_to_fragmentMap2"
+            app:destination="@id/fragmentMap2" />
     </fragment>
     <fragment
         android:id="@+id/fragmentAlerts"
@@ -89,4 +92,9 @@
             android:id="@+id/action_fragmentAlerts_to_fragmentAlertList"
             app:destination="@id/fragmentAlertList" />
     </fragment>
+    <fragment
+        android:id="@+id/fragmentMap2"
+        android:name="com.example.weatherforecastapplication.map.FragmentMap"
+        android:label="fragment_map"
+        tools:layout="@layout/fragment_map" />
 </navigation>

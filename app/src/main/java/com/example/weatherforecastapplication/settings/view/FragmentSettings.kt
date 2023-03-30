@@ -4,6 +4,7 @@ import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.Configuration
+import android.content.res.Resources
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -12,12 +13,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import com.example.weatherforecastapplication.databinding.FragmentSettingsBinding
+import java.util.Locale
 
 
 class FragmentSettings : Fragment() { //, AdapterView.OnItemSelectedListener
 
-    lateinit var binding: FragmentSettingsBinding
+     lateinit var binding: FragmentSettingsBinding
 
     lateinit var lastSelectSetting: SharedPreferences
 
@@ -35,6 +38,8 @@ class FragmentSettings : Fragment() { //, AdapterView.OnItemSelectedListener
     var selectLocation:ArrayList<String> = arrayListOf("GPS","Map")
 
     lateinit var editorNotification: SharedPreferences.Editor
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,16 +69,12 @@ class FragmentSettings : Fragment() { //, AdapterView.OnItemSelectedListener
        // binding.spinnerTempretureSetting.onItemSelectedListener=this
         binding.spinnerTempretureSetting.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                // Get the selected item
 
-//                    (view as TextView).setTextColor(Color.WHITE)
-//                    (view as TextView).setTextSize(18f)
                     editorTemp.putInt("LastClickTemp",position).commit()
 
             }
-
             override fun onNothingSelected(parent: AdapterView<*>?) {
-                // Do nothing
+
             }
         }
 
@@ -88,7 +89,6 @@ class FragmentSettings : Fragment() { //, AdapterView.OnItemSelectedListener
         binding.spinnerTempretureSetting.adapter=adapterTempreture
 
         binding.spinnerTempretureSetting.setSelection(lastClickTemp)
-
 
         /////// Wind Speed ////////////
         editorWindSpeed=lastSelectSetting.edit()
@@ -188,33 +188,13 @@ class FragmentSettings : Fragment() { //, AdapterView.OnItemSelectedListener
 
         binding.switchNotification.isChecked=lastClickNotification
 
-
-
-
         //////////////////***********///////////////*******/////
 
 
-        //store data
-//        val preferences = requireActivity().getSharedPreferences("saveSettingPref", Context.MODE_PRIVATE)
-//        val editor: SharedPreferences.Editor = preferences.edit()
-
-//        editor.putString("language","$language")
-//        editor.putString("units","imperial")
-//        editor.putString("exclude","minutely")
-//        editor.apply()
-
-//        if (binding.radioButtonTempC.isChecked) {
-//            editor.putString("language","C")
-//            editor.apply()
-//        } else if (binding.radioButtonTempK.isChecked) {
-//            editor.putString("language","F")
-//            editor.apply()
-//        } else {
-//            editor.putString("language","K")
-//            editor.apply()
-//        }
 
     }
+
+
 
 }
 

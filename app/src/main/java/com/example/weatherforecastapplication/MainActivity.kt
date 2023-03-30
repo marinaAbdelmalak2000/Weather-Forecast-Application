@@ -110,13 +110,7 @@ class MainActivity : AppCompatActivity(){ //,OnNavigationItemSelectedListener
 
         navController = findNavController(this, R.id.nav_host_fragment)
         setupWithNavController(navigationView, navController)
-
-
-        //////////////////////////*******////////////******
-
-      //  navigationView.setNavigationItemSelectedListener(this)
-
-
+        
         this.onBackPressedDispatcher.addCallback(onBackPressedCallback)
 
         //////////////////////////////******///////////******///
@@ -151,21 +145,6 @@ class MainActivity : AppCompatActivity(){ //,OnNavigationItemSelectedListener
 
 
     //handle back button
-//    val onBackPressedCallback = object: OnBackPressedCallback(true) {
-//
-//        override fun handleOnBackPressed() {
-//
-//            if(drawerLayout.isDrawerOpen(GravityCompat.START)){
-//                drawerLayout.closeDrawer(GravityCompat.START)
-//            }
-//            else{
-//                customExitDialog()
-//            }
-//
-//        }
-//
-//    }
-
     val onBackPressedCallback = object: OnBackPressedCallback(true) {
 
         override fun handleOnBackPressed() {
@@ -177,7 +156,6 @@ class MainActivity : AppCompatActivity(){ //,OnNavigationItemSelectedListener
                 customExitDialog()
             } else {
                 doubleBackToExitPressedOnce = true
-              //  Toast.makeText(this, "Press back again to exit", Toast.LENGTH_SHORT).show()
                 Handler(Looper.getMainLooper()).postDelayed({ doubleBackToExitPressedOnce = false }, 2000)
             }
         }
@@ -193,47 +171,12 @@ class MainActivity : AppCompatActivity(){ //,OnNavigationItemSelectedListener
         return super.onOptionsItemSelected(item)
     }
 
-//    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-//        drawerLayout.closeDrawer(GravityCompat.START)
-//
-//        when(item.itemId){
-//            R.id.home->{
-//                setToolbarTitle("Home")
-//                changeFragment(FragmentHome())
-//            }
-//            R.id.favourite->{
-//                setToolbarTitle("Favourite")
-//                changeFragment(FragmentFavouriteList())
-//            }
-//            R.id.alter->{
-//                setToolbarTitle("Alter")
-//                changeFragment(FragmentAlertList())
-//            }
-//            R.id.setting->{
-//                setToolbarTitle("Setting")
-//                changeFragment(FragmentSettings())
-//            }
-//
-//        }
-//        return true
-//    }
-
-    fun setToolbarTitle(title:String){
-        supportActionBar?.title=title
-    }
-//    fun changeFragment(fragmentSelect:Fragment){
-//        val fragment=supportFragmentManager.beginTransaction()
-//        fragment.replace(R.id.fragment_contaner,fragmentSelect).commit()
-//    }
-
+    // creating custom dialog
     fun customExitDialog() {
-        // creating custom dialog
         val dialog = Dialog(this@MainActivity)
 
-        // setting content view to dialog
         dialog.setContentView(R.layout.custom_exit_dialog)
 
-        // getting reference of TextView
         val dialogButtonYes = dialog.findViewById(R.id.textViewYes) as TextView
         val dialogButtonNo = dialog.findViewById(R.id.textViewNo) as TextView
 
@@ -253,20 +196,6 @@ class MainActivity : AppCompatActivity(){ //,OnNavigationItemSelectedListener
         dialog.show()
     }
 
-//    override fun onBackPressed() {
-//        if (supportFragmentManager.backStackEntryCount == 0) {
-//            if (doubleBackToExitPressedOnce) {
-//                // Show confirmation dialog
-//                customExitDialog()
-//            } else {
-//                doubleBackToExitPressedOnce = true
-//                Toast.makeText(this, "Press back again to exit", Toast.LENGTH_SHORT).show()
-//                Handler(Looper.getMainLooper()).postDelayed({ doubleBackToExitPressedOnce = false }, 2000)
-//            }
-//        } else {
-//            super.onBackPressed()
-//        }
-//    }
     /////////////////////////////////////*****************////////////////////////
     override fun onResume() {
         super.onResume()

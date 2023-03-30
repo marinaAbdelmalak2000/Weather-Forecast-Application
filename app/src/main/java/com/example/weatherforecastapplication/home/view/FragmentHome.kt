@@ -273,13 +273,13 @@ class FragmentHome : Fragment() {
 
                 else{
                      viewModel.getLocalWeatherModel()
-                   val snackbar: Snackbar =
-                       Snackbar.make(view, R.string.not_netwark, Snackbar.LENGTH_INDEFINITE)
-                   val snackbarView = snackbar.view
-                   val textView =
-                       snackbarView.findViewById<View>(com.google.android.material.R.id.snackbar_text) as TextView
-                   textView.maxLines = 5
-                   snackbar.show()
+//                   val snackbar: Snackbar =
+//                       Snackbar.make(view, R.string.not_netwark, Snackbar.LENGTH_INDEFINITE)
+//                   val snackbarView = snackbar.view
+//                   val textView =
+//                       snackbarView.findViewById<View>(com.google.android.material.R.id.snackbar_text) as TextView
+//                   textView.maxLines = 5
+//                   snackbar.show()
                   // Toast.makeText(requireContext(),"NOOO Network", Toast.LENGTH_SHORT).show()
                    Log.i(TAG, "viewModel.getLocalWeatherModel(): "+viewModel.getLocalWeatherModel().toString())
 

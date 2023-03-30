@@ -36,16 +36,16 @@ class AdapterFavouriteList (private var favourites: List<Favourite>,private val 
 
         val current=favourites[position]
 
-        holder.binding.textViewNameCityFavouriteList.text=current.CityName.toString()
+        holder.binding.txtViewNameFavouriteList.text=current.CityName.toString()
 
-        binding.imageViewDelete.setOnClickListener{
+        binding.imgViewDeleteFavorite.setOnClickListener{
             println("///////////////////////////////////dddddddddddddddddddddddddddddxfcgvhbjnkmnbvcdfcgv vhjdddd")
             Log.i(TAG, "imageViewDelete: ///////////// ")
             listener.deleteItem(favourites.get(position))
         }
         holder.binding.rowFavourite.setOnClickListener{
             Log.i(TAG, "onBindViewHolder: ///////////////////////////////debugggggggggggggggggggggggggggggg")
-
+            listener.setData(current)
         }
 
     }

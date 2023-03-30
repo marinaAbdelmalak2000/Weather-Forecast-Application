@@ -33,8 +33,8 @@ class FragmentMap : Fragment(){
 
     lateinit var locationMap: SharedPreferences
     lateinit var editorLocationMap: SharedPreferences.Editor
-    lateinit var allFactory: MapViewModelFactory
-    lateinit var viewModel: MapViewModel
+    lateinit var allFactory: FavouriteViewModelFactory
+    lateinit var viewModel: FavouriteViewModel
     lateinit var buttonSave:Button
 
     lateinit var cityName:String
@@ -80,13 +80,13 @@ class FragmentMap : Fragment(){
             }
 
         } )
-        allFactory= MapViewModelFactory(
+        allFactory= FavouriteViewModelFactory(
 
             Repository.getInstance(
                 WeatherClient.getInstance(), ConcreteLocalSource(requireContext())
             ))
 
-        viewModel= ViewModelProvider(this,allFactory).get(MapViewModel::class.java)
+        viewModel= ViewModelProvider(this,allFactory).get(FavouriteViewModel::class.java)
 
         buttonSave=view.findViewById(R.id.addToFav_btn)
         buttonSave.setOnClickListener {

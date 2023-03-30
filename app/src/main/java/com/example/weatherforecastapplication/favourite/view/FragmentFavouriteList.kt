@@ -1,5 +1,6 @@
 package com.example.weatherforecastapplication.favourite.view
 
+import android.app.AlertDialog
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.SharedPreferences
@@ -94,23 +95,24 @@ class FragmentFavouriteList : Fragment() ,OnDeleteClick{
 
     override fun deleteItem(favourite: Favourite) {
         Log.i(TAG, "deleteItem: //////////// ${favourite}")
-        viewModel.deleteFavourite(favourite)
-        recyclerAdapterFavouriteList.notifyDataSetChanged()
-
+        DealogdeleteItem(favourite)
     }
 
+    override fun setData(favourite: Favourite) {
+        findNavController(requireView()).navigate(R.id.action_fragmentFavouriteList_to_fragmentFavourite)
+    }
 
-//    override fun deleteItem(favourite: Favourite) {
-//        val builder = AlertDialog.Builder(context)
-//        builder.setTitle("Delete item")
-//        builder.setMessage("Are you sure you want to delete this item?")
-//        builder.setPositiveButton("Yes") { dialog, which ->
-//            viewModel.deleteFavourite(favourite)
-//            println("Delete /////// $favourite")
-//        }
-//        builder.setNegativeButton("No", null)
-//        builder.show()
-//    }
+   private  fun DealogdeleteItem(favourite: Favourite) {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("Delete item")
+        builder.setMessage("Are you sure you want to delete this item?")
+        builder.setPositiveButton("Yes") { dialog, which ->
+            viewModel.deleteFavourite(favourite)
+            recyclerAdapterFavouriteList.notifyDataSetChanged()
+        }
+        builder.setNegativeButton("No", null)
+        builder.show()
+    }
 
 
 

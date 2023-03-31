@@ -67,16 +67,12 @@ class FragmentFavouriteList : Fragment() ,OnDeleteClick{
 
         }
 
-      //  sharedLocationMap= requireActivity().getSharedPreferences("LastLocationMap", Context.MODE_PRIVATE)
-
         recyclerAdapterFavouriteList= AdapterFavouriteList(favouriteList,this)
 
         lifecycleScope.launch {
             viewModel.favourite.collectLatest { favouriteCity ->when (favouriteCity) {
 
                 is ApiState.SuccessFavourite -> {
-
-                  viewModel.getLocalFavourite()
                     //initialization
                     recyclerAdapterFavouriteList.setData(favouriteCity.data)
                     binding.recyclerViewFavouriteList.adapter=recyclerAdapterFavouriteList
@@ -100,7 +96,6 @@ class FragmentFavouriteList : Fragment() ,OnDeleteClick{
     }
 
     override fun setData(favourite: Favourite) {
-       // findNavController(requireView()).navigate(R.id.action_fragmentFavouriteList_to_fragmentFavourite)
         Navigation.findNavController(requireView())
             .navigate(FragmentFavouriteListDirections.actionFragmentFavouriteListToFragmentFavourite().apply {
                 latitute = favourite.lan

@@ -55,7 +55,6 @@ class FavouriteViewModel (private val _irepo: RepositoryInterface): ViewModel() 
     }
 
     fun deleteFavourite(favouriteCity: Favourite){
-
         viewModelScope.launch (Dispatchers.IO){
             _irepo.deleteFavourite(favouriteCity)
              getLocalFavourite()

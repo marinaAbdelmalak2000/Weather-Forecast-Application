@@ -57,9 +57,6 @@
             android:id="@+id/action_fragmentAlertList_to_fragmentAlerts"
             app:destination="@id/fragmentAlerts" />
         <action
-            android:id="@+id/action_fragmentAlertList_to_fragmentMap2"
-            app:destination="@id/fragmentMap2" />
-        <action
             android:id="@+id/action_fragmentAlertList_to_fragmentHome"
             app:destination="@id/fragmentHome" />
     </fragment>
@@ -95,8 +92,5 @@
         <action
             android:id="@+id/action_fragmentMap2_to_fragmentFavouriteList"
             app:destination="@id/fragmentFavouriteList" />
-        <action
-            android:id="@+id/action_fragmentMap2_to_fragmentAlertList"
-            app:destination="@id/fragmentAlertList" />
     </fragment>
 </navigation>

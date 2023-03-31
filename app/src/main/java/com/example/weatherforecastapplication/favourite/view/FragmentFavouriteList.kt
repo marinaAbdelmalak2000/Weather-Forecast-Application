@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation
 import com.example.productmvvm.db.ConcreteLocalSource
 import com.example.productmvvm.model.Repository
 import com.example.productmvvm.network.WeatherClient
@@ -99,7 +100,13 @@ class FragmentFavouriteList : Fragment() ,OnDeleteClick{
     }
 
     override fun setData(favourite: Favourite) {
-        findNavController(requireView()).navigate(R.id.action_fragmentFavouriteList_to_fragmentFavourite)
+       // findNavController(requireView()).navigate(R.id.action_fragmentFavouriteList_to_fragmentFavourite)
+        Navigation.findNavController(requireView())
+            .navigate(FragmentFavouriteListDirections.actionFragmentFavouriteListToFragmentFavourite().apply {
+                latitute = favourite.lan
+                longtute = favourite.lon
+                Log.i("ArrrrrgsFavv", "$latitute + $longtute")
+            })
     }
 
    private  fun DealogdeleteItem(favourite: Favourite) {

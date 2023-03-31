@@ -6,6 +6,7 @@ import android.net.ConnectivityManager
 import android.util.Log
 import com.example.productmvvm.db.LocalSource
 import com.example.productmvvm.network.RemoteSource
+import com.example.weatherforecastapplication.model.CityAlarmList
 import com.example.weatherforecastapplication.model.Favourite
 
 import com.example.weatherforecastapplication.model.Setting
@@ -62,6 +63,18 @@ class Repository private constructor(var remoteSource: RemoteSource,var localSou
     override suspend fun deleteFavourite(favouriteCity: Favourite) {
         return localSource.deleteFavourite(favouriteCity)
 
+    }
+
+    override suspend fun getAlerts(): Flow<List<CityAlarmList>> {
+        return localSource.getAlerts()
+    }
+
+    override suspend fun insertAlert(alert: CityAlarmList): Long {
+        return localSource.insertAlert(alert)
+    }
+
+    override suspend fun deleteAlert(id: Int) {
+        return localSource.deleteAlert(id)
     }
 
 

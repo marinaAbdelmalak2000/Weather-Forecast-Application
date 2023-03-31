@@ -3,15 +3,14 @@ package com.example.weatherforecastapplication.home.view
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.SharedPreferences
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
-import android.os.Build
+
+
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -27,7 +26,7 @@ import com.example.weatherforecastapplication.model.Daily
 import com.example.weatherforecastapplication.model.Hourly
 import com.example.weatherforecastapplication.network.ApiState
 import com.example.weatherforecastapplication.utils.NetwarkInternet
-import com.google.android.material.snackbar.Snackbar
+
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -273,14 +272,6 @@ class FragmentHome : Fragment() {
 
                 else{
                      viewModel.getLocalWeatherModel()
-//                   val snackbar: Snackbar =
-//                       Snackbar.make(view, R.string.not_netwark, Snackbar.LENGTH_INDEFINITE)
-//                   val snackbarView = snackbar.view
-//                   val textView =
-//                       snackbarView.findViewById<View>(com.google.android.material.R.id.snackbar_text) as TextView
-//                   textView.maxLines = 5
-//                   snackbar.show()
-                  // Toast.makeText(requireContext(),"NOOO Network", Toast.LENGTH_SHORT).show()
                    Log.i(TAG, "viewModel.getLocalWeatherModel(): "+viewModel.getLocalWeatherModel().toString())
 
                 }

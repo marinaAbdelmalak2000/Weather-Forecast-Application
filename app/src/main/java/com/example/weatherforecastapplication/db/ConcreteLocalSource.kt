@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
 import androidx.lifecycle.asLiveData
+import com.example.weatherforecastapplication.model.CityAlarmList
 import com.example.weatherforecastapplication.model.Favourite
 import com.example.weatherforecastapplication.model.Setting
 import com.example.weatherforecastapplication.model.WeatherModel
@@ -17,7 +18,7 @@ class ConcreteLocalSource(context: Context) :LocalSource{
         db.getWeatherDao()
     }
     override suspend fun insertWeatherModel(weatherModel: WeatherModel) {
-        dao?.insert(weatherModel)
+        dao.insert(weatherModel)
     }
 
 
@@ -46,6 +47,18 @@ class ConcreteLocalSource(context: Context) :LocalSource{
     }
     override suspend fun deleteFavourite(favouriteCity: Favourite) {
         return dao.deletefavourite(favouriteCity)
+    }
+
+    override suspend fun getAlerts(): Flow<List<CityAlarmList>> {
+        return dao.getAlerts()
+    }
+
+    override suspend fun insertAlert(alert: CityAlarmList): Long {
+        return dao.insertAlert(alert)
+    }
+
+    override suspend fun deleteAlert(id: Int) {
+        return dao.deleteAlert(id)
     }
 
 }

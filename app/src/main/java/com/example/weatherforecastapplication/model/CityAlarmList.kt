@@ -5,4 +5,4 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "CityAlarmList")
 data class CityAlarmList (@PrimaryKey (autoGenerate = true)
-                          val id:Int=0,val CityName:String,val lon:String?,val lan:String?)
+                          val id:Int=0,var startTime:Long?=null,var endTime:Long?=null,var startDate:Long?=null,var endDate:Long?=null )

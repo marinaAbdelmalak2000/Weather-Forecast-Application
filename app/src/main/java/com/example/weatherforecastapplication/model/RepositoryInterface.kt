@@ -1,5 +1,6 @@
 package com.example.productmvvm.model
 
+import com.example.weatherforecastapplication.model.CityAlarmList
 import com.example.weatherforecastapplication.model.Favourite
 
 import com.example.weatherforecastapplication.model.Setting
@@ -16,5 +17,9 @@ interface RepositoryInterface {
     suspend fun insertFavourite(favouriteCity: Favourite)
    // fun getPrameterFavouriteList(): FavouriteList
     suspend fun deleteFavourite(favouriteCity: Favourite)
+
+    suspend fun getAlerts():Flow<List<CityAlarmList>>
+    suspend fun insertAlert(alert: CityAlarmList) : Long
+    suspend fun deleteAlert(id:Int)
 
 }

@@ -96,4 +96,6 @@ class FragmentMap : Fragment(){
 
         return view
     }
+
+
 }

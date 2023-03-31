@@ -17,6 +17,7 @@ import android.os.Looper
 import android.provider.Settings
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
@@ -38,6 +39,7 @@ import com.example.productmvvm.network.WeatherClient
 import com.example.weatherforecastapplication.utils.NetwarkInternet
 import com.google.android.gms.location.*
 import com.google.android.material.navigation.NavigationView
+import com.google.android.material.snackbar.Snackbar
 
 import java.util.*
 
@@ -135,10 +137,18 @@ class MainActivity : AppCompatActivity(){ //,OnNavigationItemSelectedListener
             //////////////////////////////************///////////////////////////
             location= getSharedPreferences("LastLocation", Context.MODE_PRIVATE)
                 editorLocation=location.edit()
-                getLastLocation()
+             //   getLastLocation()
 
             ///////////////////////////************////////////////////////////
 
+        }else{
+            val snackbar: Snackbar =
+                Snackbar.make(navigationView, R.string.not_netwark, Snackbar.LENGTH_INDEFINITE)
+            val snackbarView = snackbar.view
+            val textView =
+                snackbarView.findViewById<View>(com.google.android.material.R.id.snackbar_text) as TextView
+            textView.maxLines = 5
+            snackbar.show()
         }
 
     }

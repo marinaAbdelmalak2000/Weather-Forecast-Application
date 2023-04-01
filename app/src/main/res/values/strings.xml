@@ -20,4 +20,9 @@
     <string name="add_favourite_list">+</string>
     <string name="save_favourite_list">Save</string>
     <string name="description_alert">DescriptionAlert</string>
+    <string name="to_dialog_alarm">To</string>
+    <string name="from_dialog_alarm">From</string>
+    <string name="alert_save_time">SAVE</string>
+    <string name="radio_notification">Notification</string>
+    <string name="radio_alarm">Alarm.</string>
 </resources>

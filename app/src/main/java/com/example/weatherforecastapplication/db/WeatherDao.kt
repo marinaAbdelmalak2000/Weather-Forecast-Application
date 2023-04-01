@@ -27,7 +27,7 @@ interface WeatherDao {
     fun getAlerts():Flow<List<CityAlarmList>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAlert(alert: CityAlarmList) : Long
+    suspend fun insertAlert(alert: CityAlarmList):Long
 
     @Query("DELETE FROM CityAlarmList WHERE id=:id")
     fun deleteAlert(id:Int)

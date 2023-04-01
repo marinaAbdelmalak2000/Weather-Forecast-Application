@@ -1,10 +1,139 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bottom_sheet_exit_linear"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".alerts.view.FragmentAlerts">
+    android:layout_height="wrap_content"
+    android:background="@drawable/card_round_dialog"
+    android:orientation="vertical">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:orientation="horizontal"
+            android:weightSum="2">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/textViewFromTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/card_round_dialog"
+                android:backgroundTint="@color/cloud"
+                android:elevation="8dp"
+                android:gravity="center"
+                android:text="@string/from_dialog_alarm"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/textViewToTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/card_round_dialog"
+                android:backgroundTint="@color/cloud"
+                android:elevation="8dp"
+                android:gravity="center"
+                android:text="@string/to_dialog_alarm"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <TextView
+                android:id="@+id/editTextFromTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/card_round_dialog"
+                android:backgroundTint="@color/cloud"
+                android:elevation="8dp"
+                android:gravity="center"
+                android:hint="@string/from_dialog_alarm"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/editTextToTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/card_round_dialog"
+                android:backgroundTint="@color/cloud"
+                android:elevation="8dp"
+                android:gravity="center"
+                android:hint="@string/to_dialog_alarm"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+
+        <!-- Alert  Icon  ImageView -->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/notification_icon" />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <RadioButton
+                android:id="@+id/radioButtonNotification"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/radio_notification" />
+
+            <RadioButton
+                android:id="@+id/radioButtonAlarm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/radio_alarm" />
+        </RadioGroup>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <!-- No  Text View -->
+            <TextView
+                android:id="@+id/textViewSaveAlarm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="100dp"
+                android:layout_marginEnd="100dp"
+                android:layout_weight="1"
+                android:background="@drawable/background_layout"
+                android:elevation="8dp"
+                android:gravity="center"
+                android:text="@string/alert_save_time"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

@@ -29,6 +29,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
@@ -40,6 +41,7 @@ import com.example.weatherforecastapplication.utils.NetwarkInternet
 import com.google.android.gms.location.*
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.launch
 
 import java.util.*
 
@@ -112,7 +114,7 @@ class MainActivity : AppCompatActivity(){ //,OnNavigationItemSelectedListener
 
         navController = findNavController(this, R.id.nav_host_fragment)
         setupWithNavController(navigationView, navController)
-        
+
         this.onBackPressedDispatcher.addCallback(onBackPressedCallback)
 
         //////////////////////////////******///////////******///
@@ -135,9 +137,11 @@ class MainActivity : AppCompatActivity(){ //,OnNavigationItemSelectedListener
 //            }
 
             //////////////////////////////************///////////////////////////
-            location= getSharedPreferences("LastLocation", Context.MODE_PRIVATE)
-                editorLocation=location.edit()
-             //   getLastLocation()
+//            location= getSharedPreferences("LastLocation", Context.MODE_PRIVATE)
+//            editorLocation=location.edit()
+//
+//                getLastLocation()
+
 
             ///////////////////////////************////////////////////////////
 
@@ -207,108 +211,109 @@ class MainActivity : AppCompatActivity(){ //,OnNavigationItemSelectedListener
     }
 
     /////////////////////////////////////*****************////////////////////////
-    override fun onResume() {
-        super.onResume()
-        if(checkPermissions()){
-            getLastLocation()
-        }
-       // doubleBackToExitPressedOnce = false
-    }
+//    override fun onResume() {
+//        super.onResume()
+//        if(checkPermissions()){
+//            getLastLocation()
+//        }
+//       // doubleBackToExitPressedOnce = false
+//    }
 
-    private fun checkPermissions():Boolean{
-        val result =
-            ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)== PackageManager.PERMISSION_GRANTED||
-                    ActivityCompat.checkSelfPermission(this,
-                        Manifest.permission.ACCESS_FINE_LOCATION)== PackageManager.PERMISSION_GRANTED
-        return result
-    }
-
-    @SuppressLint("MissingPermission")
-    private fun getLastLocation(){
-        if(checkPermissions()){
-            if(isLocationEnabled()){
-                requestNewLocationDate()
-                Toast.makeText(this,"datttttta", Toast.LENGTH_LONG).show()
-            }
-            else{
-                Toast.makeText(this,"Turn on location", Toast.LENGTH_LONG).show()
-                val intent= Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-                startActivity(intent)
-            }
-        }
-        else{
-            requestPermissions()
-        }
-    }
-
-    private fun isLocationEnabled():Boolean{
-
-        val locationManager: LocationManager=getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)||locationManager.isProviderEnabled(
-            LocationManager.NETWORK_PROVIDER)
-    }
-
-    @SuppressLint("MissingPermission")
-    private fun requestNewLocationDate() {
-        val mLocationRequest = LocationRequest()
-        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
-        mLocationRequest.setInterval(0)
-
-        mFusedLocationClient= LocationServices.getFusedLocationProviderClient(this)
-        mFusedLocationClient.requestLocationUpdates(mLocationRequest,mLocationCallback, Looper.myLooper())
-
-
-    }
-
-    private val mLocationCallback: LocationCallback =object : LocationCallback(){
-        override fun onLocationResult(locationResult: LocationResult) {
-            val geocoder: Geocoder
-
-            geocoder = Geocoder(applicationContext, Locale.getDefault())
-
-
-            val mLastLocation: Location? =locationResult.lastLocation
-            if (mLastLocation != null) {
-                var textViewLogtiude=mLastLocation.longitude.toString()
-                editorLocation.putString("longitude",textViewLogtiude).commit()
-                Log.i(ContentValues.TAG, "longitude: ${mLastLocation.longitude.toString()}")
-                println("longitude: ${mLastLocation.longitude.toString()}")
-            }
-            if (mLastLocation != null) {
-                var textViewLatitude=mLastLocation.latitude.toString()
-                editorLocation.putString("latitude",textViewLatitude).commit()
-                Log.i(ContentValues.TAG, "latitude: ${mLastLocation.latitude.toString()}")
-                println("latitude: ${mLastLocation.latitude.toString()}")
-            }
-            if (mLastLocation != null&&mLastLocation != null) {
-//                val addresses = geocoder.getFromLocation(mLastLocation.latitude, mLastLocation.longitude, 1)
-//                val address = addresses!![0].getAddressLine(0)
-                val cityName: String?
-               // val geoCoder = Geocoder(requireContext(), Locale.getDefault())
-                val Adress = geocoder.getFromLocation(mLastLocation.latitude, mLastLocation.longitude,2)
-
-                cityName = Adress?.get(0)?.adminArea
-                editorLocation.putString("cityName",cityName).commit()
-
-            }
-
-        }
-    }
-
-    private fun requestPermissions(){
-        ActivityCompat.requestPermissions(this, arrayOf(
-            Manifest.permission.ACCESS_COARSE_LOCATION,
-            Manifest.permission.ACCESS_FINE_LOCATION), PERMISSION_ID
-        )
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-    }
+//    private fun checkPermissions():Boolean{
+//        val result =
+//            ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)== PackageManager.PERMISSION_GRANTED||
+//                    ActivityCompat.checkSelfPermission(this,
+//                        Manifest.permission.ACCESS_FINE_LOCATION)== PackageManager.PERMISSION_GRANTED
+//        return result
+//    }
+//
+//    @SuppressLint("MissingPermission")
+//    private fun getLastLocation(){
+//        if(checkPermissions()){
+//            if(isLocationEnabled()){
+//                requestNewLocationDate()
+//                Toast.makeText(this,"datttttta", Toast.LENGTH_LONG).show()
+//            }
+//            else{
+//                Toast.makeText(this,"Turn on location", Toast.LENGTH_LONG).show()
+//                val intent= Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+//                startActivity(intent)
+//            }
+//        }
+//        else{
+//            requestPermissions()
+//        }
+//    }
+//
+//    private fun isLocationEnabled():Boolean{
+//
+//        val locationManager: LocationManager=getSystemService(Context.LOCATION_SERVICE) as LocationManager
+//        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)||locationManager.isProviderEnabled(
+//            LocationManager.NETWORK_PROVIDER)
+//    }
+//
+//    @SuppressLint("MissingPermission")
+//    private fun requestNewLocationDate() {
+//        val mLocationRequest = LocationRequest()
+//        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+//        mLocationRequest.setInterval(0)
+//
+//        mFusedLocationClient= LocationServices.getFusedLocationProviderClient(this)
+//        mFusedLocationClient.requestLocationUpdates(mLocationRequest,mLocationCallback, Looper.myLooper())
+//
+//
+//    }
+//
+//    private val mLocationCallback: LocationCallback =object : LocationCallback(){
+//        override fun onLocationResult(locationResult: LocationResult) {
+//            val geocoder: Geocoder
+//
+//            geocoder = Geocoder(applicationContext, Locale.getDefault())
+//
+//
+//            val mLastLocation: Location? =locationResult.lastLocation
+//            if (mLastLocation != null) {
+//                var textViewLogtiude=mLastLocation.longitude.toString()
+//                editorLocation.putString("longitude",textViewLogtiude).commit()
+//                Log.i(ContentValues.TAG, "longitude: ${mLastLocation.longitude.toString()}")
+//                println("longitude: ${mLastLocation.longitude.toString()}")
+//            }
+//            if (mLastLocation != null) {
+//                var textViewLatitude=mLastLocation.latitude.toString()
+//                editorLocation.putString("latitude",textViewLatitude).commit()
+//                Log.i(ContentValues.TAG, "latitude: ${mLastLocation.latitude.toString()}")
+//                println("latitude: ${mLastLocation.latitude.toString()}")
+//            }
+//            if (mLastLocation != null&&mLastLocation != null) {
+////                val addresses = geocoder.getFromLocation(mLastLocation.latitude, mLastLocation.longitude, 1)
+////                val address = addresses!![0].getAddressLine(0)
+//                val cityName: String?
+//               // val geoCoder = Geocoder(requireContext(), Locale.getDefault())
+//                val Adress = geocoder.getFromLocation(mLastLocation.latitude, mLastLocation.longitude,2)
+//
+//                cityName = Adress?.get(0)?.adminArea
+//                editorLocation.putString("cityName",cityName).commit()
+//
+//
+//            }
+//
+//        }
+//    }
+//
+//    private fun requestPermissions(){
+//        ActivityCompat.requestPermissions(this, arrayOf(
+//            Manifest.permission.ACCESS_COARSE_LOCATION,
+//            Manifest.permission.ACCESS_FINE_LOCATION), PERMISSION_ID
+//        )
+//    }
+//
+//    override fun onRequestPermissionsResult(
+//        requestCode: Int,
+//        permissions: Array<out String>,
+//        grantResults: IntArray
+//    ) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+//    }
 
 
 }

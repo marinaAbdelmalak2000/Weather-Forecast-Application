@@ -5,12 +5,16 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.location.Geocoder
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
+import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
@@ -94,8 +98,22 @@ class FragmentMap : Fragment(){
             Navigation.findNavController(requireView()).navigate(R.id.action_fragmentMap2_to_fragmentFavouriteList)
         }
 
+       // requireActivity().onBackPressedDispatcher.addCallback(onBackPressedCallback)
+
         return view
     }
-
+    //handle back button
+//    val onBackPressedCallback = object: OnBackPressedCallback(true) {
+//
+//        val navController = Navigation.findNavController(view!!)
+//        val currentDestination = navController.currentDestination
+//        override fun handleOnBackPressed() {
+//            if (currentDestination?.id == R.id.map_fragment) {
+//                Navigation.findNavController(requireView()).navigate(R.id.action_fragmentMap2_to_fragmentFavouriteList)
+//                navController.popBackStack()
+//            }
+//
+//        }
+//    }
 
 }

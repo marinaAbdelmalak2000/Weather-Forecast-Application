@@ -95,7 +95,8 @@ class FragmentMap : Fragment(){
         buttonSave=view.findViewById(R.id.addToFav_btn)
         buttonSave.setOnClickListener {
             viewModel.insertFavourite(Favourite(cityName,long,lat))
-            Navigation.findNavController(requireView()).navigate(R.id.action_fragmentMap2_to_fragmentFavouriteList)
+          //  Navigation.findNavController(requireView()).navigate(R.id.action_fragmentMap2_to_fragmentFavouriteList)
+            Navigation.findNavController(requireView()).navigateUp()
         }
 
        // requireActivity().onBackPressedDispatcher.addCallback(onBackPressedCallback)

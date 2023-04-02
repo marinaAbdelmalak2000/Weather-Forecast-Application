@@ -1,16 +1,38 @@
 package com.example.weatherforecastapplication
 
+import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.ContentValues
 import android.content.ContentValues.TAG
+import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.content.res.Resources
+import android.location.Geocoder
+import android.location.Location
+import android.location.LocationManager
+import android.os.Looper
+import android.provider.Settings
 import android.util.Log
+import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat.getSystemService
+import androidx.core.content.ContextCompat.startActivity
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.productmvvm.model.RepositoryInterface
 import com.example.weatherforecastapplication.home.view.FragmentHome
+import com.example.weatherforecastapplication.model.CurrentLocation
 import com.example.weatherforecastapplication.model.WeatherModel
 import com.example.weatherforecastapplication.network.ApiState
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationResult
+import com.google.android.gms.location.LocationServices
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -23,6 +45,14 @@ class WeatherViewModel (private val _irepo: RepositoryInterface): ViewModel() {
 
     private val _uiState = MutableStateFlow<ApiState>(ApiState.Loading)
     val uiState = _uiState.asStateFlow()
+
+
+
+    private val _Location: MutableLiveData<CurrentLocation> = MutableLiveData<CurrentLocation>()
+    val Location :LiveData<CurrentLocation>
+    get() = _Location
+
+
 
 
     val language=_irepo.getPrameterSettingsLocal().getLanguage()
@@ -100,6 +130,12 @@ class WeatherViewModel (private val _irepo: RepositoryInterface): ViewModel() {
 //
 //    // Restart the activity to apply the new language
 //    activity?.recreate()
+
+fun setLocation( location: CurrentLocation){
+     _Location.postValue(location)
+    Log.i(TAG, "setLocation: ${location.address}")
+
+}
 
 }
 

@@ -3,29 +3,30 @@ package com.example.weatherforecastapplication.alerts.view
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.ContentValues.TAG
+import android.content.Context
+import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation
 import com.example.productmvvm.db.ConcreteLocalSource
 import com.example.productmvvm.model.Repository
 import com.example.productmvvm.network.WeatherClient
-import com.example.weatherforecastapplication.R
 import com.example.weatherforecastapplication.alerts.viewmodel.AlertViewModel
 import com.example.weatherforecastapplication.alerts.viewmodel.AlertViewModelFactory
-import com.example.weatherforecastapplication.databinding.FragmentAlertListBinding
 import com.example.weatherforecastapplication.databinding.FragmentAlertsBinding
-import com.example.weatherforecastapplication.databinding.FragmentHomeBinding
 import com.example.weatherforecastapplication.model.CityAlarmList
-import com.google.android.material.timepicker.MaterialTimePicker
-import com.google.android.material.timepicker.TimeFormat
 import java.text.SimpleDateFormat
 import java.util.*
+import android.provider.Settings
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+
 
 class FragmentAlerts : DialogFragment() {
 
@@ -78,7 +79,6 @@ class FragmentAlerts : DialogFragment() {
                 cityAlarmList.startDate=it
                 cityAlarmList.startTime=it
 
-                Log.i(TAG, "onViewCreated: $it")
             }
 
         }
@@ -106,7 +106,34 @@ class FragmentAlerts : DialogFragment() {
         }
         binding.textViewSaveAlarm.setOnClickListener{
             viewModel.insertAlert(cityAlarmList)
-            Navigation.findNavController(requireView()).navigate(R.id.action_fragmentAlerts_to_fragmentAlertList)
+            dismiss()
+        }
+        val sharedPreferences=requireActivity().getSharedPreferences("AlertSitting",Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+
+        val isClick=sharedPreferences.getBoolean("isClick",false)
+        if(isClick){
+            binding.radioButtonNotification.isChecked=false
+            binding.radioButtonAlarm.isChecked=true
+        }else{
+            binding.radioButtonNotification.isChecked=true
+            binding.radioButtonAlarm.isChecked=false
+        }
+
+        binding.radioButtonNotification.setOnCheckedChangeListener{_, isClick->
+            if(isClick){
+                editor.putBoolean("isClick",false)
+                editor.apply()
+            }
+        }
+        binding.radioButtonAlarm.setOnCheckedChangeListener{_, isClick->
+            if(isClick){
+                editor.putBoolean("isClick",true)
+                editor.apply()
+
+                //go to display over others apps
+                checkOverlayPermission()
+            }
         }
     }
 
@@ -145,5 +172,14 @@ class FragmentAlerts : DialogFragment() {
         }
     }
 
+    fun checkOverlayPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (!Settings.canDrawOverlays(context)) {
+                // send user to the device settings
+                val myIntent = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION)
+                startActivity(myIntent)
+            }
+        }
+    }
 
 }

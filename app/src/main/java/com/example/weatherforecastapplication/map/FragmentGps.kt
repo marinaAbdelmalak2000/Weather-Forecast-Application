@@ -20,47 +20,88 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.lifecycle.ViewModelProvider
 import com.example.weatherforecastapplication.PERMISSION_ID
 import com.example.weatherforecastapplication.R
+import com.example.weatherforecastapplication.map.viewmodel.LocationViewModel
 import com.google.android.gms.location.*
 import java.util.*
 
 
 class FragmentGps : Fragment() {
 
+    private lateinit var locationViewModel: LocationViewModel
 
-//    lateinit var mFusedLocationClient: FusedLocationProviderClient
-//    lateinit var location: SharedPreferences
-//
-//    lateinit var editorLocation: SharedPreferences.Editor
-//
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//
-//    }
-//
-//    override fun onCreateView(
-//        inflater: LayoutInflater, container: ViewGroup?,
-//        savedInstanceState: Bundle?
-//    ): View? {
-//        // Inflate the layout for this fragment
-//        return inflater.inflate(R.layout.fragment_gps, container, false)
-//    }
-//
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-//
+    lateinit var mFusedLocationClient: FusedLocationProviderClient
+  //  lateinit var location: SharedPreferences
+
+   // lateinit var editorLocation: SharedPreferences.Editor
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_gps, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
 //        location= requireActivity().getSharedPreferences("LastLocation", Context.MODE_PRIVATE)
 //        editorLocation=location.edit()
 //        getLastLocation()
-//    }
-//
-//    override fun onResume() {
-//        super.onResume()
-//        getLastLocation()
-//    }
-//
-//
+
+        locationViewModel = ViewModelProvider(this).get(LocationViewModel::class.java)
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
+
+        // Request location updates
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+
+            return
+        }
+        mFusedLocationClient.requestLocationUpdates(
+            locationRequest,
+            locationCallback,
+            Looper.getMainLooper()
+        )
+
+    }
+
+    private val locationRequest = LocationRequest.create().apply {
+        interval = 10000
+        fastestInterval = 5000
+        priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+    }
+    private val locationCallback : LocationCallback= object : LocationCallback() {
+        override fun onLocationResult(locationResult: LocationResult) {
+            locationResult ?: return
+            for (location in locationResult.locations) {
+                //locationViewModel.location.value = location
+
+            }
+        }
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+      //  getLastLocation()
+    }
+
+
 //    private fun checkPermissions():Boolean{
 //        val result =
 //            ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION)== PackageManager.PERMISSION_GRANTED||
@@ -93,7 +134,7 @@ class FragmentGps : Fragment() {
 //        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)||locationManager.isProviderEnabled(
 //            LocationManager.NETWORK_PROVIDER)
 //    }
-//
+
 //    @SuppressLint("MissingPermission")
 //    private fun requestNewLocationDate() {
 //        val mLocationRequest = LocationRequest()
@@ -105,7 +146,7 @@ class FragmentGps : Fragment() {
 //
 //
 //    }
-//
+
 //    private val mLocationCallback: LocationCallback =object : LocationCallback(){
 //        override fun onLocationResult(locationResult: LocationResult) {
 //            val geocoder: Geocoder
@@ -140,7 +181,7 @@ class FragmentGps : Fragment() {
 //
 //        }
 //    }
-//
+
 //    private fun requestPermissions(){
 //        ActivityCompat.requestPermissions(requireActivity(), arrayOf(
 //            Manifest.permission.ACCESS_COARSE_LOCATION,
@@ -155,8 +196,8 @@ class FragmentGps : Fragment() {
 //    ) {
 //        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 //    }
-//
-//
-//
+
+
+
 
 }

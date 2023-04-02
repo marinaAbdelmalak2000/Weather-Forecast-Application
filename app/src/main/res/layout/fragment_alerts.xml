@@ -86,11 +86,19 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:orientation="vertical"
+            android:weightSum="4">
+
         <!-- Alert  Icon  ImageView -->
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:layout_marginTop="16dp"
+            android:layout_weight="1"
             android:src="@drawable/notification_icon" />
 
         <RadioGroup
@@ -101,29 +109,24 @@
                 android:id="@+id/radioButtonNotification"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/radio_notification" />
+                android:text="@string/radio_notification"
+                android:layout_weight="1"/>
 
             <RadioButton
                 android:id="@+id/radioButtonAlarm"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/radio_alarm" />
+                android:text="@string/radio_alarm"
+                android:layout_weight="1"/>
         </RadioGroup>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="0dp"
-            android:orientation="horizontal"
-            android:weightSum="2">
-
-            <!-- No  Text View -->
             <TextView
                 android:id="@+id/textViewSaveAlarm"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:layout_gravity="center"
+                android:paddingBottom="100dp"
                 android:layout_marginStart="100dp"
                 android:layout_marginEnd="100dp"
                 android:layout_weight="1"
@@ -137,3 +140,4 @@
     </LinearLayout>
 
 </LinearLayout>
+

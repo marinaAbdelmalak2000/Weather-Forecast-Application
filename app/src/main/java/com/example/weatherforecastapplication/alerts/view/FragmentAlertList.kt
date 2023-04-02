@@ -76,7 +76,10 @@ class FragmentAlertList : Fragment() ,OnAlertListener {
 
         recyclerAdapterAlertList= AdapterAlterList(alterList,this)
         binding.buttonAddAlertsList.setOnClickListener{
-            Navigation.findNavController(requireView()).navigate(R.id.action_fragmentAlertList_to_fragmentAlerts)
+          //  Navigation.findNavController(requireView()).navigate(R.id.action_fragmentAlertList_to_fragmentAlerts)
+            val dialogFragment = FragmentAlerts()
+            dialogFragment.show(requireFragmentManager(), "MyDialogFragment")
+
         }
 
         lifecycleScope.launch {
@@ -98,18 +101,6 @@ class FragmentAlertList : Fragment() ,OnAlertListener {
         }
 
     }
-
-    fun setAlarm(){
-        alarmManager = context?.getSystemService(ALARM_SERVICE) as AlarmManager
-        val intent = Intent(requireContext(),WeatherAlertReceiver::class.java)
-
-        pendingIntent=PendingIntent.getBroadcast(requireContext(),0,intent,PendingIntent.FLAG_IMMUTABLE)
-        alarmManager.setRepeating(
-            AlarmManager.RTC_WAKEUP,calender.timeInMillis,AlarmManager.INTERVAL_DAY,pendingIntent)
-
-        Toast.makeText(context,"Alarm set successfuly",Toast.LENGTH_SHORT).show()
-    }
-
     fun showTimePicker(){
         picker =
             MaterialTimePicker.Builder()
@@ -132,23 +123,8 @@ class FragmentAlertList : Fragment() ,OnAlertListener {
             calender[Calendar.SECOND] = 0
             calender[Calendar.MILLISECOND] = 0
         }
-        setAlarm()
     }
 
-    private fun createNotificationChannel(){
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-
-            val name : CharSequence="WeatherReminderChannel"
-            val description = "Channel For Alarm Manager"
-            val importance = NotificationManager.IMPORTANCE_HIGH
-            val channel = NotificationChannel("SKY",name,importance)
-            channel.description=description
-            val notificationManager = context?.getSystemService(NotificationManager::class.java) as NotificationManager?
-            if (notificationManager != null) {
-                notificationManager.createNotificationChannel(channel)
-            }
-        }
-    }
 
     override fun deleteAlter(cityAlarmList: CityAlarmList) {
         DealogdeleteItem(cityAlarmList)

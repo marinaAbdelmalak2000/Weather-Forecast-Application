@@ -36,17 +36,16 @@ class AdapterAlterList(private var alters: List<CityAlarmList>,var OnClickdeletA
         // yyyy-MM-dd
         val dateTimeStart = Date(currentDateStart)
         val formattedDateStart = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(dateTimeStart)
-        val formateTimeStart = SimpleDateFormat("hh:mm a", Locale.ENGLISH).format(Date(formattedDateStart))
+        val formateTimeStart = SimpleDateFormat("hh:mm a", Locale.ENGLISH).format(Date(currentDateStart))
 
         val currentDateEnd=current.endDate!!
         // yyyy-MM-dd
         val dateTimeEnd = Date(currentDateEnd)
         val formattedDateEnd = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(dateTimeEnd)
-        val formateTimeEnd = SimpleDateFormat("hh:mm a", Locale.ENGLISH).format(Date(formattedDateEnd))
+        val formateTimeEnd = SimpleDateFormat("hh:mm a", Locale.ENGLISH).format(Date(currentDateEnd))
 
-
-         holder.binding.textViewFromDateAlertList.text="From:${formattedDateStart}${formateTimeStart}"
-         holder.binding.textViewToDateAlertList.text="To:${formattedDateEnd}${formateTimeEnd}"
+        holder.binding.textViewFromDateAlertList.text="From:${formattedDateStart} ${formateTimeStart}"
+         holder.binding.textViewToDateAlertList.text="To:${formattedDateEnd} ${formateTimeEnd}"
         binding.imageViewDeleteAlerts.setOnClickListener {
             OnClickdeletAlter.deleteAlter(current)
         }

@@ -25,4 +25,6 @@
     <string name="alert_save_time">SAVE</string>
     <string name="radio_notification">Notification</string>
     <string name="radio_alarm">Alarm.</string>
+    <string name="channel_name">Weather Notification</string>
+    <string name="channel_description">Alert Notification</string>
 </resources>

@@ -81,7 +81,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Cairo"
+
         app:layout_constraintEnd_toEndOf="@+id/homeIcon"
         app:layout_constraintStart_toStartOf="@+id/textViewHome"
         app:layout_constraintTop_toBottomOf="@+id/textViewHome" />
@@ -91,7 +91,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="7dp"
-        android:text="19/3/2023   3:29"
+
         app:layout_constraintEnd_toEndOf="@+id/textViewCityNameHome"
         app:layout_constraintStart_toStartOf="@+id/textViewCityNameHome"
         app:layout_constraintTop_toBottomOf="@+id/textViewCityNameHome" />

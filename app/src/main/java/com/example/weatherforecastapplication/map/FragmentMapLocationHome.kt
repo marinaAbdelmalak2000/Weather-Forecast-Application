@@ -67,7 +67,7 @@ class FragmentMapLocationHome : Fragment() {
 
                     // val cityName: String?
                     val Adress = geocoder.getFromLocation(it.latitude, it.longitude,2)
-                    if(Adress!=null) {
+                    if(Adress!=null && Adress.get(0).adminArea != null) {
                         cityName = Adress.get(0).adminArea
 //                        editorLocationMap.putString("cityNameMap", cityName).commit()
 //                        Log.i(ContentValues.TAG, "cityName: ${cityName}")
@@ -92,7 +92,6 @@ class FragmentMapLocationHome : Fragment() {
 
         buttonSave=view.findViewById(R.id.addLocation)
         buttonSave.setOnClickListener {
-
               Navigation.findNavController(requireView()).navigate(R.id.action_fragmentMapLocationHome_to_fragmentHome)
           //  Navigation.findNavController(requireView()).navigateUp()
         }

@@ -46,8 +46,6 @@ import java.util.*
 
 
 const val PERMISSION_ID =44
-const val LOCATION_PERMISSION_REQUEST = 101
-
 
 class MainActivity : AppCompatActivity() { //,OnNavigationItemSelectedListener
 
@@ -133,8 +131,9 @@ class MainActivity : AppCompatActivity() { //,OnNavigationItemSelectedListener
             }
             location= getSharedPreferences("LastLocation", Context.MODE_PRIVATE)
             editorLocation=location.edit()
-            getLastLocation()
-
+            if(viewModel.getLocation.equals("GPS")) {
+                getLastLocation()
+            }
         } else {
             val snackbar: Snackbar =
                 Snackbar.make(navigationView, getString(R.string.not_netwark), Snackbar.LENGTH_INDEFINITE)
@@ -224,7 +223,7 @@ class MainActivity : AppCompatActivity() { //,OnNavigationItemSelectedListener
     }
 
     @SuppressLint("MissingPermission")
-    private fun getLastLocation(){
+    fun getLastLocation(){
         if(checkPermissions()){
             if(isLocationEnabled()){
                 requestNewLocationDate()
@@ -312,7 +311,7 @@ class MainActivity : AppCompatActivity() { //,OnNavigationItemSelectedListener
 
     override fun onResume() {
         super.onResume()
-        getLastLocation()
+       // getLastLocation()
     }
 
 }

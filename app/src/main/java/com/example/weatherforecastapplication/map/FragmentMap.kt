@@ -3,6 +3,7 @@ package com.example.weatherforecastapplication.map
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.SharedPreferences
+import android.location.Address
 import android.location.Geocoder
 import android.os.Bundle
 import android.util.Log
@@ -25,11 +26,10 @@ import com.example.weatherforecastapplication.model.Favourite
 import com.example.weatherforecastapplication.model.Repository
 import com.example.weatherforecastapplication.network.ConcreteLocalSource
 import com.example.weatherforecastapplication.network.WeatherClient
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
+import java.io.IOException
 import java.util.*
 
 
@@ -101,10 +101,35 @@ class FragmentMap : Fragment(){
         }
 
         searchEdit=view.findViewById(R.id.editTextMapSearch)
+        searchEdit.setOnEditorActionListener { textView, actionId, keyEvent ->
+            if ((actionId == EditorInfo.IME_ACTION_SEARCH)
+                || (actionId == EditorInfo.IME_ACTION_DONE) ||
+                (keyEvent.action === KeyEvent.ACTION_DOWN)
+                || (keyEvent.action === KeyEvent.KEYCODE_ENTER)
+            ) {
+
+                geoLocate()
+            }
+            false
+        }
 
 
             return view
             }
+
+//    private fun performSearch(location: String) {
+//        val geocoder = Geocoder(requireContext())
+//        val addressList = geocoder.getFromLocationName(location, 1)
+//        if (addressList.isNotEmpty()) {
+//            val address = addressList[0]
+//            val latLng = LatLng(address.latitude, address.longitude)
+//            val googleMap = (findViewById<MapView>(R.id.map_fragment)).map
+//            googleMap.addMarker(MarkerOptions().position(latLng).title(location))
+//            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14f))
+//        } else {
+//            Toast.makeText(requireContext(), "Location not found", Toast.LENGTH_SHORT).show()
+//        }
+//    }
 
 //    fun search(){
 //
@@ -120,23 +145,23 @@ class FragmentMap : Fragment(){
 //            false
 //        })
 //    }
-//    private fun geoLocate() {
-//        val searchString: String = binding.search.getText().toString()
-//        val geocoder = Geocoder(requireContext())
-//        var list: List<Address>? = ArrayList()
-//        try {
-//            list = geocoder.getFromLocationName(searchString, 1)
-//            setDialog(list?.get(0)!!.latitude,list?.get(0)!!.longitude,requireView())
-//
-//        } catch (e: IOException) {
-//            Log.i("search error", "geoLocate: IOException: "+e.message.toString())
-//        }
-//        if (list!!.size > 0) {
-//            val address: Address = list[0]
-//            Log.i("searched adress", "geoLocate: found a location: " + address.toString())
-//        }
-//    }
-//
+    private fun geoLocate() {
+        val searchString: String = searchEdit.getText().toString()
+        val geocoder = Geocoder(requireContext())
+        var list: List<Address>? = ArrayList()
+        try {
+            list = geocoder.getFromLocationName(searchString, 1)
+           // setDialog(list?.get(0)!!.latitude,list?.get(0)!!.longitude,requireView())
+
+        } catch (e: IOException) {
+            Log.i("search error", "geoLocate: IOException: "+e.message.toString())
+        }
+        if (list!!.size > 0) {
+            val address: Address = list[0]
+            Log.i("searched adress", "geoLocate: found a location: " + address.toString())
+        }
+    }
+
 //
 //
 

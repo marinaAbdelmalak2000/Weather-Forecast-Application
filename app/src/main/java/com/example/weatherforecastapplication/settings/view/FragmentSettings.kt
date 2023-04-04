@@ -1,13 +1,17 @@
 package com.example.weatherforecastapplication.settings.view
 
 import android.app.Activity
+import android.app.Notification
+import android.app.NotificationManager
 import android.content.ContentValues.TAG
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.graphics.Color
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -15,11 +19,19 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import com.example.weatherforecastapplication.MainActivity
 import com.example.weatherforecastapplication.R
+import com.example.weatherforecastapplication.WeatherViewModel
+import com.example.weatherforecastapplication.WeatherViewModelFactory
 import com.example.weatherforecastapplication.databinding.FragmentSettingsBinding
+import com.example.weatherforecastapplication.model.Repository
+import com.example.weatherforecastapplication.network.ConcreteLocalSource
+import com.example.weatherforecastapplication.network.WeatherClient
 import com.example.weatherforecastapplication.utils.NetwarkInternet
 import java.util.Locale
+import kotlin.properties.Delegates
 
 
 class FragmentSettings : Fragment() { //, AdapterView.OnItemSelectedListener
@@ -29,6 +41,7 @@ class FragmentSettings : Fragment() { //, AdapterView.OnItemSelectedListener
     lateinit var lastSelectSetting: SharedPreferences
 
     lateinit var editorTemp: SharedPreferences.Editor
+
 
 
     var selectTempreture:ArrayList<String> = arrayListOf("Celsius","Fahrenheit","Kelvin")
@@ -46,7 +59,6 @@ class FragmentSettings : Fragment() { //, AdapterView.OnItemSelectedListener
     lateinit var editorNotification: SharedPreferences.Editor
 
     val netwarkInternet= NetwarkInternet()
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -175,6 +187,7 @@ class FragmentSettings : Fragment() { //, AdapterView.OnItemSelectedListener
 
 
         /////// Location ////////////
+
         if(netwarkInternet.isNetworkAvailable(context)) {
             editorLocation = lastSelectSetting.edit()
             val lastClickLocation = lastSelectSetting.getInt("LastClickLocation", 0)
@@ -185,14 +198,36 @@ class FragmentSettings : Fragment() { //, AdapterView.OnItemSelectedListener
         //                (view as TextView).setTextColor(Color.WHITE)
         //                (view as TextView).setTextSize(18f)
                         editorLocation.putInt("LastClickLocation", position).commit()
-                        if(position==1){
-                            Navigation.findNavController(requireView()).navigate(R.id.action_fragmentSettings_to_fragmentMapLocationHome)
 
+
+                        if(position==1){
+                            if( MyClass.Companion.myStaticVariable) {
+                                MyClass.Companion.myStaticVariable = false
+                                Navigation.findNavController(requireView())
+                                    .navigate(R.id.action_fragmentSettings_to_fragmentMapLocationHome)
+                            }else{
+                                MyClass.Companion.myStaticVariable = true
+                            }
+                        }else{
+                            Log.i(TAG, "onItemSelected: ")
+//                            val mainActivity = activity as MainActivity
+//                            mainActivity.getLastLocation()
                         }
-//                        else{
-//                            setLocal(requireActivity(),"en")
-//                            // changeLanguage("en")
-//                        }
+
+//                            if(position==0){
+//                                if( MyClass.Companion.currentLocation) {
+//                                    MyClass.Companion.currentLocation=false
+//                                    val mainActivity = activity as MainActivity
+//                                    mainActivity.getLastLocation()
+//                                }else{
+//                                    MyClass.Companion.currentLocation=true
+//                                }
+//                            }else{
+//                                Log.i(TAG, "onItemSelected: ")
+//                            }
+
+
+
                     }
 
                     override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -222,6 +257,15 @@ class FragmentSettings : Fragment() { //, AdapterView.OnItemSelectedListener
             binding.switchNotification.setOnClickListener {
                 editorNotification.putBoolean("LastClickNotification", binding.switchNotification.isChecked)
                 editorNotification.commit()
+                val isEnabled = lastClickNotification as Boolean
+                val notificationManager = requireContext().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+                if (isEnabled) {
+                    notificationManager?.cancelAll()
+                } else {
+                    val intent = Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
+                    intent.putExtra(Settings.EXTRA_APP_PACKAGE, requireContext().packageName)
+                    startActivity(intent)
+                }
             }
 
             binding.switchNotification.isChecked=lastClickNotification
@@ -262,3 +306,11 @@ class FragmentSettings : Fragment() { //, AdapterView.OnItemSelectedListener
 }
 
 
+
+
+class  MyClass {
+    companion object {
+        var myStaticVariable = true
+        var currentLocation=true
+    }
+}

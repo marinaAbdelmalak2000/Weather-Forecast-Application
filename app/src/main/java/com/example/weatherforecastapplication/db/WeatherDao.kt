@@ -1,4 +1,4 @@
-package com.example.productmvvm.db
+package com.example.weatherforecastapplication.network
 
 import androidx.room.*
 import com.example.weatherforecastapplication.model.CityAlarmList
@@ -31,6 +31,9 @@ interface WeatherDao {
 
     @Query("DELETE FROM CityAlarmList WHERE id=:id")
     fun deleteAlert(id:Int)
+
+    @Query("SELECT * FROM CityAlarmList WHERE id = :id")
+    fun getOneAlert(id: Int):CityAlarmList
 
 
 }

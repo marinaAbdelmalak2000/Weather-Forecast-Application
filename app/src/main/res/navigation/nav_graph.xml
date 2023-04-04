@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_fragmentSettings_to_fragmentHome"
             app:destination="@id/fragmentHome" />
+        <action
+            android:id="@+id/action_fragmentSettings_to_fragmentMapLocationHome"
+            app:destination="@id/fragmentMapLocationHome" />
     </fragment>
     <fragment
         android:id="@+id/fragmentFavourite"
@@ -92,5 +95,14 @@
         <action
             android:id="@+id/action_fragmentMap2_to_fragmentFavouriteList"
             app:destination="@id/fragmentFavouriteList" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentMapLocationHome"
+        android:name="com.example.weatherforecastapplication.map.FragmentMapLocationHome"
+        android:label="fragment_map_location_home"
+        tools:layout="@layout/fragment_map_location_home" >
+        <action
+            android:id="@+id/action_fragmentMapLocationHome_to_fragmentHome"
+            app:destination="@id/fragmentHome" />
     </fragment>
 </navigation>

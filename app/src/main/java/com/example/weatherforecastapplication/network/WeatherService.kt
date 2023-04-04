@@ -1,7 +1,4 @@
-package com.example.productmvvm.network
-
-
-
+package com.example.weatherforecastapplication.network
 import com.example.weatherforecastapplication.model.WeatherModel
 import retrofit2.http.GET
 import retrofit2.http.Query

@@ -2,8 +2,9 @@ package com.example.weatherforecastapplication.alerts.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.productmvvm.model.RepositoryInterface
+import com.example.weatherforecastapplication.alerts.view.AlertsWorkerManager
 import com.example.weatherforecastapplication.model.CityAlarmList
+import com.example.weatherforecastapplication.model.RepositoryInterface
 import com.example.weatherforecastapplication.network.ApiState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -19,6 +20,9 @@ class AlertViewModel (private val _irepo: RepositoryInterface): ViewModel() {
     private val _uiStateInsert = MutableStateFlow<Long>(0)
     val uiStateInsert = _uiStateInsert.asStateFlow()
 
+    private val _uiStateOneAlert = MutableStateFlow<ApiState>(ApiState.Loading)
+    val uiStateOneAlert = _uiStateOneAlert.asStateFlow()
+
      fun getAlerts() {
          viewModelScope.launch {
              _irepo.getAlerts().collect{ data->
@@ -31,15 +35,11 @@ class AlertViewModel (private val _irepo: RepositoryInterface): ViewModel() {
         getAlerts()
     }
 
-//      fun insertAlert(cityAlarmList: CityAlarmList) {
-//          viewModelScope.launch (Dispatchers.IO){
-//             _irepo.deleteAlert(cityAlarmList.id)
-//          }
-//      }
     fun insertAlert(alert: CityAlarmList){
         viewModelScope.launch {
             val id = _irepo.insertAlert(alert)
             _uiStateInsert.value = id
+
         }
     }
 
@@ -48,5 +48,13 @@ class AlertViewModel (private val _irepo: RepositoryInterface): ViewModel() {
              _irepo.deleteAlert(cityAlarmList.id)
          }
      }
+
+//    fun getOneAlert(id: Int) {
+//        viewModelScope.launch {
+//            _irepo.getOneAlert(id).collect{ data->
+//                _uiStateOneAlert.value=ApiState.SuccessOneAlert(data)
+//            }
+//        }
+//    }
 
 }

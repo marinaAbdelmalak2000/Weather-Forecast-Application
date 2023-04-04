@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">الطقس</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="home_screen">الصفحة الرئيسية</string>
+    <string name="home">الصفحة الرئيسية</string>
+    <string name="favourite">المفضلة</string>
+    <string name="home_menu">الصفحة الرئيسية</string>
+    <string name="OPEN_navigation">انتقل الي صفحة اخري</string>
+    <string name="Close_navigation">اقفل الانتقال</string>
+    <string name="temperature_setting">الحرارة</string>
+    <string name="alert_list">تنبيه</string>
+    <string name="settings">الاعدادات</string>
+    <string name="wind_speed">سرعة الرياح</string>
+    <string name="launguage">اللغة</string>
+    <string name="notification_setting">إشعار</string>
+    <string name="location">الموقع</string>
+    <string name="not_netwark">لا يوجد اتصال بالانترنت</string>
+    <string name="favourite_screen">المفضلة</string>
+    <string name="add_favourite_list">+</string>
+    <string name="save_favourite_list">حفظ</string>
+    <string name="description_alert">تفاصيل التنبيه</string>
+    <string name="to_dialog_alarm">الي</string>
+    <string name="from_dialog_alarm">من</string>
+    <string name="alert_save_time">حفظ</string>
+    <string name="radio_notification">إشعار</string>
+    <string name="radio_alarm">تنبيه.</string>
+    <string name="channel_name">اشعار الطقس</string>
+    <string name="channel_description">تنبيه الطقس</string>
+    <string name="alerts_notification">التنبيه و الاشعارات</string>
+    <string name="exit_app">هل تريد الخروج من التطبيق</string>
+    <string name="no">لا</string>
+    <string name="yes">نعم</string>
+    <string name="dismiss">رفض</string>
+
+    <string name="celsius">درجة مئوية</string>
+    <string name="fahrenheit">فهرنهايت</string>
+    <string name="kelvin">كلفن</string>
+    <string name="meter_sec">متر/ثانية</string>
+    <string name="miles_hour">ميل/ساعة</string>
+    <string name="arabic">عربي</string>
+    <string name="english">انجليزي</string>
+    <string name="gps">الموقع الحالي</string>
+    <string name="map">الخريطة</string>
+</resources>

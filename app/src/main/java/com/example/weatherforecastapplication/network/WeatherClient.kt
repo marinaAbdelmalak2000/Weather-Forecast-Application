@@ -1,7 +1,8 @@
-package com.example.productmvvm.network
-
-
+package com.example.weatherforecastapplication.network
 import com.example.weatherforecastapplication.model.WeatherModel
+import com.example.weatherforecastapplication.network.RetrofitHelper
+import com.example.weatherforecastapplication.network.WeatherService
+
 class WeatherClient private constructor():RemoteSource{
 
     val retrofitService : WeatherService by lazy {

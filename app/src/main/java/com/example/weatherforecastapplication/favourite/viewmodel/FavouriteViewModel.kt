@@ -4,7 +4,7 @@ import android.content.ContentValues
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.productmvvm.model.RepositoryInterface
+import com.example.weatherforecastapplication.model.RepositoryInterface
 import com.example.weatherforecastapplication.model.Favourite
 import com.example.weatherforecastapplication.model.WeatherModel
 import com.example.weatherforecastapplication.network.ApiState

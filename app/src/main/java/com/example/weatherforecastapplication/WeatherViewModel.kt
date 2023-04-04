@@ -24,9 +24,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.productmvvm.model.RepositoryInterface
 import com.example.weatherforecastapplication.home.view.FragmentHome
 import com.example.weatherforecastapplication.model.CurrentLocation
+import com.example.weatherforecastapplication.model.RepositoryInterface
 import com.example.weatherforecastapplication.model.WeatherModel
 import com.example.weatherforecastapplication.network.ApiState
 import com.google.android.gms.location.LocationCallback
@@ -65,6 +65,9 @@ class WeatherViewModel (private val _irepo: RepositoryInterface): ViewModel() {
 
     var indexLocationSetting=_irepo.getPrameterSettingsLocal().locationIndex
 
+    var getLocation=_irepo.getPrameterSettingsLocal().getLocation()
+
+
     fun allWeatherNetwork(
         latitude: String,
         longitude: String,
@@ -79,11 +82,11 @@ class WeatherViewModel (private val _irepo: RepositoryInterface): ViewModel() {
             }
                 .collect{
                         data ->
-                    Log.i(TAG, "allWeatherNetwork checkSpeed checkSpeedcheckSpeedcheckSpeed:== $checkSpeed  check temp: $checkTemp")
+                //    Log.i(TAG, "allWeatherNetwork checkSpeed checkSpeedcheckSpeedcheckSpeed:== $checkSpeed  check temp: $checkTemp")
                     _uiState.value=ApiState.Success(data)
                     insertWeatherModel(data)
-                    Log.i(TAG, "allWeatherNetwork: ${data.current?.wind_speed}")
-                    Log.i(TAG, "insertWeatherModel(data): ${insertWeatherModel(data)}")
+                   // Log.i(TAG, "allWeatherNetwork: ${data.current?.wind_speed}")
+                   // Log.i(TAG, "insertWeatherModel(data): ${insertWeatherModel(data)}")
                 }
 
             }
@@ -101,12 +104,12 @@ class WeatherViewModel (private val _irepo: RepositoryInterface): ViewModel() {
             _irepo.getStoredWeatherModel()
                 .catch {
                     e->_uiState.value=ApiState.Failure(e)
-                Log.i(TAG, "getLocalWeatherModel: FailureFailureFailureFailure")
+              //  Log.i(TAG, "getLocalWeatherModel: FailureFailureFailureFailure")
             }
                 .collect{
                         data ->
                     _uiState.value=ApiState.Success(data)
-                    Log.i(TAG, "getStoredWeatherModel:LOcalll/// ${ _uiState.value.toString()}  data ${data.current.temp}")
+                  //  Log.i(TAG, "getStoredWeatherModel:LOcalll/// ${ _uiState.value.toString()}  data ${data.current.temp}")
                 }
         }
     }
@@ -122,6 +125,7 @@ class WeatherViewModel (private val _irepo: RepositoryInterface): ViewModel() {
 //        activity?.startActivity(activity?.intent)
     }
 
+
 //    val newLocale = Locale("fr")
 //    Locale.setDefault(newLocale)
 //    val config = Configuration()
@@ -133,7 +137,7 @@ class WeatherViewModel (private val _irepo: RepositoryInterface): ViewModel() {
 
 fun setLocation( location: CurrentLocation){
      _Location.postValue(location)
-    Log.i(TAG, "setLocation: ${location.address}")
+  //  Log.i(TAG, "setLocation: ${location.address}")
 
 }
 

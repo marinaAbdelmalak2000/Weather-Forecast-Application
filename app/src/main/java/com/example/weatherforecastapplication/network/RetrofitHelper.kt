@@ -1,4 +1,4 @@
-package com.example.productmvvm.network
+package com.example.weatherforecastapplication.network
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

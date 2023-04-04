@@ -1,11 +1,7 @@
 package com.example.weatherforecastapplication.favourite.view
 
-import android.content.ContentValues
-import android.content.Context
-import android.content.SharedPreferences
 import android.location.Geocoder
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,19 +10,17 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
-import com.example.productmvvm.db.ConcreteLocalSource
-import com.example.productmvvm.model.Repository
-import com.example.productmvvm.network.WeatherClient
+
 import com.example.weatherforecastapplication.R
 import com.example.weatherforecastapplication.WeatherViewModel
 import com.example.weatherforecastapplication.WeatherViewModelFactory
 import com.example.weatherforecastapplication.databinding.FragmentFavouriteBinding
-import com.example.weatherforecastapplication.databinding.FragmentHomeBinding
-import com.example.weatherforecastapplication.home.view.AdapterDaysHome
-import com.example.weatherforecastapplication.home.view.AdapterHourlyHome
 import com.example.weatherforecastapplication.model.Daily
 import com.example.weatherforecastapplication.model.Hourly
+import com.example.weatherforecastapplication.model.Repository
 import com.example.weatherforecastapplication.network.ApiState
+import com.example.weatherforecastapplication.network.ConcreteLocalSource
+import com.example.weatherforecastapplication.network.WeatherClient
 import com.example.weatherforecastapplication.utils.NetwarkInternet
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

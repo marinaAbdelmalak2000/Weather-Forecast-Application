@@ -2,8 +2,9 @@ package com.example.weatherforecastapplication.alerts.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.productmvvm.model.RepositoryInterface
+
 import com.example.weatherforecastapplication.WeatherViewModel
+import com.example.weatherforecastapplication.model.RepositoryInterface
 
 class AlertViewModelFactory (private val _irepo: RepositoryInterface): ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

@@ -5,26 +5,26 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.location.Geocoder
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.OnBackPressedCallback
-import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
-import com.example.productmvvm.db.ConcreteLocalSource
-import com.example.productmvvm.model.Repository
-import com.example.productmvvm.network.WeatherClient
 import com.example.weatherforecastapplication.R
 import com.example.weatherforecastapplication.favourite.viewmodel.FavouriteViewModel
 import com.example.weatherforecastapplication.favourite.viewmodel.FavouriteViewModelFactory
 import com.example.weatherforecastapplication.model.Favourite
+import com.example.weatherforecastapplication.model.Repository
+import com.example.weatherforecastapplication.network.ConcreteLocalSource
+import com.example.weatherforecastapplication.network.WeatherClient
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -45,6 +45,7 @@ class FragmentMap : Fragment(){
     lateinit var lat:String
     lateinit var long:String
 
+    lateinit var searchEdit:EditText
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
        val view :View = inflater.inflate(R.layout.fragment_map, container, false)
        val supportMapFragment : SupportMapFragment=getChildFragmentManager().findFragmentById(R.id.map_fragment) as SupportMapFragment
@@ -99,22 +100,44 @@ class FragmentMap : Fragment(){
             Navigation.findNavController(requireView()).navigateUp()
         }
 
-       // requireActivity().onBackPressedDispatcher.addCallback(onBackPressedCallback)
+        searchEdit=view.findViewById(R.id.editTextMapSearch)
 
-        return view
-    }
-    //handle back button
-//    val onBackPressedCallback = object: OnBackPressedCallback(true) {
+
+            return view
+            }
+
+//    fun search(){
 //
-//        val navController = Navigation.findNavController(view!!)
-//        val currentDestination = navController.currentDestination
-//        override fun handleOnBackPressed() {
-//            if (currentDestination?.id == R.id.map_fragment) {
-//                Navigation.findNavController(requireView()).navigate(R.id.action_fragmentMap2_to_fragmentFavouriteList)
-//                navController.popBackStack()
+//        binding.search.setOnEditorActionListener(OnEditorActionListener { textView, actionId, keyEvent ->
+//            if ((actionId == EditorInfo.IME_ACTION_SEARCH)
+//                || (actionId == EditorInfo.IME_ACTION_DONE) ||
+//                (keyEvent.action === KeyEvent.ACTION_DOWN)
+//                || (keyEvent.action === KeyEvent.KEYCODE_ENTER)
+//            ) {
+//
+//                geoLocate()
 //            }
+//            false
+//        })
+//    }
+//    private fun geoLocate() {
+//        val searchString: String = binding.search.getText().toString()
+//        val geocoder = Geocoder(requireContext())
+//        var list: List<Address>? = ArrayList()
+//        try {
+//            list = geocoder.getFromLocationName(searchString, 1)
+//            setDialog(list?.get(0)!!.latitude,list?.get(0)!!.longitude,requireView())
 //
+//        } catch (e: IOException) {
+//            Log.i("search error", "geoLocate: IOException: "+e.message.toString())
+//        }
+//        if (list!!.size > 0) {
+//            val address: Address = list[0]
+//            Log.i("searched adress", "geoLocate: found a location: " + address.toString())
 //        }
 //    }
+//
+//
+//
 
 }

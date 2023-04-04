@@ -1,4 +1,4 @@
-package com.example.productmvvm.db
+package com.example.weatherforecastapplication.network
 
 import android.content.Context
 import androidx.room.Database
@@ -8,7 +8,7 @@ import androidx.room.TypeConverters
 import com.example.weatherforecastapplication.model.*
 
 
-@Database(entities = arrayOf(WeatherModel::class,Favourite::class, CityAlarmList::class), version = 1)
+@Database(entities = arrayOf(WeatherModel::class,Favourite::class, CityAlarmList::class), version = 3)
 @TypeConverters(WeatherModelTypeConverter::class)
 abstract class WeatherDataBase : RoomDatabase() {
     abstract fun getWeatherDao(): WeatherDao

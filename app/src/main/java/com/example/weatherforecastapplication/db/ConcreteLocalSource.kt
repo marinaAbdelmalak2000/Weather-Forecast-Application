@@ -1,10 +1,8 @@
-package com.example.productmvvm.db
+package com.example.weatherforecastapplication.network
 
-import android.content.ContentValues
+
 import android.content.Context
 import android.content.SharedPreferences
-import android.util.Log
-import androidx.lifecycle.asLiveData
 import com.example.weatherforecastapplication.model.CityAlarmList
 import com.example.weatherforecastapplication.model.Favourite
 import com.example.weatherforecastapplication.model.Setting
@@ -59,6 +57,10 @@ class ConcreteLocalSource(context: Context) :LocalSource{
 
     override suspend fun deleteAlert(id: Int) {
         return dao.deleteAlert(id)
+    }
+
+    override suspend fun getOneAlert(id: Int): CityAlarmList{
+        return dao.getOneAlert(id)
     }
 
 }

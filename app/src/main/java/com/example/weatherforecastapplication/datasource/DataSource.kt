@@ -1,17 +1,17 @@
-package com.example.weatherforecastapplication.network
+package com.example.weatherforecastapplication.datasource
 
-
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.weatherforecastapplication.model.CityAlarmList
 import com.example.weatherforecastapplication.model.Favourite
-
 import com.example.weatherforecastapplication.model.Setting
 import com.example.weatherforecastapplication.model.WeatherModel
 import kotlinx.coroutines.flow.Flow
 
-interface LocalSource {
+interface DataSource {
+
     suspend fun insertWeatherModel(weatherModel: WeatherModel)
     suspend fun getStoredWeatherModel(): Flow<WeatherModel>
 
@@ -20,13 +20,13 @@ interface LocalSource {
     suspend fun insertFavourite(favouriteCity: Favourite)
     suspend fun getStoredFavourite(): Flow<List<Favourite>>
 
-   // fun getPrameterFavouriteList(): FavouriteList
     suspend fun deleteFavourite(favouriteCity: Favourite)
 
-    //alert
     suspend fun getAlerts():Flow<List<CityAlarmList>>
     suspend fun insertAlert(alert: CityAlarmList) : Long
     suspend fun deleteAlert(id:Int)
     suspend fun getOneAlert(id: Int):CityAlarmList
 
+    //Netwark
+    suspend fun getWeatherOverNetwork(latitude:String,longitude:String,exclude:String,units:String,language:String,): WeatherModel
 }

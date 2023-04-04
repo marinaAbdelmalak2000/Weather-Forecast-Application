@@ -3,30 +3,22 @@ package com.example.weatherforecastapplication.alerts.view
 
 import android.app.*
 import android.content.ContentValues
-import android.content.Context
-import android.content.Context.ALARM_SERVICE
-import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.Navigation
-import com.example.productmvvm.db.ConcreteLocalSource
-import com.example.productmvvm.model.Repository
-import com.example.productmvvm.network.WeatherClient
-import com.example.weatherforecastapplication.R
 import com.example.weatherforecastapplication.alerts.viewmodel.AlertViewModel
 import com.example.weatherforecastapplication.alerts.viewmodel.AlertViewModelFactory
 import com.example.weatherforecastapplication.databinding.FragmentAlertListBinding
 import com.example.weatherforecastapplication.model.CityAlarmList
-import com.example.weatherforecastapplication.model.Favourite
+import com.example.weatherforecastapplication.model.Repository
 import com.example.weatherforecastapplication.network.ApiState
+import com.example.weatherforecastapplication.network.ConcreteLocalSource
+import com.example.weatherforecastapplication.network.WeatherClient
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import kotlinx.coroutines.flow.collectLatest
@@ -39,8 +31,8 @@ class FragmentAlertList : Fragment() ,OnAlertListener {
     lateinit var binding: FragmentAlertListBinding
     lateinit var picker : MaterialTimePicker
     private var calender  = Calendar.getInstance()
-    lateinit var alarmManager : AlarmManager
-    lateinit var pendingIntent : PendingIntent
+//    lateinit var alarmManager : AlarmManager
+//    lateinit var pendingIntent : PendingIntent
 
     lateinit var allFactory: AlertViewModelFactory
     lateinit var viewModel: AlertViewModel

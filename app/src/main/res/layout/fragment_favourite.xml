@@ -80,7 +80,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Cairo"
         app:layout_constraintEnd_toEndOf="@+id/favouriteIcon"
         app:layout_constraintStart_toStartOf="@+id/textViewFavourite"
         app:layout_constraintTop_toBottomOf="@+id/textViewFavourite" />

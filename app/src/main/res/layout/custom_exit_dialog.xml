@@ -20,7 +20,7 @@
             android:layout_marginTop="00dp"
             android:fontFamily="sans-serif-medium"
             android:gravity="center"
-            android:text="Exit The App ?"
+            android:text="@string/exit_app"
             android:textSize="20dp"
             android:textStyle="bold" />
 
@@ -50,7 +50,7 @@
                 android:backgroundTint="#2196F3"
                 android:elevation="8dp"
                 android:gravity="center"
-                android:text="NO"
+                android:text="@string/no"
                 android:textColor="@color/white" />
 
             <!-- Yes Text View -->
@@ -65,7 +65,7 @@
                 android:backgroundTint="#FD0001"
                 android:elevation="8dp"
                 android:gravity="center"
-                android:text="Yes"
+                android:text="@string/yes"
                 android:textColor="@color/white" />
 
         </LinearLayout>

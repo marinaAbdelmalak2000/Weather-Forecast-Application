@@ -27,4 +27,18 @@
     <string name="radio_alarm">Alarm.</string>
     <string name="channel_name">Weather Notification</string>
     <string name="channel_description">Alert Notification</string>
+    <string name="alerts_notification">Alter and Notivigation</string>
+    <string name="exit_app">Exit The App ?</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="celsius">Celsius</string>
+    <string name="fahrenheit">Fahrenheit</string>
+    <string name="kelvin">Kelvin</string>
+    <string name="meter_sec">meter/sec</string>
+    <string name="miles_hour">miles/hour</string>
+    <string name="arabic">Arabic</string>
+    <string name="english">English</string>
+    <string name="gps">GPS</string>
+    <string name="map">Map</string>
 </resources>

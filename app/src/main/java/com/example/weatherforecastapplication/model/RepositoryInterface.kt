@@ -1,10 +1,5 @@
-package com.example.productmvvm.model
+package com.example.weatherforecastapplication.model
 
-import com.example.weatherforecastapplication.model.CityAlarmList
-import com.example.weatherforecastapplication.model.Favourite
-
-import com.example.weatherforecastapplication.model.Setting
-import com.example.weatherforecastapplication.model.WeatherModel
 import kotlinx.coroutines.flow.Flow
 
 interface RepositoryInterface {
@@ -21,5 +16,7 @@ interface RepositoryInterface {
     suspend fun getAlerts():Flow<List<CityAlarmList>>
     suspend fun insertAlert(alert: CityAlarmList) : Long
     suspend fun deleteAlert(id:Int)
+
+    suspend fun getOneAlert(id: Int):CityAlarmList
 
 }

@@ -117,7 +117,7 @@ class FragmentHome : Fragment() {
 
                     println("//////**** Current ****//////")
 
-                    var weatherList = uiState.data.current.weather
+                    var weatherList = uiState.data.current!!.weather
                     for (i in 0..weatherList.size - 1) {
                         var weatherDescription = weatherList.get(i).description
                         var weatherIcon = weatherList.get(i).icon
@@ -211,7 +211,9 @@ class FragmentHome : Fragment() {
 
                     var dailyList = uiState.data.daily
                     var temp = viewModel.checkTemp
-                    recyclerAdapterDaysHome.setData(dailyList, temp)
+                    if (dailyList != null) {
+                        recyclerAdapterDaysHome.setData(dailyList, temp)
+                    }
                     recyclerAdapterDaysHome.notifyDataSetChanged()
 
 
@@ -220,7 +222,9 @@ class FragmentHome : Fragment() {
                     var hourlyList = uiState.data.hourly
                     //  var temp=viewModel.checkTemp
                     println("temp hourly send $temp")
-                    recyclerAdapterHourHome.setData(hourlyList, temp)
+                    if (hourlyList != null) {
+                        recyclerAdapterHourHome.setData(hourlyList, temp)
+                    }
                     recyclerAdapterHourHome.notifyDataSetChanged()
 
 

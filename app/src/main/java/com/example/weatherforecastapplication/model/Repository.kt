@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.flowOf
 
 
 
-class Repository private constructor(var remoteSource: RemoteSource,var localSource: LocalSource):RepositoryInterface
+class Repository(var remoteSource: RemoteSource, var localSource: LocalSource):RepositoryInterface
   {
 
     companion object{

@@ -52,6 +52,7 @@
                 <map>
                   <entry key="15409106120011S" value="120" />
                   <entry key="Duration" value="90" />
+                  <entry key="Pixel_4_API_30" value="120" />
                   <entry key="Tests" value="360" />
                   <entry key="vivo&#10; V2109" value="120" />
                 </map>
@@ -66,6 +67,7 @@
                 <map>
                   <entry key="15409106120011S" value="120" />
                   <entry key="Duration" value="90" />
+                  <entry key="Pixel_4_API_30" value="120" />
                   <entry key="Tests" value="360" />
                   <entry key="vivo&#10; V2109" value="120" />
                 </map>
@@ -87,6 +89,19 @@
             </AndroidTestResultsTableState>
           </value>
         </entry>
+        <entry key="403502239">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="Pixel_4_API_30" value="120" />
+                  <entry key="Tests" value="360" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
         <entry key="860014223">
           <value>
             <AndroidTestResultsTableState>
@@ -96,6 +111,19 @@
                   <entry key="Duration" value="90" />
                   <entry key="Tests" value="360" />
                   <entry key="vivo&#10; V2109" value="120" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
+        <entry key="1113098942">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="Pixel_4_API_30" value="120" />
+                  <entry key="Tests" value="360" />
                 </map>
               </option>
             </AndroidTestResultsTableState>

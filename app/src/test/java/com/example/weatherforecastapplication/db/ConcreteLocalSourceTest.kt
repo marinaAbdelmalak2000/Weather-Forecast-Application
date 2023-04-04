@@ -18,9 +18,6 @@ class ConcreteLocalSourceTest (private var favoriteList: MutableList<Favourite> 
     :LocalSource{
 
 
-
-
-    @Test
     override suspend fun insertWeatherModel(weatherModel: WeatherModel) {
       //  weatherList.add(weatherModel)
     }

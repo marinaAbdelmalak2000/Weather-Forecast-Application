@@ -5,8 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".alerts.view.FragmentAlertList"
-    android:background="#708EC5">
+    android:background="@drawable/background_layout"
+    >
 
+    <ImageView
+        android:id="@+id/imageViewList"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+
+        android:src="@drawable/baseline_list_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineL"
         android:layout_width="wrap_content"
@@ -28,20 +37,12 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="15dp" />
 
-    <ImageView
-        android:id="@+id/imageViewList"
-        android:layout_width="28dp"
-        android:layout_height="28dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="12dp"
-        android:src="@drawable/baseline_list_24"
-        app:layout_constraintStart_toStartOf="@+id/guidelineR"
-        app:layout_constraintTop_toTopOf="@+id/guidelineTop" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewAlertsList"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
         android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toStartOf="@+id/guidelineL"

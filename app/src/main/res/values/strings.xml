@@ -19,4 +19,26 @@
     <string name="favourite_screen">Favourite</string>
     <string name="add_favourite_list">+</string>
     <string name="save_favourite_list">Save</string>
+    <string name="description_alert">DescriptionAlert</string>
+    <string name="to_dialog_alarm">To</string>
+    <string name="from_dialog_alarm">From</string>
+    <string name="alert_save_time">SAVE</string>
+    <string name="radio_notification">Notification</string>
+    <string name="radio_alarm">Alarm.</string>
+    <string name="channel_name">Weather Notification</string>
+    <string name="channel_description">Alert Notification</string>
+    <string name="alerts_notification">Alter and Notivigation</string>
+    <string name="exit_app">Exit The App ?</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="celsius">Celsius</string>
+    <string name="fahrenheit">Fahrenheit</string>
+    <string name="kelvin">Kelvin</string>
+    <string name="meter_sec">meter/sec</string>
+    <string name="miles_hour">miles/hour</string>
+    <string name="arabic">Arabic</string>
+    <string name="english">English</string>
+    <string name="gps">GPS</string>
+    <string name="map">Map</string>
 </resources>

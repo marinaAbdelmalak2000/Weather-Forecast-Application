@@ -1,11 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:id="@+id/rowAlert"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    app:cardCornerRadius="10dp"-->
+<!--    app:cardElevation="5dp"-->
+<!--    app:cardMaxElevation="3dp"-->
+<!--    app:cardPreventCornerOverlap="true"-->
+<!--    app:cardUseCompatPadding="true"-->
+<!--    >-->
+
+<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--        android:id="@+id/rowAlertList"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="70dp"-->
+<!--        android:visibility="visible"-->
+<!--        android:background="@drawable/row_style_days">-->
+
+
+<!--        <TextView-->
+<!--            android:id="@+id/textViewFromDateAlertList"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="TextView"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintHorizontal_bias="0.103"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--        <ImageView-->
+<!--            android:id="@+id/imageViewDeleteAlerts"-->
+<!--            android:layout_width="37dp"-->
+<!--            android:layout_height="48dp"-->
+<!--            android:layout_marginEnd="16dp"-->
+<!--            android:visibility="visible"-->
+<!--            app:layout_constraintBottom_toBottomOf="@+id/textViewFromDateAlertList"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/textViewFromDateAlertList"-->
+<!--            app:layout_constraintVertical_bias="0.0"-->
+<!--            app:srcCompat="@drawable/baseline_delete_24" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/textViewToDateAlertList"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginBottom="16dp"-->
+<!--            android:text="TextView"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="@+id/textViewFromDateAlertList"-->
+<!--            app:layout_constraintHorizontal_bias="0.0"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/textViewFromDateAlertList" />-->
+
+
+<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--</androidx.cardview.widget.CardView>-->
+
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/rowAlert"
+    android:id="@+id/rowFavouriteList"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="10dp"
+    app:cardBackgroundColor="#F2F6F4F4"
+    app:cardCornerRadius="35dp"
     app:cardElevation="5dp"
     app:cardMaxElevation="3dp"
     app:cardPreventCornerOverlap="true"
@@ -13,37 +73,49 @@
     >
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/rowAlertList"
+        android:id="@+id/rowFavourite"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:visibility="visible"
-        android:background="@drawable/row_style_days">
+        android:layout_height="95dp">
 
 
         <TextView
-            android:id="@+id/textViewDateAlertList"
+            android:id="@+id/textViewFromDateAlertList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="20dp"
+            android:text="@string/from_dialog_alarm"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.103"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.509" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/imageViewDeleteAlerts"
-            android:layout_width="57dp"
-            android:layout_height="50dp"
-            android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="@+id/textViewDateAlertList"
+            android:layout_width="40dp"
+            android:layout_height="53dp"
+            android:layout_marginEnd="24dp"
+
+            android:layout_weight="1"
+
+            app:layout_constraintBottom_toBottomOf="@+id/textViewToDateAlertList"
+
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textViewDateAlertList"
-            app:layout_constraintVertical_bias="0.512"
-            app:srcCompat="@drawable/baseline_delete_24" />
+            app:layout_constraintTop_toTopOf="@+id/textViewFromDateAlertList"
+            app:layout_constraintVertical_bias="0.666"
+            app:srcCompat="@drawable/baseline_delete_24"
+            tools:ignore="ImageContrastCheck" />
+
+        <TextView
+            android:id="@+id/textViewToDateAlertList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="@string/to_dialog_alarm"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/textViewFromDateAlertList"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/textViewFromDateAlertList" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </androidx.cardview.widget.CardView>

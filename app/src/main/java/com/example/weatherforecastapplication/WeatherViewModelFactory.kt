@@ -3,7 +3,8 @@ package com.example.weatherforecastapplication
 import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.productmvvm.model.RepositoryInterface
+import com.example.weatherforecastapplication.model.RepositoryInterface
+
 
 class WeatherViewModelFactory (private val _irepo: RepositoryInterface): ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

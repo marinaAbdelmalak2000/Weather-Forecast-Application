@@ -4,6 +4,7 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.ContentValues
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -12,10 +13,12 @@ import android.location.Geocoder
 import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
+import android.os.Handler
 import android.os.Looper
 import android.provider.Settings
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
@@ -25,32 +28,43 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.productmvvm.db.ConcreteLocalSource
-import com.example.productmvvm.model.Repository
-import com.example.productmvvm.network.WeatherClient
-import com.example.weatherforecastapplication.alerts.view.FragmentAlertList
-import com.example.weatherforecastapplication.favourite.view.FragmentFavouriteList
-import com.example.weatherforecastapplication.home.view.FragmentHome
-import com.example.weatherforecastapplication.settings.view.FragmentSettings
+import androidx.navigation.NavController
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.ui.NavigationUI.setupWithNavController
+import com.example.weatherforecastapplication.model.CurrentLocation
+import com.example.weatherforecastapplication.model.Repository
+import com.example.weatherforecastapplication.network.ConcreteLocalSource
+import com.example.weatherforecastapplication.network.WeatherClient
+
 import com.example.weatherforecastapplication.utils.NetwarkInternet
 import com.google.android.gms.location.*
 import com.google.android.material.navigation.NavigationView
-import com.google.android.material.navigation.NavigationView.OnNavigationItemSelectedListener
+import com.google.android.material.snackbar.Snackbar
+
 import java.util.*
 
 
 const val PERMISSION_ID =44
 
-class MainActivity : AppCompatActivity(),OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity() { //,OnNavigationItemSelectedListener
+
+
+    private val locationPermissions = arrayOf(
+        Manifest.permission.ACCESS_FINE_LOCATION,
+        Manifest.permission.ACCESS_COARSE_LOCATION
+    )
+
+
+    private var doubleBackToExitPressedOnce = false
 
     lateinit var allFactory: WeatherViewModelFactory
     lateinit var viewModel: WeatherViewModel
 
     //variable
-    lateinit var drawerLayout:DrawerLayout
-    lateinit var navigationView:NavigationView
+    lateinit var drawerLayout: DrawerLayout
+    lateinit var navigationView: NavigationView
+    lateinit var navController: NavController
     lateinit var toolbar: Toolbar
 
     lateinit var mFusedLocationClient: FusedLocationProviderClient
@@ -58,32 +72,36 @@ class MainActivity : AppCompatActivity(),OnNavigationItemSelectedListener {
 
     lateinit var editorLocation: SharedPreferences.Editor
 
-    val netwarkInternet= NetwarkInternet()
+    val netwarkInternet = NetwarkInternet()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        allFactory= WeatherViewModelFactory(
+
+
+        allFactory = WeatherViewModelFactory(
 
             Repository.getInstance(
                 WeatherClient.getInstance(), ConcreteLocalSource(this)
-            ))
+            )
+        )
 
-        viewModel= ViewModelProvider(this,allFactory).get(WeatherViewModel::class.java)
+        viewModel = ViewModelProvider(this, allFactory).get(WeatherViewModel::class.java)
 
-        var language=viewModel.language
-        if(language.equals("en")){
-            viewModel.setLocal(this,"en")
+        var language = viewModel.language
+        if (language.equals("en")) {
+            viewModel.setLocal(this, "en")
+           // changeLanguage("en")
+        } else {
+            viewModel.setLocal(this, "ar")
+          //  changeLanguage("ar")
         }
-        else{
-            viewModel.setLocal(this,"ar")
-        }
 
-        drawerLayout=findViewById(R.id.drawer_layout)
+        drawerLayout = findViewById(R.id.drawer_layout)
 
-        navigationView=findViewById(R.id.navigator_layout)
-        toolbar=findViewById(R.id.toolbar)
+        navigationView = findViewById(R.id.navigator_layout)
+        toolbar = findViewById(R.id.toolbar)
         setTitle("")
 
         //toolBar
@@ -91,114 +109,103 @@ class MainActivity : AppCompatActivity(),OnNavigationItemSelectedListener {
 
         //navigation Drawer menu
         navigationView.bringToFront()
-        var toggle:ActionBarDrawerToggle=ActionBarDrawerToggle(this,drawerLayout,toolbar,
-            R.string.OPEN_navigation,R.string.Close_navigation)
+        var toggle: ActionBarDrawerToggle = ActionBarDrawerToggle(
+            this, drawerLayout, toolbar,
+            R.string.OPEN_navigation, R.string.Close_navigation
+        )
 
-        toggle.isDrawerIndicatorEnabled=true
+        toggle.isDrawerIndicatorEnabled = true
 
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
-        navigationView.setNavigationItemSelectedListener(this)
 
+        // actionBar?.setDisplayHomeAsUpEnabled(true)
+
+        if (netwarkInternet.isNetworkAvailable(this) == true) {
+            var locationSetting = viewModel.getLocation
+            if (locationSetting.equals("GPS")) {
+
+            } else {
+
+            }
+            location= getSharedPreferences("LastLocation", Context.MODE_PRIVATE)
+            editorLocation=location.edit()
+            if(viewModel.getLocation.equals("GPS")) {
+                getLastLocation()
+            }
+        } else {
+            val snackbar: Snackbar =
+                Snackbar.make(navigationView, getString(R.string.not_netwark), Snackbar.LENGTH_INDEFINITE)
+            val snackbarView = snackbar.view
+            val textView =
+                snackbarView.findViewById<View>(com.google.android.material.R.id.snackbar_text) as TextView
+            textView.maxLines = 5
+            snackbar.show()
+        }
+
+        navController = findNavController(this, R.id.nav_host_fragment)
+        setupWithNavController(navigationView, navController)
 
         this.onBackPressedDispatcher.addCallback(onBackPressedCallback)
 
-        val checkLocationSetting=viewModel.indexLocationSetting
+        //////////////////////////////******///////////******///
 
-        if(netwarkInternet.isNetworkAvailable(this)==true){
+        val checkLocationSetting = viewModel.indexLocationSetting
 
-           // changeFragment(FragmentGps())
-            /////// Location ////////////
-//            if(checkLocationSetting==0){
-//                Log.i(TAG, "checkLocationSetting: $checkLocationSetting ")
-//                location= getSharedPreferences("LastLocation", Context.MODE_PRIVATE)
-//                editorLocation=location.edit()
-//                getLastLocation()
-//            }else{
-//                Log.i(TAG, "checkLocationSetting: $checkLocationSetting ")
-//                changeFragment(FragmentMap())
-//
-//            }
 
-            //////////////////////////////************///////////////////////////
-            location= getSharedPreferences("LastLocation", Context.MODE_PRIVATE)
-                editorLocation=location.edit()
-                getLastLocation()
-
-            ///////////////////////////************////////////////////////////
-
-        }
 
     }
+
 
     //handle back button
-    val onBackPressedCallback = object: OnBackPressedCallback(true) {
+    val onBackPressedCallback = object : OnBackPressedCallback(true) {
 
         override fun handleOnBackPressed() {
-
-            if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+            if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
                 drawerLayout.closeDrawer(GravityCompat.START)
-            }
-            else{
+            } else if (doubleBackToExitPressedOnce) {
+                // Show confirmation dialog
                 customExitDialog()
+            } else {
+                doubleBackToExitPressedOnce = true
+                Handler(Looper.getMainLooper()).postDelayed(
+                    { doubleBackToExitPressedOnce = false },
+                    2000
+                )
             }
-
         }
-
     }
 
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        drawerLayout.closeDrawer(GravityCompat.START)
-
-        when(item.itemId){
-            R.id.home->{
-                setToolbarTitle("Home")
-                changeFragment(FragmentHome())
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                drawerLayout.closeDrawer(GravityCompat.START)
+            } else {
+                drawerLayout.openDrawer(GravityCompat.START)
             }
-            R.id.favourite->{
-                setToolbarTitle("Favourite")
-                changeFragment(FragmentFavouriteList())
-            }
-            R.id.alter->{
-                setToolbarTitle("Alter")
-                changeFragment(FragmentAlertList())
-            }
-            R.id.setting->{
-                setToolbarTitle("Setting")
-                changeFragment(FragmentSettings())
-            }
-
         }
-        return true
+        return super.onOptionsItemSelected(item)
     }
 
-    fun setToolbarTitle(title:String){
-        supportActionBar?.title=title
-    }
-    fun changeFragment(fragmentSelect:Fragment){
-        val fragment=supportFragmentManager.beginTransaction()
-        fragment.replace(R.id.fragment_contaner,fragmentSelect).commit()
-    }
-
+    // creating custom dialog
     fun customExitDialog() {
-        // creating custom dialog
         val dialog = Dialog(this@MainActivity)
 
-        // setting content view to dialog
         dialog.setContentView(R.layout.custom_exit_dialog)
 
-        // getting reference of TextView
         val dialogButtonYes = dialog.findViewById(R.id.textViewYes) as TextView
         val dialogButtonNo = dialog.findViewById(R.id.textViewNo) as TextView
 
         // click listener for No
         dialogButtonNo.setOnClickListener { // dismiss the dialog
             dialog.dismiss()
+            doubleBackToExitPressedOnce = false
         }
         // click listener for Yes
         dialogButtonYes.setOnClickListener { // dismiss the dialog and exit the exit
             dialog.dismiss()
+            super.onBackPressed()
             finish()
         }
 
@@ -206,15 +213,7 @@ class MainActivity : AppCompatActivity(),OnNavigationItemSelectedListener {
         dialog.show()
     }
 
-
     /////////////////////////////////////*****************////////////////////////
-    override fun onResume() {
-        super.onResume()
-        if(checkPermissions()){
-            getLastLocation()
-        }
-    }
-
     private fun checkPermissions():Boolean{
         val result =
             ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)== PackageManager.PERMISSION_GRANTED||
@@ -224,7 +223,7 @@ class MainActivity : AppCompatActivity(),OnNavigationItemSelectedListener {
     }
 
     @SuppressLint("MissingPermission")
-    private fun getLastLocation(){
+    fun getLastLocation(){
         if(checkPermissions()){
             if(isLocationEnabled()){
                 requestNewLocationDate()
@@ -271,7 +270,7 @@ class MainActivity : AppCompatActivity(),OnNavigationItemSelectedListener {
             if (mLastLocation != null) {
                 var textViewLogtiude=mLastLocation.longitude.toString()
                 editorLocation.putString("longitude",textViewLogtiude).commit()
-                Log.i(ContentValues.TAG, "longitude: ${mLastLocation.longitude.toString()}")
+                Log.i(TAG, "longitude: ${mLastLocation.longitude.toString()}")
                 println("longitude: ${mLastLocation.longitude.toString()}")
             }
             if (mLastLocation != null) {
@@ -284,7 +283,7 @@ class MainActivity : AppCompatActivity(),OnNavigationItemSelectedListener {
 //                val addresses = geocoder.getFromLocation(mLastLocation.latitude, mLastLocation.longitude, 1)
 //                val address = addresses!![0].getAddressLine(0)
                 val cityName: String?
-               // val geoCoder = Geocoder(requireContext(), Locale.getDefault())
+                // val geoCoder = Geocoder(requireContext(), Locale.getDefault())
                 val Adress = geocoder.getFromLocation(mLastLocation.latitude, mLastLocation.longitude,2)
 
                 cityName = Adress?.get(0)?.adminArea
@@ -310,5 +309,10 @@ class MainActivity : AppCompatActivity(),OnNavigationItemSelectedListener {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
+    override fun onResume() {
+        super.onResume()
+       // getLastLocation()
+    }
 
 }
+

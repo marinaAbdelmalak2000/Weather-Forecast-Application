@@ -80,7 +80,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Cairo"
         app:layout_constraintEnd_toEndOf="@+id/favouriteIcon"
         app:layout_constraintStart_toStartOf="@+id/textViewFavourite"
         app:layout_constraintTop_toBottomOf="@+id/textViewFavourite" />
@@ -292,7 +291,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageViewIconUVI" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewDaysHome"
+        android:id="@+id/recyclerViewDaysFavourite"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="10dp"
@@ -306,7 +305,7 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <ProgressBar
-        android:id="@+id/progressBarHome"
+        android:id="@+id/progressBarFavourite"
         style="?android:attr/progressBarStyle"
         android:layout_width="72dp"
         android:layout_height="57dp"

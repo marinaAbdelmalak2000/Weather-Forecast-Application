@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bottom_sheet_exit_linear"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/card_round_dialog"
+    android:orientation="vertical"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/white"
+        >
+
+        <!-- exit the app textview -->
+        <TextView
+            android:id="@+id/textViewDescAlert"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="00dp"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:text="@string/description_alert"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <!-- Alert  Icon  ImageView -->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/img_18" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <TextView
+                android:id="@+id/textViewYes"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="80dp"
+                android:layout_marginEnd="80dp"
+                android:layout_weight="1"
+                android:background="@drawable/card_round_dialog"
+                android:backgroundTint="@color/cloud"
+                android:elevation="8dp"
+                android:gravity="center"
+                android:text="@string/dismiss"
+                android:textColor="@color/white"
+                android:layout_marginBottom="15dp"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

@@ -4,7 +4,7 @@ import android.content.ContentValues
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.productmvvm.model.RepositoryInterface
+import com.example.weatherforecastapplication.model.RepositoryInterface
 import com.example.weatherforecastapplication.model.Favourite
 import com.example.weatherforecastapplication.model.WeatherModel
 import com.example.weatherforecastapplication.network.ApiState
@@ -26,6 +26,7 @@ class FavouriteViewModel (private val _irepo: RepositoryInterface): ViewModel() 
     fun insertFavourite(favouriteCity: Favourite){
         viewModelScope.launch (Dispatchers.IO){
             _irepo.insertFavourite(favouriteCity)
+             getLocalFavourite()
           //  println("insertFavourite///// $cityName //// $longMap ///// $latMap")
         }
     }
@@ -37,6 +38,7 @@ class FavouriteViewModel (private val _irepo: RepositoryInterface): ViewModel() 
         viewModelScope.launch (Dispatchers.IO){
 
             _irepo.getStoredFavourite()
+
                 .catch {
                         e->_Favourite.value=ApiState.Failure(e)
                     Log.i(ContentValues.TAG, "getLocalFavourite: FailureFailureFailureFailure")
@@ -55,6 +57,7 @@ class FavouriteViewModel (private val _irepo: RepositoryInterface): ViewModel() 
     fun deleteFavourite(favouriteCity: Favourite){
         viewModelScope.launch (Dispatchers.IO){
             _irepo.deleteFavourite(favouriteCity)
+             getLocalFavourite()
           //  println("deleteFavourite///// $cityName //// $longMap ///// $latMap")
         }
     }

@@ -1,6 +1,10 @@
-package com.example.productmvvm.db
+package com.example.weatherforecastapplication.network
 
 
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import com.example.weatherforecastapplication.model.CityAlarmList
 import com.example.weatherforecastapplication.model.Favourite
 
 import com.example.weatherforecastapplication.model.Setting
@@ -18,5 +22,11 @@ interface LocalSource {
 
    // fun getPrameterFavouriteList(): FavouriteList
     suspend fun deleteFavourite(favouriteCity: Favourite)
+
+    //alert
+    suspend fun getAlerts():Flow<List<CityAlarmList>>
+    suspend fun insertAlert(alert: CityAlarmList) : Long
+    suspend fun deleteAlert(id:Int)
+    suspend fun getOneAlert(id: Int):CityAlarmList
 
 }

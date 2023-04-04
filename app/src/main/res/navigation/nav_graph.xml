@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/fragmentSettings">
+    app:startDestination="@id/fragmentHome">
 
     <fragment
         android:id="@+id/fragmentSettings"
@@ -14,11 +14,8 @@
             android:id="@+id/action_fragmentSettings_to_fragmentHome"
             app:destination="@id/fragmentHome" />
         <action
-            android:id="@+id/action_fragmentSettings_to_fragmentFavouriteList"
-            app:destination="@id/fragmentFavouriteList" />
-        <action
-            android:id="@+id/action_fragmentSettings_to_fragmentAlertList"
-            app:destination="@id/fragmentAlertList" />
+            android:id="@+id/action_fragmentSettings_to_fragmentMapLocationHome"
+            app:destination="@id/fragmentMapLocationHome" />
     </fragment>
     <fragment
         android:id="@+id/fragmentFavourite"
@@ -28,6 +25,16 @@
         <action
             android:id="@+id/action_fragmentFavourite_to_fragmentFavouriteList"
             app:destination="@id/fragmentFavouriteList" />
+        <argument
+            android:name="latitute"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <argument
+            android:name="longtute"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/fragmentHome"
@@ -35,17 +42,14 @@
         android:label="@string/home"
         tools:layout="@layout/fragment_home">
         <action
-            android:id="@+id/action_fragmentHome_to_fragmentSettings"
-            app:destination="@id/fragmentSettings" />
-        <action
             android:id="@+id/action_fragmentHome_to_fragmentFavouriteList"
             app:destination="@id/fragmentFavouriteList" />
         <action
+            android:id="@+id/action_fragmentHome_to_fragmentSettings"
+            app:destination="@id/fragmentSettings" />
+        <action
             android:id="@+id/action_fragmentHome_to_fragmentAlertList"
             app:destination="@id/fragmentAlertList" />
-        <action
-            android:id="@+id/action_fragmentHome_to_fragmentMap2"
-            app:destination="@id/fragmentMap2" />
     </fragment>
     <fragment
         android:id="@+id/fragmentAlertList"
@@ -58,15 +62,6 @@
         <action
             android:id="@+id/action_fragmentAlertList_to_fragmentHome"
             app:destination="@id/fragmentHome" />
-        <action
-            android:id="@+id/action_fragmentAlertList_to_fragmentSettings"
-            app:destination="@id/fragmentSettings" />
-        <action
-            android:id="@+id/action_fragmentAlertList_to_fragmentFavouriteList"
-            app:destination="@id/fragmentFavouriteList" />
-        <action
-            android:id="@+id/action_fragmentAlertList_to_fragmentMap2"
-            app:destination="@id/fragmentMap2" />
     </fragment>
     <fragment
         android:id="@+id/fragmentFavouriteList"
@@ -77,17 +72,11 @@
             android:id="@+id/action_fragmentFavouriteList_to_fragmentFavourite"
             app:destination="@id/fragmentFavourite" />
         <action
-            android:id="@+id/action_fragmentFavouriteList_to_fragmentSettings"
-            app:destination="@id/fragmentSettings" />
+            android:id="@+id/action_fragmentFavouriteList_to_fragmentMap2"
+            app:destination="@id/fragmentMap2" />
         <action
             android:id="@+id/action_fragmentFavouriteList_to_fragmentHome"
             app:destination="@id/fragmentHome" />
-        <action
-            android:id="@+id/action_fragmentFavouriteList_to_fragmentAlertList"
-            app:destination="@id/fragmentAlertList" />
-        <action
-            android:id="@+id/action_fragmentFavouriteList_to_fragmentMap2"
-            app:destination="@id/fragmentMap2" />
     </fragment>
     <fragment
         android:id="@+id/fragmentAlerts"
@@ -106,11 +95,14 @@
         <action
             android:id="@+id/action_fragmentMap2_to_fragmentFavouriteList"
             app:destination="@id/fragmentFavouriteList" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentMapLocationHome"
+        android:name="com.example.weatherforecastapplication.map.FragmentMapLocationHome"
+        android:label="fragment_map_location_home"
+        tools:layout="@layout/fragment_map_location_home" >
         <action
-            android:id="@+id/action_fragmentMap2_to_fragmentAlertList"
-            app:destination="@id/fragmentAlertList" />
-        <action
-            android:id="@+id/action_fragmentMap2_to_fragmentHome"
+            android:id="@+id/action_fragmentMapLocationHome_to_fragmentHome"
             app:destination="@id/fragmentHome" />
     </fragment>
 </navigation>

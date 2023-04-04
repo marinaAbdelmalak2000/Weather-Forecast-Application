@@ -1,20 +1,14 @@
-package com.example.productmvvm.model
+package com.example.weatherforecastapplication.model
 
-import android.content.ContentValues.TAG
-import android.content.Context
-import android.net.ConnectivityManager
-import android.util.Log
-import com.example.productmvvm.db.LocalSource
-import com.example.productmvvm.network.RemoteSource
-import com.example.weatherforecastapplication.model.Favourite
-
-import com.example.weatherforecastapplication.model.Setting
-import com.example.weatherforecastapplication.model.WeatherModel
+import com.example.weatherforecastapplication.network.LocalSource
+import com.example.weatherforecastapplication.network.RemoteSource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 
 
-class Repository private constructor(var remoteSource: RemoteSource,var localSource: LocalSource):RepositoryInterface{
+
+class Repository private constructor(var remoteSource: RemoteSource,var localSource: LocalSource):RepositoryInterface
+  {
 
     companion object{
         private var instant:Repository?=null
@@ -62,6 +56,22 @@ class Repository private constructor(var remoteSource: RemoteSource,var localSou
     override suspend fun deleteFavourite(favouriteCity: Favourite) {
         return localSource.deleteFavourite(favouriteCity)
 
+    }
+
+    override suspend fun getAlerts(): Flow<List<CityAlarmList>> {
+        return localSource.getAlerts()
+    }
+
+    override suspend fun insertAlert(alert: CityAlarmList): Long {
+        return localSource.insertAlert(alert)
+    }
+
+    override suspend fun deleteAlert(id: Int) {
+        return localSource.deleteAlert(id)
+    }
+
+    override suspend fun getOneAlert(id: Int): CityAlarmList {
+        return localSource.getOneAlert(id)
     }
 
 

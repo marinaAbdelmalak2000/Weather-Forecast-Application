@@ -10,7 +10,6 @@ interface RepositoryInterface {
 
     suspend fun getStoredFavourite(): Flow<List<Favourite>>
     suspend fun insertFavourite(favouriteCity: Favourite)
-   // fun getPrameterFavouriteList(): FavouriteList
     suspend fun deleteFavourite(favouriteCity: Favourite)
 
     suspend fun getAlerts():Flow<List<CityAlarmList>>

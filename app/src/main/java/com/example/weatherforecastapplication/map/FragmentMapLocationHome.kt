@@ -62,8 +62,6 @@ class FragmentMapLocationHome : Fragment() {
 
                     geocoder = Geocoder(requireContext(), Locale.getDefault())
 
-//                    editorLocationMap.putString("longitudeMap", it.longitude.toString()).commit()
-//                    editorLocationMap.putString("latitudeMap",it.latitude.toString()).commit()
                     editorLocation.putString("longitude",it.longitude.toString()).commit()
                     editorLocation.putString("latitude",it.latitude.toString()).commit()
 
@@ -73,14 +71,13 @@ class FragmentMapLocationHome : Fragment() {
                     val Adress = geocoder.getFromLocation(it.latitude, it.longitude,2)
                     if(Adress!=null && Adress.get(0).adminArea != null) {
                         cityName = Adress.get(0).adminArea
-//                        editorLocationMap.putString("cityNameMap", cityName).commit()
-//                        Log.i(ContentValues.TAG, "cityName: ${cityName}")
+
                         editorLocation.putString("cityName",cityName).commit()
 
                     }else{
                         Toast.makeText(requireContext(),"i can't found country", Toast.LENGTH_LONG)
                             .show()
-                        // editorLocationMap.putString("cityNameMap", "").commit()
+
                     }
                 }
             }
@@ -97,7 +94,7 @@ class FragmentMapLocationHome : Fragment() {
         buttonSave=view.findViewById(R.id.addLocation)
         buttonSave.setOnClickListener {
               Navigation.findNavController(requireView()).navigate(R.id.action_fragmentMapLocationHome_to_fragmentHome)
-          //  Navigation.findNavController(requireView()).navigateUp()
+
         }
 
 

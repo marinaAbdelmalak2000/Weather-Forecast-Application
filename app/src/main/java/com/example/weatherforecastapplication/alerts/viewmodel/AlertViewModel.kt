@@ -50,12 +50,5 @@ class AlertViewModel (private val _irepo: RepositoryInterface): ViewModel() {
          }
      }
 
-//    fun getOneAlert(id: Int) {
-//        viewModelScope.launch {
-//            _irepo.getOneAlert(id).collect{ data->
-//                _uiStateOneAlert.value=ApiState.SuccessOneAlert(data)
-//            }
-//        }
-//    }
 
 }

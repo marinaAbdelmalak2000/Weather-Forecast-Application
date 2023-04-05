@@ -23,7 +23,7 @@ import com.example.weatherforecastapplication.utils.NetwarkInternet
 import java.util.*
 
 
-class FragmentSettings : Fragment() { //, AdapterView.OnItemSelectedListener
+class FragmentSettings : Fragment() {
 
      lateinit var binding: FragmentSettingsBinding
 
@@ -185,71 +185,6 @@ class FragmentSettings : Fragment() { //, AdapterView.OnItemSelectedListener
         binding.spinnerLaunguageSetting.setSelection(lastClickLanguage)
 
 
-        /////// Location ////////////
-
-//        if(netwarkInternet.isNetworkAvailable(context)) {
-//            editorLocation = lastSelectSetting.edit()
-//            val lastClickLocation = lastSelectSetting.getInt("LastClickLocation", 0)
-//            binding.spinnerLocationSetting.onItemSelectedListener =
-//                object : AdapterView.OnItemSelectedListener {
-//                    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-//                        // Get the selected item
-//        //                (view as TextView).setTextColor(Color.WHITE)
-//        //                (view as TextView).setTextSize(18f)
-//                        editorLocation.putInt("LastClickLocation", position).commit()
-//
-//
-//                        if(position==1){
-//                            Log.i(TAG, "position11111MAAPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPp/////////////:::: ${MyClass.Companion.myStaticVariable}")
-//                            if( MyClass.Companion.myStaticVariable) {
-//                                MyClass.Companion.myStaticVariable = false
-//                                Navigation.findNavController(requireView())
-//                                    .navigate(R.id.action_fragmentSettings_to_fragmentMapLocationHome)
-//                            }else{
-//                                Log.i(TAG, "position11111/////////////:::: ")
-//                                MyClass.Companion.myStaticVariable = true
-//                            }
-//                        }else{
-//                            Log.i(TAG, "onItemSelected: ")
-//                        }
-//
-//                            if(position==0){
-//                                if( MyClass.Companion.currentLocation==false) {
-//                                    MyClass.Companion.currentLocation=true
-//                                    Log.i(TAG, "GPS settinggggggggggggggggggggggggggggggggggggggggggggggggg")
-//
-//                                    val myActivity = activity as? MainActivity
-//                                    myActivity?.getLastLocation()
-//                                }else{
-//                                    MyClass.Companion.currentLocation=false
-//                                }
-//                            }else{
-//                                Log.i(TAG, "onItemSelected: ")
-//                            }
-//
-//
-//
-//                    }
-//
-//                    override fun onNothingSelected(parent: AdapterView<*>?) {
-//                        // Do nothing
-//                    }
-//                }
-//
-//            val adapterLocation = activity?.let {
-//                ArrayAdapter<String>(
-//                    it,
-//                    android.R.layout.simple_spinner_item,
-//                    selectLocation
-//                )
-//            }
-//            adapterLocation?.setDropDownViewResource(android.R.layout.select_dialog_singlechoice)
-//            binding.spinnerLocationSetting.adapter = adapterLocation
-//
-//            binding.spinnerLocationSetting.setSelection(lastClickLocation)
-//         }else{
-//                Toast.makeText(activity,getString(R.string.not_netwark),Toast.LENGTH_SHORT).show()
-//         }
         /////// Notification ////////////
         if(netwarkInternet.isNetworkAvailable(context)){
             editorNotification=lastSelectSetting.edit()
@@ -274,6 +209,8 @@ class FragmentSettings : Fragment() { //, AdapterView.OnItemSelectedListener
             Toast.makeText(activity,getString(R.string.not_netwark),Toast.LENGTH_SHORT).show()
         }
         //////////////////***********///////////////*******/////
+
+        /////// Location ////////////
 
         if(netwarkInternet.isNetworkAvailable(context)) {
 
@@ -318,8 +255,6 @@ class FragmentSettings : Fragment() { //, AdapterView.OnItemSelectedListener
         configuration.setLocale(locale)
         context.createConfigurationContext(configuration)
         context.resources.updateConfiguration(configuration, resources.displayMetrics)
-        // Recreate the activity to apply the new locale configuration
-       // (context as Activity).recreate()
 
     }
 

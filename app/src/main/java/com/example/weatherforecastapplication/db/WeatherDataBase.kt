@@ -22,7 +22,6 @@ abstract class WeatherDataBase : RoomDatabase() {
                     .fallbackToDestructiveMigration()
                     .build()
                 INSTANCE = instance
-// return instance
                 instance }
         }
     }

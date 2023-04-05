@@ -31,8 +31,6 @@ class FragmentAlertList : Fragment() ,OnAlertListener {
     lateinit var binding: FragmentAlertListBinding
     lateinit var picker : MaterialTimePicker
     private var calender  = Calendar.getInstance()
-//    lateinit var alarmManager : AlarmManager
-//    lateinit var pendingIntent : PendingIntent
 
     lateinit var allFactory: AlertViewModelFactory
     lateinit var viewModel: AlertViewModel
@@ -68,7 +66,6 @@ class FragmentAlertList : Fragment() ,OnAlertListener {
 
         recyclerAdapterAlertList= AdapterAlterList(alterList,this)
         binding.buttonAddAlertsList.setOnClickListener{
-          //  Navigation.findNavController(requireView()).navigate(R.id.action_fragmentAlertList_to_fragmentAlerts)
             val dialogFragment = FragmentAlerts()
             dialogFragment.show(requireFragmentManager(), "MyDialogFragment")
 
@@ -86,7 +83,6 @@ class FragmentAlertList : Fragment() ,OnAlertListener {
                 else ->{
                     println("///////////////////////////////////////////////////////////not display")
                     Log.i(ContentValues.TAG, "onViewCreated: //////////////////////////not display")
-                    // binding.fragmentContanerFavouriteList.visibility=View.VISIBLE
                 }
             }
             }
@@ -134,38 +130,4 @@ class FragmentAlertList : Fragment() ,OnAlertListener {
     }
 
 
-//    private fun setAlarm(callback: (Long) -> Unit) {
-//        Calendar.getInstance().apply {
-//            this.set(Calendar.SECOND, 0)
-//            this.set(Calendar.MILLISECOND, 0)
-//            val datePickerDialog = DatePickerDialog(
-//                requireContext(),
-//                0,
-//                { _, year, month, day ->
-//                    this.set(Calendar.YEAR, year)
-//                    this.set(Calendar.MONTH, month)
-//                    this.set(Calendar.DAY_OF_MONTH, day)
-//                    TimePickerDialog(
-//                        requireContext(),
-//                        0,
-//                        { _, hour, minute ->
-//                            this.set(Calendar.HOUR_OF_DAY, hour)
-//                            this.set(Calendar.MINUTE, minute)
-//                            callback(this.timeInMillis)
-//                        },
-//                        this.get(Calendar.HOUR_OF_DAY),
-//                        this.get(Calendar.MINUTE),
-//                        false
-//                    ).show()
-//                },
-//
-//                this.get(Calendar.YEAR),
-//                this.get(Calendar.MONTH),
-//                this.get(Calendar.DAY_OF_MONTH)
-//
-//            )
-//            datePickerDialog.datePicker.minDate = Calendar.getInstance().timeInMillis
-//            datePickerDialog.show()
-//        }
-//    }
 }

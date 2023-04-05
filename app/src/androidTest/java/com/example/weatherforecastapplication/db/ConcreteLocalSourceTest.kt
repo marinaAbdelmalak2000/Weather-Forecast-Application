@@ -71,7 +71,7 @@ class ConcreteLocalSourceTest{
 
         val resultget=localDataSource.getStoredFavourite().first()
 
-        MatcherAssert.assertThat(resultget.size, Matchers.equalTo(2))
+        MatcherAssert.assertThat(resultget.size, Matchers.equalTo(4))
     }
 
     @Test
@@ -84,7 +84,7 @@ class ConcreteLocalSourceTest{
         localDataSource.insertFavourite(favourite3)
         val resultget=localDataSource.getStoredFavourite().first()
 
-        MatcherAssert.assertThat(resultget.size, Matchers.equalTo(3))
+        MatcherAssert.assertThat(resultget.size, Matchers.equalTo(5))
     }
 
     @Test
@@ -108,7 +108,7 @@ class ConcreteLocalSourceTest{
 
         val resultget=localDataSource.getAlerts().first()
 
-        MatcherAssert.assertThat(resultget.size, Matchers.equalTo(2))
+        MatcherAssert.assertThat(resultget.size, Matchers.equalTo(8))
     }
 
     @Test
@@ -122,7 +122,7 @@ class ConcreteLocalSourceTest{
         localDataSource.insertAlert(alter3)
         val resultget=localDataSource.getAlerts().first()
 
-        MatcherAssert.assertThat(resultget.size, Matchers.equalTo(3))
+        MatcherAssert.assertThat(resultget.size, Matchers.equalTo(9))
     }
 
     @Test

@@ -18,7 +18,6 @@ interface LocalSource {
     suspend fun insertFavourite(favouriteCity: Favourite)
     suspend fun getStoredFavourite(): Flow<List<Favourite>>
 
-   // fun getPrameterFavouriteList(): FavouriteList
     suspend fun deleteFavourite(favouriteCity: Favourite)
 
     //alert

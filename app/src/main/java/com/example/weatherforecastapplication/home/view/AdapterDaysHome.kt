@@ -18,7 +18,6 @@ class AdapterDaysHome (private var days: List<Daily>,var temp:String="C") :
 
     lateinit var binding: RowDaysHomeBinding
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater: LayoutInflater =parent.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         binding = RowDaysHomeBinding.inflate(inflater, parent, false)

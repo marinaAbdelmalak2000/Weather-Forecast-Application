@@ -22,7 +22,6 @@ class AdapterFavouriteList (private var favourites: List<Favourite>,private val 
 
     lateinit var binding: RowFavouriteListBinding
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater: LayoutInflater =parent.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         binding = RowFavouriteListBinding.inflate(inflater, parent, false)
@@ -57,17 +56,6 @@ class AdapterFavouriteList (private var favourites: List<Favourite>,private val 
         notifyDataSetChanged()
     }
     class ViewHolder(var binding: RowFavouriteListBinding): RecyclerView.ViewHolder(binding.root)
-
-//    fun deleteItem(position: Int) {
-//        val builder = AlertDialog.Builder(context)
-//        builder.setTitle("Delete item")
-//        builder.setMessage("Are you sure you want to delete this item?")
-//        builder.setPositiveButton("Yes") { dialog, which ->
-//            // Code to delete the item at the given position goes here
-//        }
-//        builder.setNegativeButton("No", null)
-//        builder.show()
-//    }
 
 
     }

@@ -52,12 +52,11 @@ class ConcreteLocalSourceTest (private var favoriteList: MutableList<Favourite> 
     }
 
     override suspend fun deleteAlert(id: Int) {
-        alertList.removeAt(id)
+
     }
 
     override suspend fun getOneAlert(id: Int): CityAlarmList {
         TODO("Not yet implemented")
     }
-
 
 }

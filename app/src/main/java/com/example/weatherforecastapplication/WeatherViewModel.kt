@@ -63,9 +63,6 @@ class WeatherViewModel (private val _irepo: RepositoryInterface): ViewModel() {
 
     var indexLocationSetting=_irepo.getPrameterSettingsLocal().locationIndex
 
-  //  var getLocation=_irepo.getPrameterSettingsLocal().getLocation()
-
-
     fun allWeatherNetwork(
         latitude: String,
         longitude: String,
@@ -80,11 +77,9 @@ class WeatherViewModel (private val _irepo: RepositoryInterface): ViewModel() {
             }
                 .collect{
                         data ->
-                //    Log.i(TAG, "allWeatherNetwork checkSpeed checkSpeedcheckSpeedcheckSpeed:== $checkSpeed  check temp: $checkTemp")
                     _uiState.value=ApiState.Success(data)
                     insertWeatherModel(data)
-                   // Log.i(TAG, "allWeatherNetwork: ${data.current?.wind_speed}")
-                   // Log.i(TAG, "insertWeatherModel(data): ${insertWeatherModel(data)}")
+
                 }
 
             }
@@ -102,12 +97,12 @@ class WeatherViewModel (private val _irepo: RepositoryInterface): ViewModel() {
             _irepo.getStoredWeatherModel()
                 .catch {
                     e->_uiState.value=ApiState.Failure(e)
-              //  Log.i(TAG, "getLocalWeatherModel: FailureFailureFailureFailure")
+
             }
                 .collect{
                         data ->
                     _uiState.value=ApiState.Success(data)
-                  //  Log.i(TAG, "getStoredWeatherModel:LOcalll/// ${ _uiState.value.toString()}  data ${data.current.temp}")
+
                 }
         }
     }
@@ -119,25 +114,13 @@ class WeatherViewModel (private val _irepo: RepositoryInterface): ViewModel() {
         val config: Configuration =resources.configuration
         config.setLocale(local)
         resources.updateConfiguration(config,resources.displayMetrics)
-//        activity?.finish()
-//        activity?.startActivity(activity?.intent)
+
     }
 
+    fun setLocation( location: CurrentLocation){
+         _Location.postValue(location)
 
-//    val newLocale = Locale("fr")
-//    Locale.setDefault(newLocale)
-//    val config = Configuration()
-//    config.locale = newLocale
-//    resources.updateConfiguration(config, resources.displayMetrics)
-//
-//    // Restart the activity to apply the new language
-//    activity?.recreate()
-
-fun setLocation( location: CurrentLocation){
-     _Location.postValue(location)
-  //  Log.i(TAG, "setLocation: ${location.address}")
-
-}
+    }
 
 }
 

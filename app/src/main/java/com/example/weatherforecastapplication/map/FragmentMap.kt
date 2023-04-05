@@ -80,7 +80,7 @@ class FragmentMap : Fragment(){
                     }else{
                         Toast.makeText(requireContext(),"i can't found country",Toast.LENGTH_LONG)
                        .show()
-                       // editorLocationMap.putString("cityNameMap", "").commit()
+
                     }
                 }
             }
@@ -97,55 +97,13 @@ class FragmentMap : Fragment(){
         buttonSave=view.findViewById(R.id.addToFav_btn)
         buttonSave.setOnClickListener {
             viewModel.insertFavourite(Favourite(cityName,long,lat))
-          //  Navigation.findNavController(requireView()).navigate(R.id.action_fragmentMap2_to_fragmentFavouriteList)
             Navigation.findNavController(requireView()).navigateUp()
         }
-
-//        searchEdit=view.findViewById(R.id.editTextMapSearch)
-//        searchEdit.setOnEditorActionListener { textView, actionId, keyEvent ->
-//            if ((actionId == EditorInfo.IME_ACTION_SEARCH)
-//                || (actionId == EditorInfo.IME_ACTION_DONE) ||
-//                (keyEvent.action === KeyEvent.ACTION_DOWN)
-//                || (keyEvent.action === KeyEvent.KEYCODE_ENTER)
-//            ) {
-//
-//                geoLocate()
-//            }
-//            false
-//        }
 
 
             return view
             }
 
-//    private fun performSearch(location: String) {
-//        val geocoder = Geocoder(requireContext())
-//        val addressList = geocoder.getFromLocationName(location, 1)
-//        if (addressList.isNotEmpty()) {
-//            val address = addressList[0]
-//            val latLng = LatLng(address.latitude, address.longitude)
-//            val googleMap = (findViewById<MapView>(R.id.map_fragment)).map
-//            googleMap.addMarker(MarkerOptions().position(latLng).title(location))
-//            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14f))
-//        } else {
-//            Toast.makeText(requireContext(), "Location not found", Toast.LENGTH_SHORT).show()
-//        }
-//    }
-
-//    fun search(){
-//
-//        binding.search.setOnEditorActionListener(OnEditorActionListener { textView, actionId, keyEvent ->
-//            if ((actionId == EditorInfo.IME_ACTION_SEARCH)
-//                || (actionId == EditorInfo.IME_ACTION_DONE) ||
-//                (keyEvent.action === KeyEvent.ACTION_DOWN)
-//                || (keyEvent.action === KeyEvent.KEYCODE_ENTER)
-//            ) {
-//
-//                geoLocate()
-//            }
-//            false
-//        })
-//    }
     private fun geoLocate() {
         val searchString: String = searchEdit.getText().toString()
         val geocoder = Geocoder(requireContext())
@@ -163,7 +121,6 @@ class FragmentMap : Fragment(){
         }
     }
 
-//
-//
+
 
 }

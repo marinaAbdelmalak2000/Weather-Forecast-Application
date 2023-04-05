@@ -257,24 +257,7 @@ class FragmentAlerts : DialogFragment() {
             ExistingPeriodicWorkPolicy.REPLACE,
             periodicWorkRequest
         )
-       // var diff = (endDate.timeInMillis / 1000L) - (startDate.timeInMillis / 1000L)
 
-//        val inputData = Data.Builder()
-//            .putString("title", "Weather")
-//            .putString("content", "current weather statue")
-//            .putBoolean("typeAlert", isClick)
-//            .build()
-//
-//
-//        val fireAlertConstraints = Constraints.Builder()
-//            .setRequiredNetworkType(NetworkType.CONNECTED)
-//            .build()
-//        val oneTimeWorkRequest = OneTimeWorkRequestBuilder<WorkerManager>()
-//            .setInitialDelay(15, TimeUnit.MINUTES)
-//            .setInputData(inputData)
-//            .setConstraints(fireAlertConstraints)
-//            .build()
-//        WorkManager.getInstance(requireContext()).enqueue(oneTimeWorkRequest)
     }
 
 

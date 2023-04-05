@@ -1,5 +1,5 @@
 # Weather Forecast Application
-#### The Android Mobile application displays the weather, temperature, and forecast temperatures for the week, as well as forecasting the hourly temperature for the two days from your location. Also, you can choose a specific location on the map and can add it to your favorites list and get all the weather information of that location. In addition, you can set an alert for
+#### The Android Mobile App displays weather, temperature, and past temperatures for the week, as well as an hourly temperature forecast for two days from your location Also, you can choose a specific location on the map and can add it to your favorites list and get all the weather information of that location. In addition, you can set an alert for
 Rain, wind, very low or very high temperatures, fog, snow, and in this application it allows you to change temperature units and language.
 
 ### used In Project :

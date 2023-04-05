@@ -75,7 +75,7 @@ class MainActivity : AppCompatActivity() { //,OnNavigationItemSelectedListener
     val netwarkInternet = NetwarkInternet()
 
     lateinit var mFusedLocationClient: FusedLocationProviderClient
-    lateinit var geoCoder: Geocoder
+
     lateinit var sharedPreference: SharedPreferences
     lateinit var address: String
 
@@ -130,14 +130,10 @@ class MainActivity : AppCompatActivity() { //,OnNavigationItemSelectedListener
 
         // actionBar?.setDisplayHomeAsUpEnabled(true)
 
+        location=getSharedPreferences("LastLocation", Context.MODE_PRIVATE)
+        editorLocation=location.edit()
         if (netwarkInternet.isNetworkAvailable(this) == true) {
-            //GPs
-            mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-            geoCoder = Geocoder(this, Locale.getDefault())
             getLastLocation()
-            location=getSharedPreferences("LastLocation", Context.MODE_PRIVATE)
-            editorLocation=location.edit()
-
         } else {
             val snackbar: Snackbar =
                 Snackbar.make(navigationView, getString(R.string.not_netwark), Snackbar.LENGTH_INDEFINITE)
@@ -298,6 +294,10 @@ class MainActivity : AppCompatActivity() { //,OnNavigationItemSelectedListener
     private val mLocationCallback: LocationCallback = object : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult) {
             val mLastLocation: Location? = locationResult.lastLocation
+            lateinit var geoCoder: Geocoder
+            //GPs
+            mFusedLocationClient = LocationServices.getFusedLocationProviderClient(applicationContext)
+            geoCoder = Geocoder(applicationContext, Locale.getDefault())
 
             if (mLastLocation != null) {
                 lat = mLastLocation.latitude

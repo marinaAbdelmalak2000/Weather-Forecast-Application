@@ -80,7 +80,7 @@ class FragmentFavouriteList : Fragment() ,OnDeleteClick{
         lifecycleScope.launch {
             viewModel.favourite.collectLatest { favouriteCity ->when (favouriteCity) {
 
-                is ApiState.SuccessFavourite -> {
+                is ApiState<Any?>.SuccessFavourite -> {
                     //initialization
                     recyclerAdapterFavouriteList.setData(favouriteCity.data)
                     binding.recyclerViewFavouriteList.adapter=recyclerAdapterFavouriteList

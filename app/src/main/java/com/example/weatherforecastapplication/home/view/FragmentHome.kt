@@ -267,20 +267,22 @@ class FragmentHome : Fragment() {
             val lat=viewModel.latitude  !!
             val longitude=sharedLocation.getString("longitude",null)
             val latitude=sharedLocation.getString("latitude","30.25")
-            if(longitude==null){
-                Log.i(TAG, "onViewCreated: DDDDDDOOONNNEEEE")
-            }
-            else{
 
-                Handler(Looper.getMainLooper()).postDelayed({
-                    activity?.recreate()
-                    Log.i(TAG, "RRRRRRRRRRRRRRRRRRRRR: DDDDDDOOONNNEEEE")
-                }, 100)
-            }
-                
-            
-            viewModel.allWeatherNetwork(latitude!!,longitude!!,"",unit,language)
+            Log.i(TAG, "longitude:longitudelongitudelongitudelongitudelongitude/////////:::::::::/******* ${longitude} ")
+//            if(longitude==null){
+//                Log.i(TAG, "onViewCreated: DDDDDDOOONNNEEEE")
+//            }
+//            else{
+//
+//                Handler(Looper.getMainLooper()).postDelayed({
+//                    activity?.recreate()
+//                    Log.i(TAG, "RRRRRRRRRRRRRRRRRRRRR: DDDDDDOOONNNEEEE")
+//                }, 100)
+//            }
 
+           longitude?.let {
+               viewModel.allWeatherNetwork(latitude!!, longitude!!, "", unit, language)
+           }
         }
 
         else{

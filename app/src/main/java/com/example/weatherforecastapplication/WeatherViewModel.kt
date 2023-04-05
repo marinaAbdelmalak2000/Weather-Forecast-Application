@@ -47,11 +47,9 @@ class WeatherViewModel (private val _irepo: RepositoryInterface): ViewModel() {
     val uiState = _uiState.asStateFlow()
 
 
-
     private val _Location: MutableLiveData<CurrentLocation> = MutableLiveData<CurrentLocation>()
     val Location :LiveData<CurrentLocation>
     get() = _Location
-
 
 
 

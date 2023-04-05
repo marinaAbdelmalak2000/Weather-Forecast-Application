@@ -105,7 +105,7 @@ class FragmentFavourite : Fragment() {
 
             viewModel.uiState.collectLatest { uiState ->when (uiState) {
 
-                is ApiState.Success -> {
+                is ApiState<Any?>.Success -> {
                     binding.progressBarFavourite.visibility=View.GONE
                     binding.recyclerViewHourFavourite.visibility = View.VISIBLE
                     binding.recyclerViewDaysFavourite.visibility = View.VISIBLE
@@ -209,7 +209,7 @@ class FragmentFavourite : Fragment() {
                     recyclerAdapterHourHome.notifyDataSetChanged()
 
                 }
-                is ApiState.Loading->{
+                is ApiState<Any?>.Loading->{
                     println("initial")
                     binding.progressBarFavourite?.visibility = View.VISIBLE
                     binding.recyclerViewHourFavourite.visibility = View.GONE

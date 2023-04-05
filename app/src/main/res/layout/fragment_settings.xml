@@ -270,27 +270,26 @@
         app:layout_constraintStart_toStartOf="@+id/guidelineRight"
         app:layout_constraintTop_toBottomOf="@+id/imageViewNotificationSetting" />
 
-    <Spinner
-        android:id="@+id/spinnerLocationSetting"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contextClickable="false"
-        android:popupBackground="@color/cloud"
-        app:itemTextAppearance="@style/StyleTextItemSpanner"
+<!--    <Spinner-->
+<!--        android:id="@+id/spinnerLocationSetting"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:contextClickable="false"-->
+<!--        android:popupBackground="@color/cloud"-->
+<!--        app:itemTextAppearance="@style/StyleTextItemSpanner"-->
 
-        app:layout_constraintBottom_toBottomOf="@+id/textViewLocationSetting"
-        app:layout_constraintEnd_toEndOf="@+id/viewSetting"
-        app:layout_constraintHorizontal_bias="0.85"
-        app:layout_constraintStart_toEndOf="@+id/textViewLocationSetting"
-        app:layout_constraintTop_toTopOf="@+id/textViewLocationSetting"
-        app:layout_constraintVertical_bias="0.0" />
+<!--        app:layout_constraintBottom_toBottomOf="@+id/textViewLocationSetting"-->
+<!--        app:layout_constraintEnd_toEndOf="@+id/viewSetting"-->
+<!--        app:layout_constraintHorizontal_bias="0.85"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/textViewLocationSetting"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/textViewLocationSetting"-->
+<!--        app:layout_constraintVertical_bias="0.0" />-->
 
     <RadioGroup
         android:id="@+id/locationRadioGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        app:layout_constraintBottom_toBottomOf="@+id/viewSetting"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
         app:layout_constraintStart_toStartOf="@+id/guidelineRight"
         app:layout_constraintTop_toBottomOf="@+id/textViewLocationSetting">
 
@@ -300,17 +299,19 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/gps"
+            android:textColor="@color/white"
             android:textStyle="bold"
-            android:textColor="@color/white"/>
+            android:textSize="18sp"/>
 
         <RadioButton
             android:id="@+id/radioButtonMap"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textSize="18sp"
             android:text="@string/map"
-            android:textStyle="bold"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white"
+            android:textStyle="bold" />
     </RadioGroup>
 
 

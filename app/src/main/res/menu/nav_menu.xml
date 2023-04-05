@@ -13,11 +13,11 @@
         <item
             android:id="@+id/fragmentAlertList"
             android:icon="@drawable/baseline_notifications_active_24"
-            android:title="Alter and Notivigation" />
+            android:title="@string/alerts_notification" />
         <item
             android:id="@+id/fragmentSettings"
             android:icon="@drawable/baseline_settings_24"
-            android:title="Setting" />
+            android:title="@string/settings" />
 
 
     </group>

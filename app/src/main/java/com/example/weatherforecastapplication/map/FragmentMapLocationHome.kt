@@ -1,6 +1,7 @@
 package com.example.weatherforecastapplication.map
 
 import android.content.ContentValues
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.SharedPreferences
 import android.location.Geocoder
@@ -64,6 +65,8 @@ class FragmentMapLocationHome : Fragment() {
 //                    editorLocationMap.putString("latitudeMap",it.latitude.toString()).commit()
                     editorLocation.putString("longitude",it.longitude.toString()).commit()
                     editorLocation.putString("latitude",it.latitude.toString()).commit()
+
+                    Log.i(TAG, "onMapReady: MAP HOME Setting")
 
                     // val cityName: String?
                     val Adress = geocoder.getFromLocation(it.latitude, it.longitude,2)

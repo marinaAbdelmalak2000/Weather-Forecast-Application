@@ -6,6 +6,8 @@ import android.content.SharedPreferences
 
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -252,6 +254,7 @@ class FragmentHome : Fragment() {
 
             }}
         }
+
 //       val longcurentLocation=sharedLocation.getString("longitude","null")
 //       val latcurentLocation=sharedLocation.getString("latitude","null")
 //       val longitudeMap=locationMap.getString("longitudeMap","30.20")
@@ -262,16 +265,21 @@ class FragmentHome : Fragment() {
             val unit=viewModel.unit
             val lon=viewModel.longitude !!
             val lat=viewModel.latitude  !!
-            viewModel.allWeatherNetwork(lat,lon,"",unit,language)
-//                   val checkLocation=viewModel.indexLocationSetting
-//                   if(checkLocation==1){
-//                       //map
-            //                      viewModel.allWeatherNetwork(latitudeMap!!,longitudeMap!!,"",unit,language)
-//                   }
-//                   else{
-//                       //current
-//                       viewModel.allWeatherNetwork(latcurentLocation!!,longcurentLocation!!,"",unit,language)
-//                   }
+            val longitude=sharedLocation.getString("longitude",null)
+            val latitude=sharedLocation.getString("latitude","30.25")
+            if(longitude==null){
+                Log.i(TAG, "onViewCreated: DDDDDDOOONNNEEEE")
+            }
+            else{
+
+                Handler(Looper.getMainLooper()).postDelayed({
+                    activity?.recreate()
+                    Log.i(TAG, "RRRRRRRRRRRRRRRRRRRRR: DDDDDDOOONNNEEEE")
+                }, 100)
+            }
+                
+            
+            viewModel.allWeatherNetwork(latitude!!,longitude!!,"",unit,language)
 
         }
 

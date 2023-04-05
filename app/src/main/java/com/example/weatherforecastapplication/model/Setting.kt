@@ -11,14 +11,14 @@ data class Setting (val languageIndex: Int,val speedIndex:Int,val tempretureInde
 
     //LastLocation
 
-    fun getLocation():String{
-        if(locationIndex==0){
-            return "GPS"
-        }
-        else{
-           return "Map"
-        }
-    }
+//    fun getLocation():String{
+//        if(locationIndex==0){
+//            return "GPS"
+//        }
+//        else{
+//           return "Map"
+//        }
+//    }
 
 
     fun getLanguage():String{

@@ -5,7 +5,10 @@ import com.example.weatherforecastapplication.db.ConcreteLocalSourceTest
 import com.example.weatherforecastapplication.network.RemoteSourceTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runBlockingTest
+import org.hamcrest.MatcherAssert
+import org.hamcrest.Matchers
 import org.hamcrest.Matchers.`is`
 import org.hamcrest.Matchers.notNullValue
 import org.junit.Assert.*
@@ -75,15 +78,6 @@ class RepositoryTest {
         // Then: response is a same of fake WeatherResponse
         assertThat(results,`is`(weatherModelNetwork))
     }
-
-//    @Test
-//    fun getStoredWeatherModel_returnObjectOfWeatherModel() = runBlockingTest{
-//        // When: get object
-//        val resutls = repository.getStoredWeatherModel()
-//
-//        // Then: check object is found
-//        assertThat(resutls.first().id,`is`(0))
-//    }
 
     @Test
     fun insertWeatherModel_addObject_resultIsNotNull() =mainRule.runBlockingTest{

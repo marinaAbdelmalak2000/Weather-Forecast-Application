@@ -65,7 +65,7 @@ class WeatherViewModel (private val _irepo: RepositoryInterface): ViewModel() {
 
     var indexLocationSetting=_irepo.getPrameterSettingsLocal().locationIndex
 
-    var getLocation=_irepo.getPrameterSettingsLocal().getLocation()
+  //  var getLocation=_irepo.getPrameterSettingsLocal().getLocation()
 
 
     fun allWeatherNetwork(

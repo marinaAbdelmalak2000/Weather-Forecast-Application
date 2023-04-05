@@ -32,8 +32,8 @@ class FackRepository(private var favoriteList: MutableList<Favourite> = mutableL
         TODO("Not yet implemented")
     }
 
-    override suspend fun getStoredWeatherModel(): Flow<WeatherModel> {
-        TODO("Not yet implemented")
+    override suspend fun getStoredWeatherModel(): Flow<WeatherModel> = flow{
+        emit(weatherModelNetwork)
     }
 
     override suspend fun insertWeatherModel(weatherModel: WeatherModel) {
@@ -66,7 +66,8 @@ class FackRepository(private var favoriteList: MutableList<Favourite> = mutableL
     }
 
     override suspend fun getOneAlert(id: Int): CityAlarmList {
-        TODO("Not yet implemented")
+        alertList.get(id)
+        return CityAlarmList(id,0,0,556,85)
     }
 
 

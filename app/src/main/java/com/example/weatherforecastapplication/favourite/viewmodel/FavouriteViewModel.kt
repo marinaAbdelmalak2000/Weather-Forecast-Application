@@ -18,6 +18,7 @@ class FavouriteViewModel (private val _irepo: RepositoryInterface): ViewModel() 
     private val _Favourite = MutableStateFlow<ApiState>(ApiState.Loading)
     val favourite = _Favourite.asStateFlow()
 
+
 //    val longMap=_irepo.getPrameterFavouriteList().lon
 //    val latMap=_irepo.getPrameterFavouriteList().lan
 //    val cityName=_irepo.getPrameterFavouriteList().getCity()

@@ -23,7 +23,8 @@ class AlertViewModel (private val _irepo: RepositoryInterface): ViewModel() {
     private val _uiStateOneAlert = MutableStateFlow<ApiState>(ApiState.Loading)
     val uiStateOneAlert = _uiStateOneAlert.asStateFlow()
 
-     fun getAlerts() {
+
+    fun getAlerts() {
          viewModelScope.launch {
              _irepo.getAlerts().collect{ data->
                  _uiState.value=ApiState.SuccessAlert(data)

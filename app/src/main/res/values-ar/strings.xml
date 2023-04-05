@@ -43,4 +43,7 @@
     <string name="english">انجليزي</string>
     <string name="gps">الموقع الحالي</string>
     <string name="map">الخريطة</string>
+    <string name="favourite_name_list">مفضلتي</string>
+    <string name="delete_item">حذف العنصر</string>
+    <string name="desc_delete">هل أنت متأكد أنك تريد حذف هذا العنصر؟</string>
 </resources>

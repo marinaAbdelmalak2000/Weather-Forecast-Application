@@ -1,9 +1,7 @@
 package com.example.weatherforecastapplication.network
 
 
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+
 import com.example.weatherforecastapplication.model.CityAlarmList
 import com.example.weatherforecastapplication.model.Favourite
 

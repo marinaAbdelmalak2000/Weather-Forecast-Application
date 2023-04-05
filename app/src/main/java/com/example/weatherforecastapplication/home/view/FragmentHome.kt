@@ -6,6 +6,8 @@ import android.content.SharedPreferences
 
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -117,7 +119,7 @@ class FragmentHome : Fragment() {
 
                     println("//////**** Current ****//////")
 
-                    var weatherList = uiState.data.current.weather
+                    var weatherList = uiState.data.current!!.weather
                     for (i in 0..weatherList.size - 1) {
                         var weatherDescription = weatherList.get(i).description
                         var weatherIcon = weatherList.get(i).icon
@@ -211,7 +213,9 @@ class FragmentHome : Fragment() {
 
                     var dailyList = uiState.data.daily
                     var temp = viewModel.checkTemp
-                    recyclerAdapterDaysHome.setData(dailyList, temp)
+                    if (dailyList != null) {
+                        recyclerAdapterDaysHome.setData(dailyList, temp)
+                    }
                     recyclerAdapterDaysHome.notifyDataSetChanged()
 
 
@@ -220,7 +224,9 @@ class FragmentHome : Fragment() {
                     var hourlyList = uiState.data.hourly
                     //  var temp=viewModel.checkTemp
                     println("temp hourly send $temp")
-                    recyclerAdapterHourHome.setData(hourlyList, temp)
+                    if (hourlyList != null) {
+                        recyclerAdapterHourHome.setData(hourlyList, temp)
+                    }
                     recyclerAdapterHourHome.notifyDataSetChanged()
 
 
@@ -248,6 +254,7 @@ class FragmentHome : Fragment() {
 
             }}
         }
+
 //       val longcurentLocation=sharedLocation.getString("longitude","null")
 //       val latcurentLocation=sharedLocation.getString("latitude","null")
 //       val longitudeMap=locationMap.getString("longitudeMap","30.20")
@@ -258,17 +265,24 @@ class FragmentHome : Fragment() {
             val unit=viewModel.unit
             val lon=viewModel.longitude !!
             val lat=viewModel.latitude  !!
-            viewModel.allWeatherNetwork(lat,lon,"",unit,language)
-//                   val checkLocation=viewModel.indexLocationSetting
-//                   if(checkLocation==1){
-//                       //map
-            //                      viewModel.allWeatherNetwork(latitudeMap!!,longitudeMap!!,"",unit,language)
-//                   }
-//                   else{
-//                       //current
-//                       viewModel.allWeatherNetwork(latcurentLocation!!,longcurentLocation!!,"",unit,language)
-//                   }
+            val longitude=sharedLocation.getString("longitude",null)
+            val latitude=sharedLocation.getString("latitude","30.25")
 
+            Log.i(TAG, "longitude:longitudelongitudelongitudelongitudelongitude/////////:::::::::/******* ${longitude} ")
+//            if(longitude==null){
+//                Log.i(TAG, "onViewCreated: DDDDDDOOONNNEEEE")
+//            }
+//            else{
+//
+//                Handler(Looper.getMainLooper()).postDelayed({
+//                    activity?.recreate()
+//                    Log.i(TAG, "RRRRRRRRRRRRRRRRRRRRR: DDDDDDOOONNNEEEE")
+//                }, 100)
+//            }
+
+           longitude?.let {
+               viewModel.allWeatherNetwork(latitude!!, longitude!!, "", unit, language)
+           }
         }
 
         else{

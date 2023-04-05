@@ -104,18 +104,19 @@
         android:elevation="12dp"
         android:paddingLeft="15dp"
         android:paddingTop="15dp"
-        android:text="My Favourite"
-        android:textStyle="bold"
+        android:text="@string/favourite_name_list"
         android:textColor="@color/white"
         android:textSize="32sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/guidelineFavListL"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/buttonAddFavouriteList"
-        android:layout_width="64dp"
-        android:layout_height="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="@string/add_favourite_list"
+        app:backgroundTint="@color/cloud"
         android:src="@drawable/ic_add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guidelineFavListR"

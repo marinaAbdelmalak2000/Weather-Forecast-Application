@@ -1,16 +1,14 @@
 package com.example.weatherforecastapplication.settings.view
 
-import android.app.Activity
-import android.app.Notification
 import android.app.NotificationManager
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.Configuration
-import android.content.res.Resources
-import android.graphics.Color
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.provider.Settings
 import android.util.Log
 import android.view.LayoutInflater
@@ -18,20 +16,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
-import com.example.weatherforecastapplication.MainActivity
-import com.example.weatherforecastapplication.R
-import com.example.weatherforecastapplication.WeatherViewModel
-import com.example.weatherforecastapplication.WeatherViewModelFactory
+import com.example.weatherforecastapplication.*
 import com.example.weatherforecastapplication.databinding.FragmentSettingsBinding
-import com.example.weatherforecastapplication.model.Repository
-import com.example.weatherforecastapplication.network.ConcreteLocalSource
-import com.example.weatherforecastapplication.network.WeatherClient
 import com.example.weatherforecastapplication.utils.NetwarkInternet
-import java.util.Locale
-import kotlin.properties.Delegates
+import java.util.*
 
 
 class FragmentSettings : Fragment() { //, AdapterView.OnItemSelectedListener
@@ -42,7 +31,7 @@ class FragmentSettings : Fragment() { //, AdapterView.OnItemSelectedListener
 
     lateinit var editorTemp: SharedPreferences.Editor
 
-
+    lateinit var locationRadioButton: RadioButton
 
     var selectTempreture:ArrayList<String> = arrayListOf("Celsius","Fahrenheit","Kelvin")
 
@@ -163,10 +152,19 @@ class FragmentSettings : Fragment() { //, AdapterView.OnItemSelectedListener
                 if(position==0){
                     setLocal(requireActivity(),"ar")
                    // changeLanguage("ar")
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        activity?.recreate()
+
+                    }, 2000)
                 }
                 else{
                     setLocal(requireActivity(),"en")
-                   // changeLanguage("en")
+
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        activity?.recreate()
+
+                    }, 2000)
+
                 }
             }
 
@@ -179,6 +177,7 @@ class FragmentSettings : Fragment() { //, AdapterView.OnItemSelectedListener
                 it,
                 android.R.layout.simple_spinner_item,
                 selectLanguage
+
             )
         }
         adapterLanguage?.setDropDownViewResource(android.R.layout.select_dialog_singlechoice)
@@ -188,67 +187,69 @@ class FragmentSettings : Fragment() { //, AdapterView.OnItemSelectedListener
 
         /////// Location ////////////
 
-        if(netwarkInternet.isNetworkAvailable(context)) {
-            editorLocation = lastSelectSetting.edit()
-            val lastClickLocation = lastSelectSetting.getInt("LastClickLocation", 0)
-            binding.spinnerLocationSetting.onItemSelectedListener =
-                object : AdapterView.OnItemSelectedListener {
-                    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                        // Get the selected item
-        //                (view as TextView).setTextColor(Color.WHITE)
-        //                (view as TextView).setTextSize(18f)
-                        editorLocation.putInt("LastClickLocation", position).commit()
-
-
-                        if(position==1){
-                            if( MyClass.Companion.myStaticVariable) {
-                                MyClass.Companion.myStaticVariable = false
-                                Navigation.findNavController(requireView())
-                                    .navigate(R.id.action_fragmentSettings_to_fragmentMapLocationHome)
-                            }else{
-                                MyClass.Companion.myStaticVariable = true
-                            }
-                        }else{
-                            Log.i(TAG, "onItemSelected: ")
-//                            val mainActivity = activity as MainActivity
-//                            mainActivity.getLastLocation()
-                        }
-
+//        if(netwarkInternet.isNetworkAvailable(context)) {
+//            editorLocation = lastSelectSetting.edit()
+//            val lastClickLocation = lastSelectSetting.getInt("LastClickLocation", 0)
+//            binding.spinnerLocationSetting.onItemSelectedListener =
+//                object : AdapterView.OnItemSelectedListener {
+//                    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+//                        // Get the selected item
+//        //                (view as TextView).setTextColor(Color.WHITE)
+//        //                (view as TextView).setTextSize(18f)
+//                        editorLocation.putInt("LastClickLocation", position).commit()
+//
+//
+//                        if(position==1){
+//                            Log.i(TAG, "position11111MAAPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPp/////////////:::: ${MyClass.Companion.myStaticVariable}")
+//                            if( MyClass.Companion.myStaticVariable) {
+//                                MyClass.Companion.myStaticVariable = false
+//                                Navigation.findNavController(requireView())
+//                                    .navigate(R.id.action_fragmentSettings_to_fragmentMapLocationHome)
+//                            }else{
+//                                Log.i(TAG, "position11111/////////////:::: ")
+//                                MyClass.Companion.myStaticVariable = true
+//                            }
+//                        }else{
+//                            Log.i(TAG, "onItemSelected: ")
+//                        }
+//
 //                            if(position==0){
-//                                if( MyClass.Companion.currentLocation) {
-//                                    MyClass.Companion.currentLocation=false
-//                                    val mainActivity = activity as MainActivity
-//                                    mainActivity.getLastLocation()
-//                                }else{
+//                                if( MyClass.Companion.currentLocation==false) {
 //                                    MyClass.Companion.currentLocation=true
+//                                    Log.i(TAG, "GPS settinggggggggggggggggggggggggggggggggggggggggggggggggg")
+//
+//                                    val myActivity = activity as? MainActivity
+//                                    myActivity?.getLastLocation()
+//                                }else{
+//                                    MyClass.Companion.currentLocation=false
 //                                }
 //                            }else{
 //                                Log.i(TAG, "onItemSelected: ")
 //                            }
-
-
-
-                    }
-
-                    override fun onNothingSelected(parent: AdapterView<*>?) {
-                        // Do nothing
-                    }
-                }
-
-            val adapterLocation = activity?.let {
-                ArrayAdapter<String>(
-                    it,
-                    android.R.layout.simple_spinner_item,
-                    selectLocation
-                )
-            }
-            adapterLocation?.setDropDownViewResource(android.R.layout.select_dialog_singlechoice)
-            binding.spinnerLocationSetting.adapter = adapterLocation
-
-            binding.spinnerLocationSetting.setSelection(lastClickLocation)
-         }else{
-                Toast.makeText(activity,getString(R.string.not_netwark),Toast.LENGTH_SHORT).show()
-         }
+//
+//
+//
+//                    }
+//
+//                    override fun onNothingSelected(parent: AdapterView<*>?) {
+//                        // Do nothing
+//                    }
+//                }
+//
+//            val adapterLocation = activity?.let {
+//                ArrayAdapter<String>(
+//                    it,
+//                    android.R.layout.simple_spinner_item,
+//                    selectLocation
+//                )
+//            }
+//            adapterLocation?.setDropDownViewResource(android.R.layout.select_dialog_singlechoice)
+//            binding.spinnerLocationSetting.adapter = adapterLocation
+//
+//            binding.spinnerLocationSetting.setSelection(lastClickLocation)
+//         }else{
+//                Toast.makeText(activity,getString(R.string.not_netwark),Toast.LENGTH_SHORT).show()
+//         }
         /////// Notification ////////////
         if(netwarkInternet.isNetworkAvailable(context)){
             editorNotification=lastSelectSetting.edit()
@@ -274,33 +275,53 @@ class FragmentSettings : Fragment() { //, AdapterView.OnItemSelectedListener
         }
         //////////////////***********///////////////*******/////
 
+        if(netwarkInternet.isNetworkAvailable(context)) {
 
+           // val lastClickLocation = lastSelectSetting.getInt("LastClickLocation", 0)
+            binding.locationRadioGroup.setOnCheckedChangeListener { group, checkedId ->
+                locationRadioButton = view.findViewById<View>(checkedId) as RadioButton
+                when (locationRadioButton.text) {
+                    getString(R.string.gps) -> {
+                        editorLocation = lastSelectSetting.edit()
+                        editorLocation.putInt("LastClickLocation",0)
+                        editorLocation.apply()
+
+                        Log.i(TAG, "GPS settinggggggggggggggggggggggggggggggggggggggggggggggggg")
+
+                        val myActivity = activity as? MainActivity
+                        myActivity?.getLastLocation()
+
+
+                    }
+                    getString(R.string.map) -> {
+                        editorLocation = lastSelectSetting.edit()
+                        editorLocation.putInt("LastClickLocation",1)
+                        editorLocation.apply()
+                        Log.i(TAG, "onMapReady: MAP  Setting")
+                        Navigation.findNavController(view)
+                            .navigate(R.id.action_fragmentSettings_to_fragmentMapLocationHome)
+                    }
+                }
+            }
+        }else{
+            Toast.makeText(activity,getString(R.string.not_netwark),Toast.LENGTH_SHORT).show()
+        }
 
     }
 
-    fun setLocal(activity: Activity, langCode:String){
-        val local: Locale = Locale(langCode)
-        Locale.setDefault(local)
-        val resources : Resources =activity.resources
-        val config: Configuration =resources.configuration
-        config.setLocale(local)
-        resources.updateConfiguration(config,resources.displayMetrics)
 
+    fun setLocal(context: Context, languageCode: String) {
+        val locale = Locale(languageCode)
+        Locale.setDefault(locale)
+        val resources = context.resources
+        val configuration = Configuration(resources.configuration)
+        configuration.setLocale(locale)
+        context.createConfigurationContext(configuration)
+        context.resources.updateConfiguration(configuration, resources.displayMetrics)
+        // Recreate the activity to apply the new locale configuration
        // (context as Activity).recreate()
+
     }
-
-
-//    fun setLocale(context: Context, languageCode: String) {
-//        val locale = Locale(languageCode)
-//        Locale.setDefault(locale)
-//        val resources = context.resources
-//        val configuration = Configuration(resources.configuration)
-//        configuration.setLocale(locale)
-//        context.createConfigurationContext(configuration)
-//        context.resources.updateConfiguration(configuration, resources.displayMetrics)
-//        // Recreate the activity to apply the new locale configuration
-//        (context as Activity).recreate()
-//    }
 
 
 }

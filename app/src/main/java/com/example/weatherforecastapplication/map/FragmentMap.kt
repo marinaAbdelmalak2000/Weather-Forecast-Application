@@ -29,6 +29,7 @@ import com.example.weatherforecastapplication.network.WeatherClient
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.io.IOException
 import java.util.*
 
@@ -39,7 +40,7 @@ class FragmentMap : Fragment(){
     lateinit var editorLocationMap: SharedPreferences.Editor
     lateinit var allFactory: FavouriteViewModelFactory
     lateinit var viewModel: FavouriteViewModel
-    lateinit var buttonSave:Button
+    lateinit var buttonSave:FloatingActionButton
 
     lateinit var cityName:String
     lateinit var lat:String
@@ -100,18 +101,18 @@ class FragmentMap : Fragment(){
             Navigation.findNavController(requireView()).navigateUp()
         }
 
-        searchEdit=view.findViewById(R.id.editTextMapSearch)
-        searchEdit.setOnEditorActionListener { textView, actionId, keyEvent ->
-            if ((actionId == EditorInfo.IME_ACTION_SEARCH)
-                || (actionId == EditorInfo.IME_ACTION_DONE) ||
-                (keyEvent.action === KeyEvent.ACTION_DOWN)
-                || (keyEvent.action === KeyEvent.KEYCODE_ENTER)
-            ) {
-
-                geoLocate()
-            }
-            false
-        }
+//        searchEdit=view.findViewById(R.id.editTextMapSearch)
+//        searchEdit.setOnEditorActionListener { textView, actionId, keyEvent ->
+//            if ((actionId == EditorInfo.IME_ACTION_SEARCH)
+//                || (actionId == EditorInfo.IME_ACTION_DONE) ||
+//                (keyEvent.action === KeyEvent.ACTION_DOWN)
+//                || (keyEvent.action === KeyEvent.KEYCODE_ENTER)
+//            ) {
+//
+//                geoLocate()
+//            }
+//            false
+//        }
 
 
             return view

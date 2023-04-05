@@ -27,7 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="128dp" />
+        app:layout_constraintGuide_begin="107dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineCenter"
@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:foregroundGravity="center_horizontal"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="595dp" />
+        app:layout_constraintGuide_begin="677dp" />
 
     <ImageView
         android:id="@+id/imageViewListSetting"
@@ -79,11 +79,10 @@
         app:layout_constraintVertical_bias="1.0" />
 
 
-
     <View
         android:id="@+id/viewSetting"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="376dp"
+        android:layout_height="542dp"
         android:layout_marginStart="4dp"
         android:background="@drawable/view_setting_layout"
         app:layout_constraintBottom_toTopOf="@+id/guidelineCenter"
@@ -91,7 +90,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guidelineRight"
         app:layout_constraintTop_toTopOf="@+id/guidelineTop"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.2" />
 
     <TextView
         android:id="@+id/textViewTemperatureSetting"
@@ -271,20 +270,49 @@
         app:layout_constraintStart_toStartOf="@+id/guidelineRight"
         app:layout_constraintTop_toBottomOf="@+id/imageViewNotificationSetting" />
 
-    <Spinner
-        android:id="@+id/spinnerLocationSetting"
+<!--    <Spinner-->
+<!--        android:id="@+id/spinnerLocationSetting"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:contextClickable="false"-->
+<!--        android:popupBackground="@color/cloud"-->
+<!--        app:itemTextAppearance="@style/StyleTextItemSpanner"-->
+
+<!--        app:layout_constraintBottom_toBottomOf="@+id/textViewLocationSetting"-->
+<!--        app:layout_constraintEnd_toEndOf="@+id/viewSetting"-->
+<!--        app:layout_constraintHorizontal_bias="0.85"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/textViewLocationSetting"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/textViewLocationSetting"-->
+<!--        app:layout_constraintVertical_bias="0.0" />-->
+
+    <RadioGroup
+        android:id="@+id/locationRadioGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contextClickable="false"
-        android:popupBackground="@color/cloud"
-        app:itemTextAppearance="@style/StyleTextItemSpanner"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
+        app:layout_constraintStart_toStartOf="@+id/guidelineRight"
+        app:layout_constraintTop_toBottomOf="@+id/textViewLocationSetting">
 
-        app:layout_constraintBottom_toBottomOf="@+id/textViewLocationSetting"
-        app:layout_constraintEnd_toEndOf="@+id/viewSetting"
-        app:layout_constraintHorizontal_bias="0.85"
-        app:layout_constraintStart_toEndOf="@+id/textViewLocationSetting"
-        app:layout_constraintTop_toTopOf="@+id/textViewLocationSetting"
-        app:layout_constraintVertical_bias="0.0" />
+        <RadioButton
+            android:id="@+id/radioButtonGPS"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/gps"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="18sp"/>
+
+        <RadioButton
+            android:id="@+id/radioButtonMap"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="18sp"
+            android:text="@string/map"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+    </RadioGroup>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

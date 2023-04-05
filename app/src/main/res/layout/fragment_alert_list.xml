@@ -49,15 +49,17 @@
         app:layout_constraintStart_toStartOf="@+id/guidelineR"
         app:layout_constraintTop_toBottomOf="@+id/imageViewList" />
 
-    <Button
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/buttonAddAlertsList"
-        android:layout_width="64dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="52dp"
+        android:background="@drawable/background_home_today"
+        android:src="@drawable/ic_add"
         android:text="@string/add_favourite_list"
+        app:backgroundTint="@color/cloud"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guidelineL"
-        app:layout_constraintHorizontal_bias="0.996"
-        android:background="@drawable/background_home_today"
+        app:layout_constraintHorizontal_bias="0.92"
         app:layout_constraintStart_toStartOf="@+id/guidelineR" />
 </androidx.constraintlayout.widget.ConstraintLayout>

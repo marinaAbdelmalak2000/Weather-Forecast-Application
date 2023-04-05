@@ -80,7 +80,7 @@ class FragmentFavouriteList : Fragment() ,OnDeleteClick{
         lifecycleScope.launch {
             viewModel.favourite.collectLatest { favouriteCity ->when (favouriteCity) {
 
-                is ApiState<Any?>.SuccessFavourite -> {
+                is ApiState.SuccessFavourite -> {
                     //initialization
                     recyclerAdapterFavouriteList.setData(favouriteCity.data)
                     binding.recyclerViewFavouriteList.adapter=recyclerAdapterFavouriteList
@@ -119,13 +119,13 @@ class FragmentFavouriteList : Fragment() ,OnDeleteClick{
 
    private  fun DealogdeleteItem(favourite: Favourite) {
         val builder = AlertDialog.Builder(requireContext())
-        builder.setTitle("Delete item")
-        builder.setMessage("Are you sure you want to delete this item?")
-        builder.setPositiveButton("Yes") { dialog, which ->
+        builder.setTitle(getString(R.string.delete_item))
+        builder.setMessage(getString(R.string.desc_delete))
+        builder.setPositiveButton(R.string.yes) { dialog, which ->
             viewModel.deleteFavourite(favourite)
             recyclerAdapterFavouriteList.notifyDataSetChanged()
         }
-        builder.setNegativeButton("No", null)
+        builder.setNegativeButton(R.string.no, null)
         builder.show()
     }
 

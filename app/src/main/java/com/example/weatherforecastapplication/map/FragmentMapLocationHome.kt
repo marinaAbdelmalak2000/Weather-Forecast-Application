@@ -26,6 +26,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.util.*
 
 
@@ -39,7 +40,7 @@ class FragmentMapLocationHome : Fragment() {
     lateinit var location: SharedPreferences
 
     lateinit var editorLocation: SharedPreferences.Editor
-    lateinit var buttonSave : Button
+    lateinit var buttonSave : FloatingActionButton
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view :View = inflater.inflate(R.layout.fragment_map_location_home, container, false)

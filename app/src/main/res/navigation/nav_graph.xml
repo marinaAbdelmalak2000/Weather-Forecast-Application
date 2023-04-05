@@ -16,9 +16,6 @@
         <action
             android:id="@+id/action_fragmentSettings_to_fragmentMapLocationHome"
             app:destination="@id/fragmentMapLocationHome" />
-        <action
-            android:id="@+id/action_fragmentSettings_self"
-            app:destination="@id/fragmentSettings" />
     </fragment>
     <fragment
         android:id="@+id/fragmentFavourite"

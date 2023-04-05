@@ -41,4 +41,8 @@
     <string name="english">English</string>
     <string name="gps">GPS</string>
     <string name="map">Map</string>
+    <string name="favourite_name_list">My Favourite</string>
+    <string name="delete_item">Delete item</string>
+    <string name="desc_delete">Are you sure you want to delete this item?</string>
+
 </resources>

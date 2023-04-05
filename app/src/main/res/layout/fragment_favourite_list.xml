@@ -104,10 +104,10 @@
         android:elevation="12dp"
         android:paddingLeft="15dp"
         android:paddingTop="15dp"
-        android:text="My Favourite"
-        android:textStyle="bold"
+        android:text="@string/favourite_name_list"
         android:textColor="@color/white"
         android:textSize="32sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/guidelineFavListL"
         app:layout_constraintTop_toTopOf="parent" />
 

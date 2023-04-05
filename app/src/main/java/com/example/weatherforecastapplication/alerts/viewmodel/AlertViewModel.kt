@@ -14,16 +14,17 @@ import kotlinx.coroutines.launch
 
 class AlertViewModel (private val _irepo: RepositoryInterface): ViewModel() {
 
-    private val _uiState = MutableStateFlow<ApiState<Any?>>(ApiState.Loading)
+    private val _uiState = MutableStateFlow<ApiState>(ApiState.Loading)
     val uiState = _uiState.asStateFlow()
 
     private val _uiStateInsert = MutableStateFlow<Long>(0)
     val uiStateInsert = _uiStateInsert.asStateFlow()
 
-    private val _uiStateOneAlert = MutableStateFlow<ApiState<Any?>>(ApiState.Loading)
+    private val _uiStateOneAlert = MutableStateFlow<ApiState>(ApiState.Loading)
     val uiStateOneAlert = _uiStateOneAlert.asStateFlow()
 
-     fun getAlerts() {
+
+    fun getAlerts() {
          viewModelScope.launch {
              _irepo.getAlerts().collect{ data->
                  _uiState.value=ApiState.SuccessAlert(data)

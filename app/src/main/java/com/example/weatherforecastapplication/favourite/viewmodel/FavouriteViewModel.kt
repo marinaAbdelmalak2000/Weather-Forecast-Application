@@ -15,8 +15,9 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 
 class FavouriteViewModel (private val _irepo: RepositoryInterface): ViewModel() {
-    private val _Favourite = MutableStateFlow<ApiState<Any?>>(ApiState.Loading)
+    private val _Favourite = MutableStateFlow<ApiState>(ApiState.Loading)
     val favourite = _Favourite.asStateFlow()
+
 
 //    val longMap=_irepo.getPrameterFavouriteList().lon
 //    val latMap=_irepo.getPrameterFavouriteList().lan

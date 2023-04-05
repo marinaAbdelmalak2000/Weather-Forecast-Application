@@ -77,7 +77,7 @@ class FragmentAlertList : Fragment() ,OnAlertListener {
         lifecycleScope.launch {
             viewModel.uiState.collectLatest { alert ->when (alert) {
 
-                is ApiState<Any?>.SuccessAlert -> {
+                is ApiState.SuccessAlert -> {
                     //initialization
                     recyclerAdapterAlertList.setData(alert.data)
                     binding.recyclerViewAlertsList.adapter=recyclerAdapterAlertList

@@ -35,28 +35,28 @@ git clone https://github.com/marinaAbdelmalak2000/Weather-Forecast-Application.g
 * All past features for 7 days.
 
 #### Settings Screen:
-*In this screen the user will have the ability to choose the location and
+* In this screen the user will have the ability to choose the location and
 temperature units.
 * For location: a user can choose even between getting the location by GPS
 or choosing a specific location from the map
 ##### For units:
-*User can choose units of temperature (Kelvin, Celsius, and Fahrenheit)
-*User can choose units of wind speed (meter/sec, miles/hour.)
-*User can choose language (Arabic – English)
+* User can choose units of temperature (Kelvin, Celsius, and Fahrenheit)
+* User can choose units of wind speed (meter/sec, miles/hour.)
+* User can choose language (Arabic – English)
 
 #### Weather Alerts Screen:
-*This screen will contain a button to add weather alert which should set an alarm
+* This screen will contain a button to add weather alert which should set an alarm
 ##### with the following settings:
 * The duration through which the alarm is active.
 * The type of alarm even be just like notification or default alarm sound.
 * Option to stop notification or turn off the alarm.
 
 #### Favorite Screen:
-*This screen lists the favorite locations. Pressing on an item should open another
+* This screen lists the favorite locations. Pressing on an item should open another
 screen that displays all the forecast information of this place.
-*In addition, there should be a FAB button via which the user can add a new
+* In addition, there should be a FAB button via which the user can add a new
 favorite place.
-*Besides, there should be a facility to enable the user to remove a saved place
+* Besides, there should be a facility to enable the user to remove a saved place
 
 
 ## Contributors
